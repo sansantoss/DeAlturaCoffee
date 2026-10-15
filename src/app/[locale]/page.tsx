@@ -21,6 +21,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const [products, settings, customer, origins] = await Promise.all([listProducts(), getSettings(), getCurrentCustomer(), listOrigins()]);
   const product = products[0];
   const heroImg = siteImage('hero', locale);
+  const faqImg = siteImage('preguntas', locale);
   const plateImg = product ? productImages(product.slug, product.name[locale])[0] : undefined;
   const tier = customer?.status === 'approved' ? customer.priceTier : settings.publicPrices ? 'standard' : null;
 
@@ -175,7 +176,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       {/* ---------- FAQ ---------- */}
       <section className="section wrap grid12 faq" aria-labelledby="faq-title">
-        <h2 id="faq-title">{t('faq.heading')}</h2>
+        <div className="faq__side">
+          <h2 id="faq-title">{t('faq.heading')}</h2>
+          {faqImg && <Photo image={faqImg} sizes="(max-width: 860px) 100vw, 25vw" className="faq__photo" />}
+        </div>
         <div className="faq__text" data-reveal>
           {faq.map((item) => (
             <p key={item.q}>

@@ -5,9 +5,9 @@
       "file": "hero",
       "ratio": "16/9",
       "alt": {
-        "en": "Coffee farm on a mountainside",
-        "fr": "Caféière à flanc de montagne",
-        "es": "Cafetal en la ladera de una montaña"
+        "en": "Freshly roasted coffee pouring into the cooling tray",
+        "fr": "Café fraîchement torréfié versé dans le bac de refroidissement",
+        "es": "Café recién tostado cayendo a la charola de enfriado"
       }
     },
     "proceso_1": {
@@ -95,18 +95,36 @@
       "file": "mayoreo",
       "ratio": "4/5",
       "alt": {
-        "en": "A café counter serving DeAltura coffee",
-        "fr": "Un comptoir de café servant DeAltura",
-        "es": "Barra de una cafetería sirviendo DeAltura"
+        "en": "Espresso pouring from a portafilter",
+        "fr": "Espresso coulant d'un porte-filtre",
+        "es": "Espresso cayendo del portafiltro"
       }
     },
     "acceso": {
-      "file": "proceso_6",
+      "file": "acceso",
       "ratio": "4/5",
       "alt": {
-        "en": "A latte served on a bed of roasted coffee beans",
-        "fr": "Un latte servi sur des grains de café torréfiés",
-        "es": "Un latte servido sobre granos de café tostado"
+        "en": "A latte, an espresso and a cup of coffee beans",
+        "fr": "Un latte, un espresso et une tasse de grains",
+        "es": "Un latte, un espresso y una taza con granos de café"
+      }
+    },
+    "catalogo": {
+      "file": "catalogo",
+      "ratio": "21/9",
+      "alt": {
+        "en": "A cup resting in a tray of roasted coffee beans",
+        "fr": "Une tasse posée dans des grains de café torréfiés",
+        "es": "Una taza entre granos de café tostado"
+      }
+    },
+    "preguntas": {
+      "file": "preguntas",
+      "ratio": "4/5",
+      "alt": {
+        "en": "Two portafilters, one with whole beans and one with ground coffee",
+        "fr": "Deux porte-filtres, l'un avec des grains, l'autre avec du café moulu",
+        "es": "Dos portafiltros, uno con grano entero y otro con café molido"
       }
     }
   },

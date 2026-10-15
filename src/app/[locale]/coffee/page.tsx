@@ -6,7 +6,7 @@ import { Bag } from '@/components/art';
 import { ProductSpec } from '@/components/ProductSpec';
 import { getOrigin, listProducts } from '@/lib/catalog';
 import type { Locale } from '@/lib/types';
-import { productImages } from '@/lib/images';
+import { productImages, siteImage } from '@/lib/images';
 import { Photo } from '@/components/Photo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -19,6 +19,7 @@ export default async function CoffeePage({ params }: { params: Promise<{ locale:
   setRequestLocale(locale);
   const t = await getTranslations();
   const products = await listProducts();
+  const banner = siteImage('catalogo', locale);
 
   return (
     <>
@@ -28,6 +29,11 @@ export default async function CoffeePage({ params }: { params: Promise<{ locale:
           <h1>{t('coffee.title')}</h1>
           <p>{t('coffee.lead')}</p>
         </header>
+        {banner && (
+          <div className="wrap banner">
+            <Photo image={banner} priority sizes="100vw" />
+          </div>
+        )}
         <div className="inner stack">
           {await Promise.all(
             products.map(async (p) => {
