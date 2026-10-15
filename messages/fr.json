@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "title": "DeAltura Coffee — Cafés d'altitude d'Amérique latine, torréfiés au Canada",
+    "description": "Café de spécialité en gros de Santa Cruz de Mora, Mérida, cultivé entre 1 600 et 2 000 m et torréfié au Canada pour les cafés et les commerces."
+  },
+  "nav": {
+    "coffee": "Café",
+    "origin": "Origine",
+    "wholesale": "Vente en gros",
+    "signIn": "Connexion",
+    "account": "Compte",
+    "cart": "Commande",
+    "apply": "Ouvrir un compte",
+    "language": "Langue",
+    "menu": "Menu",
+    "close": "Fermer",
+    "skip": "Aller au contenu"
+  },
+  "hero": {
+    "title1": "Cultivé en hauteur,",
+    "title2": "torréfié ici.",
+    "line1": "Origine unique : Santa Cruz de Mora, Mérida, Venezuela",
+    "line2": "Castillo, lavé, cultivé entre 1 600 et 2 000 m",
+    "line3": "En gros pour les cafés et commerces du Canada",
+    "notes": "Chocolat noir, vanille, mélasse",
+    "roast": "Torréfié chaque mardi au Canada"
+  },
+  "intro": {
+    "heading": "L'altitude, c'est le goût",
+    "note": "Au-dessus de 1 600 mètres, l'air est frais et les cerises mûrissent lentement. Une maturation lente donne des grains plus denses et plus sucrés : voilà pourquoi ce café goûte le chocolat et la mélasse.",
+    "facts": [
+      {
+        "value": "1 600–2 000 m",
+        "explain": "D'altitude, dans les Andes de Mérida"
+      },
+      {
+        "value": "Castillo",
+        "explain": "La variété cultivée par nos producteurs"
+      },
+      {
+        "value": "Lavé",
+        "explain": "Le fruit est retiré avant le séchage, pour une tasse nette"
+      },
+      {
+        "value": "Mardi",
+        "explain": "Jour de torréfaction au Canada, expédié sous 48 heures"
+      }
+    ]
+  },
+  "showcase": {
+    "title": "Santa Cruz de Mora",
+    "formats": {
+      "VEN-SCM-1KG": "Pour les cafés qui tirent des espressos toute la journée. Torréfié pour espresso ou filtre, en grains, daté sur le sac.",
+      "VEN-SCM-5LB": "Le grand sac pour les comptoirs et cuisines achalandés. Moins de sacs à ouvrir, la même date de torréfaction sur chacun.",
+      "VEN-SCM-340-12": "Des sacs de 340 g prêts pour la tablette, à revendre en boutique, douze par caisse, notes de dégustation sur l'étiquette."
+    },
+    "tabs": {
+      "VEN-SCM-1KG": "1 kg",
+      "VEN-SCM-5LB": "5 lb",
+      "VEN-SCM-340-12": "12 × 340 g"
+    },
+    "see": "Voir le café",
+    "apply": "Ouvrir un compte",
+    "bagAlt": "Dessin du sac DeAltura : turquoise, avec une étiquette crème pour Santa Cruz de Mora"
+  },
+  "how": {
+    "heading": "De la pente au comptoir",
+    "back": "Précédent",
+    "next": "Suivant",
+    "moments": [
+      {
+        "caption": "Cueilli mûr",
+        "text": "À Santa Cruz de Mora, chaque cerise est cueillie à la main quand elle devient rouge foncé."
+      },
+      {
+        "caption": "Lavé et séché",
+        "text": "Le fruit est retiré à l'eau et les grains sèchent lentement au soleil avant le décorticage."
+      },
+      {
+        "caption": "Expédié vert",
+        "text": "Le café vert se conserve des mois : il voyage non torréfié, et la fraîcheur commence au Canada."
+      },
+      {
+        "caption": "Torréfié le mardi",
+        "text": "Nous torréfions sur commande chaque semaine, un profil pour l'espresso, un pour le filtre."
+      },
+      {
+        "caption": "Emballé et daté",
+        "text": "Chaque sac porte sa date de torréfaction : vos baristas savent ce qu'ils servent."
+      },
+      {
+        "caption": "À votre comptoir",
+        "text": "Livré partout au Canada. Commandez à nouveau depuis votre compte en quelques clics."
+      }
+    ]
+  },
+  "formats": {
+    "word": "Formats",
+    "signInForPrice": "Connectez-vous pour le prix",
+    "perKg": "{price} le kg",
+    "espresso": "Torréfaction espresso",
+    "filter": "Torréfaction filtre",
+    "omni": "Torréfaction omni",
+    "termsTitle": "Minimums et livraison",
+    "minimum": "Commande minimale",
+    "minimumValue": "{kg} kg, au choix",
+    "freeFrom": "Livraison gratuite dès",
+    "freeFromValue": "{kg} kg",
+    "flat": "Livraison sous {kg} kg",
+    "tax": "TPS / TVH sur le café en grains",
+    "taxValue": "Détaxé"
+  },
+  "calc": {
+    "heading": "De combien aurez-vous besoin ?",
+    "cups": "Cafés par jour",
+    "perWeek": "{kg} kg par semaine",
+    "suggest": "Environ {bags} sacs de 1 kg, ou {lbBags} sacs de 5 lb, chaque semaine.",
+    "basis": "Selon un double espresso de 18 g, ouvert six jours par semaine, avec un peu de marge pour les réglages."
+  },
+  "faq": {
+    "heading": "Avant de commander",
+    "items": [
+      {
+        "q": "Qui peut acheter ?",
+        "a": "Les cafés, restaurants, commerces et bureaux au Canada qui ont un compte professionnel. Faites une demande une seule fois; nous l'étudions en deux jours ouvrables."
+      },
+      {
+        "q": "Y a-t-il un minimum ?",
+        "a": "{kg} kg par commande, tous formats et torréfactions confondus."
+      },
+      {
+        "q": "Quand torréfiez-vous ?",
+        "a": "Chaque mardi. Les commandes passées avant lundi midi entrent dans la torréfaction de la semaine et partent sous 48 heures."
+      },
+      {
+        "q": "Où livrez-vous ?",
+        "a": "Partout au Canada par messagerie. Gratuit dès {free} kg; en dessous, un forfait de {flat}."
+      },
+      {
+        "q": "Comment payer ?",
+        "a": "Par carte au moment de commander. Les comptes approuvés peuvent demander une facture à 30 jours."
+      },
+      {
+        "q": "Facturez-vous des taxes sur le café ?",
+        "a": "Le café en grains torréfié est un produit alimentaire de base au Canada : il est détaxé pour la TPS et la TVH."
+      },
+      {
+        "q": "En grains ou moulu ?",
+        "a": "En grains seulement, pour qu'il reste frais jusqu'à votre moulin."
+      },
+      {
+        "q": "Espresso ou filtre ?",
+        "a": "Les deux. Choisissez la torréfaction pour chaque ligne de votre commande; même grain, courbe différente."
+      },
+      {
+        "q": "Quelles origines proposez-vous ?",
+        "a": "Le Venezuela est notre origine phare, avec des lots d'altitude de Colombie, du Costa Rica et du Panama. De nouveaux lots arrivent à chaque récolte."
+      }
+    ]
+  },
+  "cta": {
+    "sentence": "Parlez-nous de votre commerce. Nous répondons en deux jours ouvrables.",
+    "word": "Postuler"
+  },
+  "footer": {
+    "invite1": "Servez-le à",
+    "invite2": "votre comptoir",
+    "button": "Ouvrir un compte",
+    "email": "Nous écrire",
+    "rights": "© {year} DeAltura Coffee. Prix en dollars canadiens.",
+    "made": "Cultivé en altitude en Amérique latine, torréfié au Canada."
+  },
+  "coffee": {
+    "title": "Le café",
+    "lead": "Des lots d'altitude du Venezuela, de Colombie, du Costa Rica et du Panama, torréfiés pour l'espresso ou le filtre.",
+    "variety": "Variété",
+    "process": "Procédé",
+    "altitude": "Altitude",
+    "notes": "Notes de dégustation",
+    "score": "Note de dégustation",
+    "view": "Voir et commander",
+    "comingSoon": "De nouveaux lots arrivent à chaque récolte."
+  },
+  "product": {
+    "format": "Format",
+    "roast": "Torréfaction",
+    "quantity": "Quantité",
+    "add": "Ajouter à la commande",
+    "added": "Ajouté à votre commande",
+    "goCart": "Voir la commande",
+    "signIn": "Connectez-vous pour voir les prix et commander",
+    "pending": "Votre compte est en cours d'examen. Vous pourrez commander dès son approbation.",
+    "perUnit": "l'unité",
+    "back": "Tout le café"
+  },
+  "origin": {
+    "title": "Santa Cruz de Mora",
+    "lead": "Un village caféier dans les Andes de Mérida, au Venezuela.",
+    "why": "Pourquoi l'altitude compte",
+    "whyText": "En montagne, les nuits sont froides et les journées douces. Les cerises mûrissent plus lentement, les grains deviennent plus denses et la tasse gagne en douceur et en structure. C'est toute l'idée de DeAltura : un café venu d'en haut.",
+    "canada": "Torréfié au Canada",
+    "canadaText": "Nous importons le café vert et le torréfions ici, près des cafés qui le servent : chaque sac vous parvient quelques jours après la torréfaction.",
+    "allTitle": "Chaque origine, par altitude",
+    "allLead": "Chaque lot est placé là où il pousse. Toronto, où arrive le café, est à 76 m.",
+    "toronto": "Toronto",
+    "see": "Voir le café"
+  },
+  "apply": {
+    "title": "Ouvrir un compte de gros",
+    "lead": "Présentez-vous. Nous étudions chaque compte en deux jours ouvrables, puis vous commandez en ligne quand vous voulez.",
+    "business": "Nom de l'entreprise",
+    "contact": "Votre nom",
+    "email": "Courriel",
+    "password": "Mot de passe",
+    "passwordHint": "Au moins 8 caractères",
+    "phone": "Téléphone",
+    "type": "Type d'entreprise",
+    "types": {
+      "cafe": "Café",
+      "restaurant": "Restaurant",
+      "retail": "Commerce",
+      "office": "Bureau",
+      "other": "Autre"
+    },
+    "city": "Ville",
+    "province": "Province",
+    "kg": "Café par mois (kg)",
+    "message": "Autre chose à nous dire ?",
+    "submit": "Envoyer la demande",
+    "haveAccount": "Vous avez déjà un compte ?",
+    "errors": {
+      "exists": "Un compte existe déjà avec ce courriel. Connectez-vous plutôt.",
+      "invalid": "Vérifiez les champs indiqués.",
+      "unknown": "Une erreur est survenue. Réessayez."
+    }
+  },
+  "auth": {
+    "title": "Connexion",
+    "lead": "Pour les comptes de gros approuvés.",
+    "email": "Courriel",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "invalid": "Ce courriel et ce mot de passe ne correspondent pas.",
+    "noAccount": "Pas encore de compte ?",
+    "signOut": "Se déconnecter",
+    "demo": "Compte de démonstration : {email} / {password}"
+  },
+  "account": {
+    "title": "Votre compte",
+    "hello": "Bonjour, {name}",
+    "status": {
+      "pending": "En cours d'examen. Nous vous écrirons dès que votre compte sera approuvé.",
+      "approved": "Approuvé. Vous pouvez commander en tout temps.",
+      "suspended": "En pause. Veuillez nous contacter."
+    },
+    "orders": "Commandes",
+    "noOrders": "Aucune commande pour l'instant.",
+    "orderAgain": "Commander du café",
+    "profile": "Coordonnées de l'entreprise",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "addresses": "Adresse de livraison",
+    "addressLabel": "Nom de cet emplacement",
+    "line1": "Adresse",
+    "line2": "Local, bureau (facultatif)",
+    "postal": "Code postal",
+    "terms": "Conditions de facture : net {days} jours",
+    "language": "Langue préférée pour les courriels"
+  },
+  "order": {
+    "number": "Commande {number}",
+    "placed": "Passée le {date}",
+    "total": "Total",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison",
+    "free": "Gratuite",
+    "tax": "Taxes",
+    "kg": "Poids",
+    "status": {
+      "awaiting_payment": "En attente de paiement",
+      "paid": "Payée",
+      "invoiced": "Facturée",
+      "roasting": "En torréfaction",
+      "shipped": "Expédiée",
+      "delivered": "Livrée",
+      "cancelled": "Annulée"
+    },
+    "paidNotice": "Paiement reçu. Merci, votre café entre dans la prochaine torréfaction.",
+    "invoiceNotice": "Commande reçue. La facture accompagnera votre livraison.",
+    "awaitingNotice": "Cette commande attend son paiement.",
+    "payNow": "Payer maintenant",
+    "deliverTo": "Livrer à",
+    "back": "Toutes les commandes",
+    "roastOf": "{roast}"
+  },
+  "cart": {
+    "title": "Votre commande",
+    "empty": "Votre commande est vide.",
+    "browse": "Voir le café",
+    "remove": "Retirer",
+    "progress": "{kg} sur {min} kg minimum",
+    "belowMin": "Ajoutez {kg} kg pour atteindre la commande minimale.",
+    "address": "Adresse de livraison",
+    "noAddress": "Ajoutez d'abord une adresse de livraison dans votre compte.",
+    "addAddress": "Ajouter une adresse",
+    "payment": "Paiement",
+    "card": "Carte",
+    "cardHint": "Paiement sécurisé à la page suivante.",
+    "invoice": "Facture, net {days}",
+    "invoiceHint": "Nous vous facturons avec la livraison.",
+    "notes": "Notes pour le torréfacteur (facultatif)",
+    "place": "Passer la commande",
+    "placeAndPay": "Continuer vers le paiement",
+    "cancelled": "Le paiement a été annulé. Votre commande est toujours là.",
+    "testMode": "Le paiement par carte n'est pas encore branché. La commande sera enregistrée en attente de paiement.",
+    "errors": {
+      "minimum": "Votre commande est sous le poids minimum.",
+      "address": "Ajoutez d'abord une adresse de livraison dans votre compte.",
+      "empty": "Votre commande est vide.",
+      "auth": "Votre compte doit être approuvé pour commander."
+    }
+  },
+  "lang": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "back": "Retour à l'accueil"
+  },
+  "admin": {
+    "title": "Admin",
+    "link": "Panneau admin",
+    "lead": "Approuvez les comptes et faites avancer les commandes. Les changements sont enregistrés dès que vous appuyez sur Enregistrer.",
+    "pendingTitle": "Comptes en attente",
+    "pendingNone": "Aucun compte en attente.",
+    "customersTitle": "Tous les comptes",
+    "ordersTitle": "Commandes",
+    "ordersNone": "Aucune commande pour l'instant.",
+    "status": "Statut",
+    "tier": "Grille de prix",
+    "terms": "Conditions de facture",
+    "termsNone": "Carte seulement",
+    "days": "{days} jours",
+    "save": "Enregistrer",
+    "kgMonth": "{kg} kg / mois",
+    "applied": "Demande du {date}",
+    "customer": "Client",
+    "lines": "{count, plural, one {# ligne} other {# lignes}}",
+    "tiers": {
+      "standard": "Standard",
+      "partner": "Partenaire"
+    },
+    "statuses": {
+      "pending": "En attente",
+      "approved": "Approuvé",
+      "suspended": "En pause"
+    },
+    "forbidden": "Cette page est réservée à l'équipe DeAltura.",
+    "payCard": "Carte",
+    "payInvoice": "Facture"
+  }
+}

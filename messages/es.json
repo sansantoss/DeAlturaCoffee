@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "title": "DeAltura Coffee — Café de altura de Latinoamérica, tostado en Canadá",
+    "description": "Café de especialidad al mayoreo de Santa Cruz de Mora, Mérida, cultivado entre 1,600 y 2,000 m y tostado en Canadá para cafeterías y tiendas."
+  },
+  "nav": {
+    "coffee": "Café",
+    "origin": "Origen",
+    "wholesale": "Mayoreo",
+    "signIn": "Iniciar sesión",
+    "account": "Cuenta",
+    "cart": "Pedido",
+    "apply": "Abrir una cuenta",
+    "language": "Idioma",
+    "menu": "Menú",
+    "close": "Cerrar",
+    "skip": "Ir al contenido"
+  },
+  "hero": {
+    "title1": "De altura,",
+    "title2": "tostado aquí.",
+    "line1": "Origen único: Santa Cruz de Mora, Mérida, Venezuela",
+    "line2": "Castillo, lavado, cultivado entre 1,600 y 2,000 m",
+    "line3": "Mayoreo para cafeterías y tiendas en todo Canadá",
+    "notes": "Chocolate oscuro, vainilla, melaza",
+    "roast": "Tostado cada martes en Canadá"
+  },
+  "intro": {
+    "heading": "La altura es sabor",
+    "note": "Arriba de 1,600 metros el aire es fresco y las cerezas maduran despacio. Esa maduración lenta da granos más densos y con más azúcar; por eso este café sabe a chocolate y melaza.",
+    "facts": [
+      {
+        "value": "1,600–2,000 m",
+        "explain": "Sobre el nivel del mar, en los Andes de Mérida"
+      },
+      {
+        "value": "Castillo",
+        "explain": "La variedad que siembran nuestros productores"
+      },
+      {
+        "value": "Lavado",
+        "explain": "Se retira la fruta antes de secar, para una taza limpia"
+      },
+      {
+        "value": "Martes",
+        "explain": "Día de tueste en Canadá; se envía en 48 horas"
+      }
+    ]
+  },
+  "showcase": {
+    "title": "Santa Cruz de Mora",
+    "formats": {
+      "VEN-SCM-1KG": "Para cafeterías que sacan espresso todo el día. Tostado para espresso o para filtro, en grano, con fecha en la bolsa.",
+      "VEN-SCM-5LB": "La bolsa grande para barras y cocinas con mucho movimiento. Menos bolsas que abrir, la misma fecha de tueste en todas.",
+      "VEN-SCM-340-12": "Bolsas de 340 g listas para anaquel, para revender en tu tienda, doce por caja, con notas de cata en la etiqueta."
+    },
+    "tabs": {
+      "VEN-SCM-1KG": "1 kg",
+      "VEN-SCM-5LB": "5 lb",
+      "VEN-SCM-340-12": "12 × 340 g"
+    },
+    "see": "Ver el café",
+    "apply": "Abrir una cuenta",
+    "bagAlt": "Dibujo de la bolsa DeAltura: turquesa, con etiqueta crema de Santa Cruz de Mora"
+  },
+  "how": {
+    "heading": "De la ladera a tu barra",
+    "back": "Anterior",
+    "next": "Siguiente",
+    "moments": [
+      {
+        "caption": "Cosechado maduro",
+        "text": "En Santa Cruz de Mora cada cereza se recoge a mano cuando ya está rojo intenso."
+      },
+      {
+        "caption": "Lavado y secado",
+        "text": "Se lava la fruta y el grano se seca despacio al sol antes del trillado."
+      },
+      {
+        "caption": "Enviado en verde",
+        "text": "El café verde aguanta meses: viaja al norte sin tostar y la frescura empieza en Canadá."
+      },
+      {
+        "caption": "Tostado el martes",
+        "text": "Tostamos sobre pedido cada semana, un perfil para espresso y otro para filtro."
+      },
+      {
+        "caption": "Empacado y fechado",
+        "text": "Cada bolsa lleva su fecha de tueste, para que tus baristas sepan qué están sirviendo."
+      },
+      {
+        "caption": "En tu barra",
+        "text": "Entregamos en todo Canadá. Vuelve a pedir desde tu cuenta en un par de clics."
+      }
+    ]
+  },
+  "formats": {
+    "word": "Formatos",
+    "signInForPrice": "Inicia sesión para ver precio",
+    "perKg": "{price} por kg",
+    "espresso": "Tueste espresso",
+    "filter": "Tueste filtro",
+    "omni": "Tueste omni",
+    "termsTitle": "Mínimos y envío",
+    "minimum": "Pedido mínimo",
+    "minimumValue": "{kg} kg, como quieras",
+    "freeFrom": "Envío gratis desde",
+    "freeFromValue": "{kg} kg",
+    "flat": "Envío debajo de {kg} kg",
+    "tax": "GST / HST en café en grano",
+    "taxValue": "Tasa cero"
+  },
+  "calc": {
+    "heading": "¿Cuánto vas a necesitar?",
+    "cups": "Cafés al día",
+    "perWeek": "{kg} kg a la semana",
+    "suggest": "Unas {bags} bolsas de 1 kg, o {lbBags} bolsas de 5 lb, cada semana.",
+    "basis": "Calculado con un espresso doble de 18 g, abriendo seis días a la semana y un poco extra para calibrar."
+  },
+  "faq": {
+    "heading": "Antes de pedir",
+    "items": [
+      {
+        "q": "¿Quién puede comprar?",
+        "a": "Cafeterías, restaurantes, tiendas y oficinas en Canadá con cuenta de negocio. Solicitas una vez y la revisamos en dos días hábiles."
+      },
+      {
+        "q": "¿Hay un mínimo?",
+        "a": "{kg} kg por pedido, combinando formatos y tuestes como quieras."
+      },
+      {
+        "q": "¿Cuándo tuestan?",
+        "a": "Cada martes. Los pedidos hechos antes del lunes a mediodía entran al tueste de esa semana y salen en 48 horas."
+      },
+      {
+        "q": "¿A dónde envían?",
+        "a": "A todo Canadá por paquetería. Gratis desde {free} kg; debajo de eso, una tarifa fija de {flat}."
+      },
+      {
+        "q": "¿Cómo pago?",
+        "a": "Con tarjeta al hacer el pedido. Las cuentas aprobadas pueden pedir factura a 30 días."
+      },
+      {
+        "q": "¿Cobran impuestos sobre el café?",
+        "a": "El café tostado en grano es un alimento básico en Canadá, así que tiene tasa cero de GST y HST."
+      },
+      {
+        "q": "¿En grano o molido?",
+        "a": "Solo en grano, para que llegue fresco hasta tu molino."
+      },
+      {
+        "q": "¿Espresso o filtro?",
+        "a": "Los dos. Eliges el tueste en cada línea del pedido; es el mismo grano con otra curva."
+      },
+      {
+        "q": "¿Qué orígenes manejan?",
+        "a": "Venezuela es nuestro origen insignia, junto con lotes de altura de Colombia, Costa Rica y Panamá. Llegan lotes nuevos con cada cosecha."
+      }
+    ]
+  },
+  "cta": {
+    "sentence": "Cuéntanos de tu negocio. Respondemos en dos días hábiles.",
+    "word": "Solicita"
+  },
+  "footer": {
+    "invite1": "Sírvelo en",
+    "invite2": "tu barra",
+    "button": "Abrir una cuenta",
+    "email": "Escríbenos",
+    "rights": "© {year} DeAltura Coffee. Precios en dólares canadienses.",
+    "made": "Cultivado en altura en Latinoamérica, tostado en Canadá."
+  },
+  "coffee": {
+    "title": "El café",
+    "lead": "Lotes de altura de Venezuela, Colombia, Costa Rica y Panamá, tostados para espresso o filtro.",
+    "variety": "Variedad",
+    "process": "Proceso",
+    "altitude": "Altitud",
+    "notes": "Notas de cata",
+    "score": "Puntaje de taza",
+    "view": "Ver y pedir",
+    "comingSoon": "Llegan lotes nuevos con cada cosecha."
+  },
+  "product": {
+    "format": "Formato",
+    "roast": "Tueste",
+    "quantity": "Cantidad",
+    "add": "Agregar al pedido",
+    "added": "Agregado a tu pedido",
+    "goCart": "Revisar pedido",
+    "signIn": "Inicia sesión para ver precios y pedir",
+    "pending": "Tu cuenta está en revisión. Podrás pedir en cuanto se apruebe.",
+    "perUnit": "por unidad",
+    "back": "Todo el café"
+  },
+  "origin": {
+    "title": "Santa Cruz de Mora",
+    "lead": "Un pueblo cafetalero en los Andes de Mérida, Venezuela.",
+    "why": "Por qué importa la altura",
+    "whyText": "En la montaña las noches son frías y los días templados. Las cerezas tardan más en madurar, el grano se vuelve más denso y la taza gana dulzor y estructura. Esa es toda la idea de DeAltura: café que viene de arriba.",
+    "canada": "Tostado en Canadá",
+    "canadaText": "Traemos el café en verde y lo tostamos aquí, cerca de las cafeterías que lo sirven, para que cada bolsa te llegue a días del tueste.",
+    "allTitle": "Cada origen, por altura",
+    "allLead": "Cada lote está donde crece. Toronto, donde llega el café, está a 76 m.",
+    "toronto": "Toronto",
+    "see": "Ver el café"
+  },
+  "apply": {
+    "title": "Abre una cuenta de mayoreo",
+    "lead": "Cuéntanos quién eres. Revisamos cada cuenta en dos días hábiles y después pides en línea cuando quieras.",
+    "business": "Nombre del negocio",
+    "contact": "Tu nombre",
+    "email": "Correo",
+    "password": "Contraseña",
+    "passwordHint": "Mínimo 8 caracteres",
+    "phone": "Teléfono",
+    "type": "Tipo de negocio",
+    "types": {
+      "cafe": "Cafetería",
+      "restaurant": "Restaurante",
+      "retail": "Tienda",
+      "office": "Oficina",
+      "other": "Otro"
+    },
+    "city": "Ciudad",
+    "province": "Provincia",
+    "kg": "Café al mes (kg)",
+    "message": "¿Algo más que debamos saber?",
+    "submit": "Enviar solicitud",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "errors": {
+      "exists": "Ya hay una cuenta con ese correo. Mejor inicia sesión.",
+      "invalid": "Revisa los campos marcados.",
+      "unknown": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "auth": {
+    "title": "Iniciar sesión",
+    "lead": "Para cuentas de mayoreo aprobadas.",
+    "email": "Correo",
+    "password": "Contraseña",
+    "submit": "Entrar",
+    "invalid": "El correo y la contraseña no coinciden.",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "signOut": "Cerrar sesión",
+    "demo": "Cuenta demo: {email} / {password}"
+  },
+  "account": {
+    "title": "Tu cuenta",
+    "hello": "Hola, {name}",
+    "status": {
+      "pending": "En revisión. Te escribimos en cuanto aprobemos tu cuenta.",
+      "approved": "Aprobada. Puedes pedir cuando quieras.",
+      "suspended": "En pausa. Contáctanos, por favor."
+    },
+    "orders": "Pedidos",
+    "noOrders": "Todavía no hay pedidos.",
+    "orderAgain": "Pedir café",
+    "profile": "Datos del negocio",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "addresses": "Dirección de entrega",
+    "addressLabel": "Nombre de este local",
+    "line1": "Dirección",
+    "line2": "Local, oficina (opcional)",
+    "postal": "Código postal",
+    "terms": "Factura a {days} días",
+    "language": "Idioma preferido para correos"
+  },
+  "order": {
+    "number": "Pedido {number}",
+    "placed": "Hecho el {date}",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "free": "Gratis",
+    "tax": "Impuestos",
+    "kg": "Peso",
+    "status": {
+      "awaiting_payment": "Esperando pago",
+      "paid": "Pagado",
+      "invoiced": "Facturado",
+      "roasting": "En tueste",
+      "shipped": "Enviado",
+      "delivered": "Entregado",
+      "cancelled": "Cancelado"
+    },
+    "paidNotice": "Pago recibido. Gracias, tu café entra al próximo tueste.",
+    "invoiceNotice": "Pedido recibido. La factura llega con tu entrega.",
+    "awaitingNotice": "Este pedido está esperando el pago.",
+    "payNow": "Pagar ahora",
+    "deliverTo": "Entregar en",
+    "back": "Todos los pedidos",
+    "roastOf": "{roast}"
+  },
+  "cart": {
+    "title": "Tu pedido",
+    "empty": "Tu pedido está vacío.",
+    "browse": "Ver el café",
+    "remove": "Quitar",
+    "progress": "{kg} de {min} kg mínimo",
+    "belowMin": "Agrega {kg} kg más para llegar al pedido mínimo.",
+    "address": "Dirección de entrega",
+    "noAddress": "Primero agrega una dirección de entrega en tu cuenta.",
+    "addAddress": "Agregar dirección",
+    "payment": "Pago",
+    "card": "Tarjeta",
+    "cardHint": "Pagas de forma segura en la siguiente página.",
+    "invoice": "Factura a {days} días",
+    "invoiceHint": "Te facturamos con la entrega.",
+    "notes": "Notas para el tostador (opcional)",
+    "place": "Hacer pedido",
+    "placeAndPay": "Continuar al pago",
+    "cancelled": "Se canceló el pago. Tu pedido sigue aquí.",
+    "testMode": "El pago con tarjeta aún no está conectado. El pedido se guardará esperando pago.",
+    "errors": {
+      "minimum": "Tu pedido está debajo del peso mínimo.",
+      "address": "Primero agrega una dirección de entrega en tu cuenta.",
+      "empty": "Tu pedido está vacío.",
+      "auth": "Tu cuenta debe estar aprobada para pedir."
+    }
+  },
+  "lang": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "back": "Volver al inicio"
+  },
+  "admin": {
+    "title": "Admin",
+    "link": "Panel de admin",
+    "lead": "Aprueba cuentas y avanza los pedidos. Los cambios se guardan al presionar Guardar.",
+    "pendingTitle": "Cuentas por revisar",
+    "pendingNone": "No hay cuentas por revisar.",
+    "customersTitle": "Todas las cuentas",
+    "ordersTitle": "Pedidos",
+    "ordersNone": "Todavía no hay pedidos.",
+    "status": "Estado",
+    "tier": "Lista de precios",
+    "terms": "Crédito",
+    "termsNone": "Solo tarjeta",
+    "days": "{days} días",
+    "save": "Guardar",
+    "kgMonth": "{kg} kg / mes",
+    "applied": "Solicitó el {date}",
+    "customer": "Cliente",
+    "lines": "{count, plural, one {# línea} other {# líneas}}",
+    "tiers": {
+      "standard": "Estándar",
+      "partner": "Socio"
+    },
+    "statuses": {
+      "pending": "En revisión",
+      "approved": "Aprobada",
+      "suspended": "En pausa"
+    },
+    "forbidden": "Esta página es para el equipo de DeAltura.",
+    "payCard": "Tarjeta",
+    "payInvoice": "Factura"
+  }
+}

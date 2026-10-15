@@ -1,0 +1,78 @@
+[
+  {
+    "id": "ven-merida",
+    "country": {
+      "en": "Venezuela",
+      "fr": "Venezuela",
+      "es": "Venezuela"
+    },
+    "region": "Santa Cruz de Mora, Mérida",
+    "altitude": {
+      "min": 1600,
+      "max": 2000
+    },
+    "story": {
+      "en": "On the Andean slopes above Santa Cruz de Mora, coffee grows slowly in cool air and shade. The cherries are picked ripe by hand, washed, and dried before the green beans travel north to be roasted in Canada.",
+      "fr": "Sur les pentes andines au-dessus de Santa Cruz de Mora, le café pousse lentement à l'ombre et dans l'air frais. Les cerises sont cueillies mûres à la main, lavées et séchées, puis les grains verts partent vers le nord pour être torréfiés au Canada.",
+      "es": "En las laderas andinas sobre Santa Cruz de Mora, el café crece despacio, con aire fresco y sombra. Las cerezas se cosechan maduras a mano, se lavan y se secan antes de que el grano verde viaje al norte para tostarse en Canadá."
+    },
+    "active": true
+  },
+  {
+    "id": "col-huila",
+    "country": {
+      "en": "Colombia",
+      "fr": "Colombie",
+      "es": "Colombia"
+    },
+    "region": "Pitalito, Huila",
+    "altitude": {
+      "min": 1700,
+      "max": 1900
+    },
+    "story": {
+      "en": "Small farms on the slopes of the Colombian Massif, where the Magdalena river begins. Cool nights slow the cherries down and concentrate their sugars.",
+      "fr": "De petites fermes sur les pentes du Massif colombien, là où naît le fleuve Magdalena. Les nuits fraîches ralentissent la maturation et concentrent les sucres.",
+      "es": "Fincas pequeñas en las laderas del Macizo Colombiano, donde nace el río Magdalena. Las noches frías hacen madurar despacio la cereza y concentran sus azúcares."
+    },
+    "active": true
+  },
+  {
+    "id": "cri-tarrazu",
+    "country": {
+      "en": "Costa Rica",
+      "fr": "Costa Rica",
+      "es": "Costa Rica"
+    },
+    "region": "Tarrazú, San José",
+    "altitude": {
+      "min": 1500,
+      "max": 1900
+    },
+    "story": {
+      "en": "Steep valleys south of San José with a clear dry season, which lets the coffee dry evenly on raised beds.",
+      "fr": "Des vallées escarpées au sud de San José, avec une vraie saison sèche qui permet un séchage régulier sur lits surélevés.",
+      "es": "Valles empinados al sur de San José con una temporada seca marcada, que permite secar el café parejo en camas elevadas."
+    },
+    "active": true
+  },
+  {
+    "id": "pan-boquete",
+    "country": {
+      "en": "Panama",
+      "fr": "Panama",
+      "es": "Panamá"
+    },
+    "region": "Boquete, Chiriquí",
+    "altitude": {
+      "min": 1600,
+      "max": 1850
+    },
+    "story": {
+      "en": "On the flanks of Volcán Barú, mist and volcanic soil produce small, floral microlots picked over several passes.",
+      "fr": "Sur les flancs du volcan Barú, la brume et le sol volcanique donnent de petits microlots floraux, cueillis en plusieurs passages.",
+      "es": "En las faldas del Volcán Barú, la neblina y el suelo volcánico dan microlotes pequeños y florales, cosechados en varias pasadas."
+    },
+    "active": true
+  }
+]

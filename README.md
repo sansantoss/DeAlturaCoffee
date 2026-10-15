@@ -1,0 +1,112 @@
+# DeAltura Coffee — web B2B
+
+Sitio y portal de mayoreo de DeAltura Coffee: café de altura de Latinoamérica, tostado en Canadá.
+Next.js 16 · TypeScript · next-intl (EN / FR / ES) · Supabase · Stripe.
+
+## Correrlo en tu compu
+
+Necesitas Node 20 o más nuevo.
+
+```bash
+npm install
+cp .env.example .env.local   # ya trae valores para modo local
+npm run seed                 # crea cuentas de prueba
+npm run dev                  # abre http://localhost:3000
+```
+
+Cuentas de prueba (modo local):
+
+| Correo | Contraseña | Qué es |
+| --- | --- | --- |
+| `admin@dealtura.ca` | `dealtura-admin` | Panel de admin en `/es/admin` |
+| `demo@dealtura.ca` | `cafe-de-altura` | Cliente aprobado, puede pedir (crédito a 30 días) |
+| `nuevo@dealtura.ca` | `cafe-de-altura` | Solicitud pendiente, para probar la aprobación |
+
+## Qué hay
+
+| Ruta | Para qué |
+| --- | --- |
+| `/` | Home: la etiqueta de la bolsa, formatos, calculadora de kg por semana, FAQ |
+| `/coffee`, `/coffee/[slug]` | Catálogo y ficha de cada café (precios solo con cuenta aprobada) |
+| `/origin` | Historia del origen y la regla de altitud de todos los orígenes |
+| `/wholesale` | Solicitud de cuenta de mayoreo (crea la cuenta en estado "en revisión") |
+| `/login`, `/account` | Login, pedidos, datos del negocio y dirección |
+| `/cart` | Carrito, mínimo de kg, envío, impuestos, pago con tarjeta o a crédito |
+| `/admin` | Aprobar cuentas, lista de precios, crédito; avanzar pedidos |
+| `/api/v1/*` | API JSON para la app móvil (catálogo, cuenta, pedidos) |
+
+Idioma: en la primera visita se detecta el idioma del navegador (inglés por defecto); el selector
+del header lo cambia y queda guardado en una cookie. Cada idioma tiene su URL (`/en`, `/fr`, `/es`).
+
+## Dónde se edita cada cosa
+
+- **Cafés, orígenes, precios:** `content/products.json`, `content/origins.json`
+  (precios en centavos de CAD; `standard` y `partner` son las dos listas de precios).
+- **Mínimo de pedido, envío, correo de contacto:** `content/settings.json`.
+- **Textos de la web:** `messages/en.json`, `fr.json`, `es.json`.
+- **Colores, tipografía:** `src/app/globals.css` y `DESIGN.md`.
+- **Logo:** `public/brand/*.svg` (provisional; `npm run brand` lo regenera).
+
+## Datos: de JSON a base de datos
+
+Todo el acceso a datos pasa por `src/lib/db/repository.ts`, con dos implementaciones:
+
+- `local` — clientes y pedidos en `.data/db.json`. Solo para tu compu.
+- `supabase` — Postgres. Es la que va en producción.
+
+Cambiar de una a otra es una variable de entorno (`DATA_BACKEND`); el resto del código no cambia.
+El catálogo sigue en JSON; se puede pasar a tablas después reimplementando `src/lib/catalog.ts`.
+
+> **Importante:** el modo `local` no funciona en Vercel (su disco es de solo lectura).
+> Para publicar con login y pedidos necesitas Supabase.
+
+## Subir a GitHub y Vercel
+
+1. **GitHub:** crea un repo vacío (privado) y desde esta carpeta:
+   ```bash
+   git init -b main && git add . && git commit -m "Primer commit"
+   git remote add origin https://github.com/<tu-usuario>/dealtura-web.git
+   git push -u origin main
+   ```
+2. **Supabase:** crea un proyecto en supabase.com → SQL Editor → pega y corre
+   `supabase/migrations/0001_init.sql`. En Authentication → Providers deja Email activado. Mientras no configuren correos
+   propios, desactiva "Confirm email" para que quien solicita cuenta entre directo a su panel
+   (igual no puede pedir hasta que lo apruebes).
+3. **Vercel:** "Add New Project" → importa el repo. En Environment Variables pon:
+   - `DATA_BACKEND=supabase`
+   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (Supabase → Settings → API)
+   - `AUTH_SECRET` (cualquier texto largo aleatorio)
+   - `NEXT_PUBLIC_SITE_URL` (la URL final, p. ej. `https://dealtura.ca`)
+   - `ADMIN_EMAILS` (los correos del equipo que pueden entrar a `/admin`)
+4. Deploy. Cada `git push` a `main` vuelve a publicar solo.
+5. Para entrar como admin: abre una cuenta desde `/wholesale` con un correo de `ADMIN_EMAILS`,
+   y en Supabase cambia su `status` a `approved` en la tabla `customers` (solo la primera vez).
+
+## Pagos con Stripe
+
+Sin llave de Stripe, los pedidos con tarjeta quedan "esperando pago" y el admin los puede marcar
+como pagados. Para cobrar de verdad:
+
+1. Crea la cuenta en stripe.com (en modo prueba primero).
+2. Pon `STRIPE_SECRET_KEY` en Vercel.
+3. En Stripe → Developers → Webhooks, agrega `https://<tu-dominio>/api/stripe/webhook`
+   con el evento `checkout.session.completed`, y copia el secreto a `STRIPE_WEBHOOK_SECRET`.
+
+## Antes de lanzar
+
+- [ ] Logo final en vector (SVG) → reemplazar `public/brand/`.
+- [ ] Fotos reales: la web usa ilustraciones dibujadas en código; faltan fotos de producto y de origen.
+- [ ] Confirmar cafés, precios, puntajes y alturas: Colombia, Costa Rica y Panamá son **datos de muestra**.
+- [ ] Confirmar con su contador el tratamiento de impuestos (el café en grano está como
+      "basic grocery", tasa cero de GST/HST; ver `src/lib/pricing.ts`).
+- [ ] Revisar las traducciones al francés con un nativo (Ley 96 en Quebec).
+- [ ] Correo de contacto real en `content/settings.json`.
+- [ ] Recuperar contraseña: Supabase Auth lo trae; falta la pantalla en la web.
+- [ ] Correos de confirmación de pedido (siguiente paso: Resend).
+
+## La app (después)
+
+La app en Expo (React Native) usará el mismo backend:
+- Login con Supabase Auth desde la app → manda `Authorization: Bearer <token>` a `/api/v1/*`.
+- `GET /api/v1/catalog`, `GET /api/v1/me`, `GET|POST /api/v1/orders`, `GET /api/v1/orders/:id`.
+- Los tipos están en `src/lib/types.ts` y la marca en `DESIGN.md`, para reusarlos tal cual.

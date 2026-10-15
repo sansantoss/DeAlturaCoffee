@@ -1,0 +1,275 @@
+[
+  {
+    "id": "prd_ven_scm",
+    "slug": "venezuela-santa-cruz-de-mora",
+    "originId": "ven-merida",
+    "name": {
+      "en": "Santa Cruz de Mora",
+      "fr": "Santa Cruz de Mora",
+      "es": "Santa Cruz de Mora"
+    },
+    "variety": "Castillo",
+    "process": {
+      "en": "Washed",
+      "fr": "Lavé",
+      "es": "Lavado"
+    },
+    "tastingNotes": {
+      "en": "Dark chocolate, vanilla, molasses",
+      "fr": "Chocolat noir, vanille, mélasse",
+      "es": "Chocolate oscuro, vainilla, melaza"
+    },
+    "score": 84,
+    "roasts": [
+      "espresso",
+      "filter"
+    ],
+    "formats": [
+      {
+        "sku": "VEN-SCM-1KG",
+        "label": {
+          "en": "1 kg bag",
+          "fr": "Sac de 1 kg",
+          "es": "Bolsa de 1 kg"
+        },
+        "grams": 1000,
+        "unitsPerCase": 1,
+        "price": {
+          "standard": 3400,
+          "partner": 3100
+        }
+      },
+      {
+        "sku": "VEN-SCM-5LB",
+        "label": {
+          "en": "5 lb bag (2.27 kg)",
+          "fr": "Sac de 5 lb (2,27 kg)",
+          "es": "Bolsa de 5 lb (2.27 kg)"
+        },
+        "grams": 2268,
+        "unitsPerCase": 1,
+        "price": {
+          "standard": 7200,
+          "partner": 6600
+        }
+      },
+      {
+        "sku": "VEN-SCM-340-12",
+        "label": {
+          "en": "Retail 340 g, case of 12",
+          "fr": "Détail 340 g, caisse de 12",
+          "es": "Retail 340 g, caja de 12"
+        },
+        "grams": 4080,
+        "unitsPerCase": 12,
+        "price": {
+          "standard": 16800,
+          "partner": 15600
+        }
+      }
+    ],
+    "taxCategory": "zero-rated-grocery",
+    "active": true
+  },
+  {
+    "id": "prd_col_hui",
+    "slug": "colombia-huila",
+    "originId": "col-huila",
+    "name": {
+      "en": "Huila",
+      "fr": "Huila",
+      "es": "Huila"
+    },
+    "variety": "Caturra, Colombia",
+    "process": {
+      "en": "Washed",
+      "fr": "Lavé",
+      "es": "Lavado"
+    },
+    "tastingNotes": {
+      "en": "Panela, red apple, milk chocolate",
+      "fr": "Panela, pomme rouge, chocolat au lait",
+      "es": "Panela, manzana roja, chocolate de leche"
+    },
+    "score": 85,
+    "roasts": [
+      "espresso",
+      "filter"
+    ],
+    "formats": [
+      {
+        "sku": "COL-HUI-1KG",
+        "label": {
+          "en": "1 kg bag",
+          "fr": "Sac de 1 kg",
+          "es": "Bolsa de 1 kg"
+        },
+        "grams": 1000,
+        "unitsPerCase": 1,
+        "price": {
+          "standard": 3600,
+          "partner": 3310
+        }
+      },
+      {
+        "sku": "COL-HUI-5LB",
+        "label": {
+          "en": "5 lb bag (2.27 kg)",
+          "fr": "Sac de 5 lb (2,27 kg)",
+          "es": "Bolsa de 5 lb (2.27 kg)"
+        },
+        "grams": 2268,
+        "unitsPerCase": 1,
+        "price": {
+          "standard": 7600,
+          "partner": 6990
+        }
+      },
+      {
+        "sku": "COL-HUI-340-12",
+        "label": {
+          "en": "Retail 340 g, case of 12",
+          "fr": "Détail 340 g, caisse de 12",
+          "es": "Retail 340 g, caja de 12"
+        },
+        "grams": 4080,
+        "unitsPerCase": 12,
+        "price": {
+          "standard": 17400,
+          "partner": 16010
+        }
+      }
+    ],
+    "taxCategory": "zero-rated-grocery",
+    "active": true
+  },
+  {
+    "id": "prd_cri_tar",
+    "slug": "costa-rica-tarrazu",
+    "originId": "cri-tarrazu",
+    "name": {
+      "en": "Tarrazú",
+      "fr": "Tarrazú",
+      "es": "Tarrazú"
+    },
+    "variety": "Catuaí",
+    "process": {
+      "en": "Honey",
+      "fr": "Honey",
+      "es": "Honey"
+    },
+    "tastingNotes": {
+      "en": "Red berries, citrus, brown sugar",
+      "fr": "Fruits rouges, agrumes, cassonade",
+      "es": "Frutos rojos, cítricos, azúcar morena"
+    },
+    "score": 86,
+    "roasts": [
+      "filter",
+      "espresso"
+    ],
+    "formats": [
+      {
+        "sku": "CRI-TAR-1KG",
+        "label": {
+          "en": "1 kg bag",
+          "fr": "Sac de 1 kg",
+          "es": "Bolsa de 1 kg"
+        },
+        "grams": 1000,
+        "unitsPerCase": 1,
+        "price": {
+          "standard": 3900,
+          "partner": 3590
+        }
+      },
+      {
+        "sku": "CRI-TAR-5LB",
+        "label": {
+          "en": "5 lb bag (2.27 kg)",
+          "fr": "Sac de 5 lb (2,27 kg)",
+          "es": "Bolsa de 5 lb (2.27 kg)"
+        },
+        "grams": 2268,
+        "unitsPerCase": 1,
+        "price": {
+          "standard": 8200,
+          "partner": 7540
+        }
+      },
+      {
+        "sku": "CRI-TAR-340-12",
+        "label": {
+          "en": "Retail 340 g, case of 12",
+          "fr": "Détail 340 g, caisse de 12",
+          "es": "Retail 340 g, caja de 12"
+        },
+        "grams": 4080,
+        "unitsPerCase": 12,
+        "price": {
+          "standard": 18600,
+          "partner": 17110
+        }
+      }
+    ],
+    "taxCategory": "zero-rated-grocery",
+    "active": true
+  },
+  {
+    "id": "prd_pan_boq",
+    "slug": "panama-boquete-microlot",
+    "originId": "pan-boquete",
+    "name": {
+      "en": "Boquete microlot",
+      "fr": "Microlot Boquete",
+      "es": "Microlote Boquete"
+    },
+    "variety": "Catuaí, Geisha",
+    "process": {
+      "en": "Natural",
+      "fr": "Nature",
+      "es": "Natural"
+    },
+    "tastingNotes": {
+      "en": "Jasmine, stone fruit, brown sugar",
+      "fr": "Jasmin, fruits à noyau, cassonade",
+      "es": "Jazmín, fruta de hueso, azúcar morena"
+    },
+    "score": 88,
+    "roasts": [
+      "filter"
+    ],
+    "formats": [
+      {
+        "sku": "PAN-BOQ-1KG",
+        "label": {
+          "en": "1 kg bag",
+          "fr": "Sac de 1 kg",
+          "es": "Bolsa de 1 kg"
+        },
+        "grams": 1000,
+        "unitsPerCase": 1,
+        "price": {
+          "standard": 6200,
+          "partner": 5700
+        }
+      },
+      {
+        "sku": "PAN-BOQ-340-12",
+        "label": {
+          "en": "Retail 340 g, case of 12",
+          "fr": "Détail 340 g, caisse de 12",
+          "es": "Retail 340 g, caja de 12"
+        },
+        "grams": 4080,
+        "unitsPerCase": 12,
+        "price": {
+          "standard": 26400,
+          "partner": 24290
+        }
+      }
+    ],
+    "taxCategory": "zero-rated-grocery",
+    "active": true
+  }
+]

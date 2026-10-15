@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "title": "DeAltura Coffee — High-altitude Latin American coffee, roasted in Canada",
+    "description": "Wholesale specialty coffee from Santa Cruz de Mora, Mérida, grown at 1,600 to 2,000 m and roasted in Canada for cafés and shops."
+  },
+  "nav": {
+    "coffee": "Coffee",
+    "origin": "Origin",
+    "wholesale": "Wholesale",
+    "signIn": "Sign in",
+    "account": "Account",
+    "cart": "Cart",
+    "apply": "Open an account",
+    "language": "Language",
+    "menu": "Menu",
+    "close": "Close",
+    "skip": "Skip to content"
+  },
+  "hero": {
+    "title1": "Grown high,",
+    "title2": "roasted here.",
+    "line1": "Single origin from Santa Cruz de Mora, Mérida, Venezuela",
+    "line2": "Castillo, washed, grown at 1,600 to 2,000 m",
+    "line3": "Wholesale for cafés and shops across Canada",
+    "notes": "Dark chocolate, vanilla, molasses",
+    "roast": "Roasted every Tuesday in Canada"
+  },
+  "intro": {
+    "heading": "Altitude is flavour",
+    "note": "Above 1,600 metres the air is cool and the cherries ripen slowly. Slow ripening makes denser beans with more sugar, which is why this coffee tastes of chocolate and molasses.",
+    "facts": [
+      {
+        "value": "1,600–2,000 m",
+        "explain": "Above sea level, in the Andes of Mérida"
+      },
+      {
+        "value": "Castillo",
+        "explain": "The variety our growers plant"
+      },
+      {
+        "value": "Washed",
+        "explain": "Fruit removed before drying, for a clean cup"
+      },
+      {
+        "value": "Tuesday",
+        "explain": "Roast day in Canada, shipped within 48 hours"
+      }
+    ]
+  },
+  "showcase": {
+    "title": "Santa Cruz de Mora",
+    "formats": {
+      "VEN-SCM-1KG": "For cafés pulling espresso all day. Roasted for espresso or for filter, whole bean, dated on the bag.",
+      "VEN-SCM-5LB": "The bulk bag for busy counters and kitchens. Fewer bags to open, the same roast date on every one.",
+      "VEN-SCM-340-12": "Shelf-ready 340 g bags to resell in your shop, twelve to a case, with tasting notes on the label."
+    },
+    "tabs": {
+      "VEN-SCM-1KG": "1 kg",
+      "VEN-SCM-5LB": "5 lb",
+      "VEN-SCM-340-12": "12 × 340 g"
+    },
+    "see": "See the coffee",
+    "apply": "Open an account",
+    "bagAlt": "Drawing of the DeAltura bag: turquoise, with a cream label for Santa Cruz de Mora"
+  },
+  "how": {
+    "heading": "From slope to counter",
+    "back": "Previous",
+    "next": "Next",
+    "moments": [
+      {
+        "caption": "Picked ripe",
+        "text": "Growers in Santa Cruz de Mora pick each cherry by hand once it turns deep red."
+      },
+      {
+        "caption": "Washed and dried",
+        "text": "The fruit is washed away and the beans dry slowly in the sun before milling."
+      },
+      {
+        "caption": "Shipped green",
+        "text": "Green coffee keeps for months, so it travels north unroasted and freshness starts in Canada."
+      },
+      {
+        "caption": "Roasted on Tuesday",
+        "text": "We roast to order each week, one profile for espresso and one for filter."
+      },
+      {
+        "caption": "Packed and dated",
+        "text": "Every bag carries its roast date, so your baristas know what they are pouring."
+      },
+      {
+        "caption": "At your counter",
+        "text": "Delivered across Canada. Order again from your account in a couple of clicks."
+      }
+    ]
+  },
+  "formats": {
+    "word": "Formats",
+    "signInForPrice": "Sign in for price",
+    "perKg": "{price} per kg",
+    "espresso": "Espresso roast",
+    "filter": "Filter roast",
+    "omni": "Omni roast",
+    "termsTitle": "Minimums and delivery",
+    "minimum": "Minimum order",
+    "minimumValue": "{kg} kg, any mix",
+    "freeFrom": "Free delivery from",
+    "freeFromValue": "{kg} kg",
+    "flat": "Delivery under {kg} kg",
+    "tax": "GST / HST on coffee beans",
+    "taxValue": "Zero-rated"
+  },
+  "calc": {
+    "heading": "How much will you need?",
+    "cups": "Coffees a day",
+    "perWeek": "{kg} kg a week",
+    "suggest": "About {bags} bags of 1 kg, or {lbBags} bags of 5 lb, each week.",
+    "basis": "Based on an 18 g double shot, open six days a week, with a little extra for dialling in."
+  },
+  "faq": {
+    "heading": "Before you order",
+    "items": [
+      {
+        "q": "Who can buy?",
+        "a": "Cafés, restaurants, shops and offices in Canada with a business account. Apply once and we review it within two business days."
+      },
+      {
+        "q": "Is there a minimum?",
+        "a": "{kg} kg per order, in any mix of formats and roasts."
+      },
+      {
+        "q": "When do you roast?",
+        "a": "Every Tuesday. Orders placed by Monday at noon go into that week's roast and ship within 48 hours."
+      },
+      {
+        "q": "Where do you deliver?",
+        "a": "Across Canada by courier. Delivery is free from {free} kg; below that it is a flat {flat}."
+      },
+      {
+        "q": "How do I pay?",
+        "a": "By card at checkout. Approved accounts can ask to be invoiced on net 30 terms."
+      },
+      {
+        "q": "Do you charge tax on coffee?",
+        "a": "Roasted coffee beans are basic groceries in Canada, so they are zero-rated for GST and HST."
+      },
+      {
+        "q": "Whole bean or ground?",
+        "a": "Whole bean only, so the coffee stays fresh until it reaches your grinder."
+      },
+      {
+        "q": "Espresso or filter?",
+        "a": "Both. Pick the roast for each line in your order; the beans are the same, the curve is different."
+      },
+      {
+        "q": "Which origins do you carry?",
+        "a": "Venezuela is our flagship, alongside high-grown lots from Colombia, Costa Rica and Panama. New lots arrive with each harvest."
+      }
+    ]
+  },
+  "cta": {
+    "sentence": "Tell us about your business. We reply within two business days.",
+    "word": "Apply"
+  },
+  "footer": {
+    "invite1": "Pour it at",
+    "invite2": "your counter",
+    "button": "Open an account",
+    "email": "Email us",
+    "rights": "© {year} DeAltura Coffee. Prices in Canadian dollars.",
+    "made": "Grown high in Latin America, roasted in Canada."
+  },
+  "coffee": {
+    "title": "The coffee",
+    "lead": "High-grown lots from Venezuela, Colombia, Costa Rica and Panama, each roasted for espresso or filter.",
+    "variety": "Variety",
+    "process": "Process",
+    "altitude": "Altitude",
+    "notes": "Tasting notes",
+    "score": "Cupping score",
+    "view": "View and order",
+    "comingSoon": "New lots arrive with each harvest."
+  },
+  "product": {
+    "format": "Format",
+    "roast": "Roast",
+    "quantity": "Quantity",
+    "add": "Add to order",
+    "added": "Added to your order",
+    "goCart": "Review order",
+    "signIn": "Sign in to see prices and order",
+    "pending": "Your account is under review. You can order as soon as it is approved.",
+    "perUnit": "per unit",
+    "back": "All coffee"
+  },
+  "origin": {
+    "title": "Santa Cruz de Mora",
+    "lead": "A coffee town in the Andes of Mérida, Venezuela.",
+    "why": "Why altitude matters",
+    "whyText": "High in the mountains the nights are cold and the days are mild. Cherries take longer to ripen, beans grow denser, and the cup gains sweetness and structure. That is the whole idea of DeAltura: coffee from up high.",
+    "canada": "Roasted in Canada",
+    "canadaText": "We bring the coffee in green and roast it here, close to the cafés that serve it, so every bag reaches you within days of roasting.",
+    "allTitle": "Every origin, by altitude",
+    "allLead": "Each lot sits where it grows. Toronto, where the coffee lands, is at 76 m.",
+    "toronto": "Toronto",
+    "see": "See the coffee"
+  },
+  "apply": {
+    "title": "Open a wholesale account",
+    "lead": "Tell us who you are. We review every account within two business days, then you can order online whenever you need.",
+    "business": "Business name",
+    "contact": "Your name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters",
+    "phone": "Phone",
+    "type": "Type of business",
+    "types": {
+      "cafe": "Café",
+      "restaurant": "Restaurant",
+      "retail": "Shop",
+      "office": "Office",
+      "other": "Other"
+    },
+    "city": "City",
+    "province": "Province",
+    "kg": "Coffee per month (kg)",
+    "message": "Anything else we should know?",
+    "submit": "Send application",
+    "haveAccount": "Already have an account?",
+    "errors": {
+      "exists": "There is already an account with that email. Sign in instead.",
+      "invalid": "Please check the highlighted fields.",
+      "unknown": "Something went wrong. Please try again."
+    }
+  },
+  "auth": {
+    "title": "Sign in",
+    "lead": "For approved wholesale accounts.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "invalid": "That email and password do not match.",
+    "noAccount": "No account yet?",
+    "signOut": "Sign out",
+    "demo": "Demo account: {email} / {password}"
+  },
+  "account": {
+    "title": "Your account",
+    "hello": "Hello, {name}",
+    "status": {
+      "pending": "Under review. We will email you once your account is approved.",
+      "approved": "Approved. You can order any time.",
+      "suspended": "Paused. Please contact us."
+    },
+    "orders": "Orders",
+    "noOrders": "No orders yet.",
+    "orderAgain": "Order coffee",
+    "profile": "Business details",
+    "save": "Save",
+    "saved": "Saved",
+    "addresses": "Delivery address",
+    "addressLabel": "Name of this location",
+    "line1": "Street address",
+    "line2": "Unit, suite (optional)",
+    "postal": "Postal code",
+    "terms": "Invoice terms: net {days} days",
+    "language": "Preferred language for emails"
+  },
+  "order": {
+    "number": "Order {number}",
+    "placed": "Placed {date}",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Delivery",
+    "free": "Free",
+    "tax": "Tax",
+    "kg": "Weight",
+    "status": {
+      "awaiting_payment": "Awaiting payment",
+      "paid": "Paid",
+      "invoiced": "Invoiced",
+      "roasting": "Roasting",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "paidNotice": "Payment received. Thank you, your coffee goes into the next roast.",
+    "invoiceNotice": "Order received. We will send the invoice with your delivery.",
+    "awaitingNotice": "This order is waiting for payment.",
+    "payNow": "Pay now",
+    "deliverTo": "Deliver to",
+    "back": "All orders",
+    "roastOf": "{roast}"
+  },
+  "cart": {
+    "title": "Your order",
+    "empty": "Your order is empty.",
+    "browse": "See the coffee",
+    "remove": "Remove",
+    "progress": "{kg} of {min} kg minimum",
+    "belowMin": "Add {kg} kg more to reach the minimum order.",
+    "address": "Delivery address",
+    "noAddress": "Add a delivery address in your account first.",
+    "addAddress": "Add address",
+    "payment": "Payment",
+    "card": "Card",
+    "cardHint": "Pay securely on the next page.",
+    "invoice": "Invoice, net {days}",
+    "invoiceHint": "We invoice you with the delivery.",
+    "notes": "Notes for the roaster (optional)",
+    "place": "Place order",
+    "placeAndPay": "Continue to payment",
+    "cancelled": "Payment was cancelled. Your order is still here.",
+    "testMode": "Card payments are not connected yet. The order will be saved as awaiting payment.",
+    "errors": {
+      "minimum": "Your order is below the minimum weight.",
+      "address": "Add a delivery address in your account first.",
+      "empty": "Your order is empty.",
+      "auth": "Your account must be approved to order."
+    }
+  },
+  "lang": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "back": "Back to home"
+  },
+  "admin": {
+    "title": "Admin",
+    "link": "Admin panel",
+    "lead": "Approve accounts and move orders along. Changes save as soon as you press Save.",
+    "pendingTitle": "Accounts waiting for review",
+    "pendingNone": "No accounts waiting.",
+    "customersTitle": "All accounts",
+    "ordersTitle": "Orders",
+    "ordersNone": "No orders yet.",
+    "status": "Status",
+    "tier": "Price tier",
+    "terms": "Invoice terms",
+    "termsNone": "Card only",
+    "days": "{days} days",
+    "save": "Save",
+    "kgMonth": "{kg} kg / month",
+    "applied": "Applied {date}",
+    "customer": "Customer",
+    "lines": "{count, plural, one {# line} other {# lines}}",
+    "tiers": {
+      "standard": "Standard",
+      "partner": "Partner"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "suspended": "Paused"
+    },
+    "forbidden": "This page is for the DeAltura team.",
+    "payCard": "Card",
+    "payInvoice": "Invoice"
+  }
+}
