@@ -17,9 +17,9 @@ export function LangSwitch({ label, inline = false }: { label: string; inline?: 
 
   if (inline) {
     return (
-      <span style={{ display: 'flex', gap: '1rem', padding: '.85rem 1.1rem' }}>
+      <span style={{ display: 'flex', gap: '.25rem', padding: '.1rem .6rem' }}>
         {routing.locales.map((l) => (
-          <Link key={l} href={href} locale={l} aria-current={l === locale ? 'true' : undefined} style={{ padding: 0, fontWeight: l === locale ? 600 : 400 }}>
+          <Link key={l} href={href} locale={l} aria-current={l === locale ? 'true' : undefined} style={{ padding: '.75rem .5rem', minWidth: 44, textAlign: 'center', fontWeight: l === locale ? 600 : 400 }}>
             {l.toUpperCase()}
           </Link>
         ))}

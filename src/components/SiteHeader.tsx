@@ -32,12 +32,12 @@ export async function SiteHeader({ variant = 'light', current }: { variant?: 'li
               {t('cart')}
               {count > 0 && <span className="cart-count nums">{count}</span>}
             </Link>
-            <Link href="/account" className={`btn ${variant === 'hero' ? 'btn--cream' : ''}`}>{t('account')}</Link>
+            <Link href="/account" className={`btn site-header__cta ${variant === 'hero' ? 'btn--cream' : ''}`}>{t('account')}</Link>
           </>
         ) : (
           <>
             <Link href="/login" className="link hide-sm">{t('signIn')}</Link>
-            <Link href="/wholesale" className={`btn ${variant === 'hero' ? 'btn--cream' : ''}`}>{t('apply')}</Link>
+            <Link href="/wholesale" className={`btn site-header__cta ${variant === 'hero' ? 'btn--cream' : ''}`}>{t('apply')}</Link>
           </>
         )}
         <details className="mobile-menu">
@@ -48,6 +48,9 @@ export async function SiteHeader({ variant = 'light', current }: { variant?: 'li
             {links.map((l) => (
               <li key={l.href}><Link href={l.href}>{l.label}</Link></li>
             ))}
+            <li className="mobile-menu__cta">
+              <Link href={userId ? '/account' : '/wholesale'}>{userId ? t('account') : t('apply')}</Link>
+            </li>
             {userId ? (
               <li><Link href="/cart">{t('cart')}{count > 0 ? ` (${count})` : ''}</Link></li>
             ) : (

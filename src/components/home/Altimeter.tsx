@@ -59,12 +59,16 @@ export function Altimeter({
         </div>
         <ul className="altimeter__bands">
           {[...bands.map((b) => ({ ...b, home: false })), { id: 'home', label: home.label, min: 0, max: home.m, home: true }].map((b, i) => (
-            <li key={b.id} className={`altimeter__col ${b.home ? 'altimeter__col--home' : ''}`} style={{ ['--i' as string]: i }}>
-              <span className="altimeter__bar" style={{ bottom: pct(b.min), height: pct(b.max - b.min) }} />
-              <span className="altimeter__tag" style={{ bottom: `calc(${pct(b.max)} + 10px)` }}>
+            <li
+              key={b.id}
+              className={`altimeter__col ${b.home ? 'altimeter__col--home' : ''}`}
+              style={{ ['--i' as string]: i, ['--lo' as string]: pct(b.min), ['--hi' as string]: pct(b.max), ['--span' as string]: pct(b.max - b.min) }}
+            >
+              <span className="altimeter__tag">
                 <span className="altimeter__name">{b.label}</span>
                 <span className="altimeter__range nums">{b.home ? fmt(b.max) : `${fmt(b.min)}–${fmt(b.max)}`}</span>
               </span>
+              <span className="altimeter__track" aria-hidden="true"><span className="altimeter__bar" /></span>
             </li>
           ))}
         </ul>
