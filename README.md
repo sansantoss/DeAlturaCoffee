@@ -45,7 +45,27 @@ del header lo cambia y queda guardado en una cookie. Cada idioma tiene su URL (`
 - **Mínimo de pedido, envío, correo de contacto:** `content/settings.json`.
 - **Textos de la web:** `messages/en.json`, `fr.json`, `es.json`.
 - **Colores, tipografía:** `src/app/globals.css` y `DESIGN.md`.
+- **Fotos:** `public/images/` con los nombres de `content/images.json` (ver abajo).
 - **Logo:** `public/brand/*.svg` (provisional; `npm run brand` lo regenera).
+
+## Fotos
+
+Pon cada foto en `public/images/` con el nombre exacto (sirve `.jpg`, `.png` o `.webp`).
+Si una foto falta, la página muestra la ilustración en su lugar, así que puedes ir agregándolas de a poco.
+Los nombres se cambian en `content/images.json`. Las fotos se recortan solas a la proporción del espacio.
+
+| Archivo | Dónde sale | Proporción | Tamaño mínimo |
+| --- | --- | --- | --- |
+| `hero` | Fondo del inicio, detrás de la etiqueta | 16:9 horizontal | 2400 × 1350 |
+| `proceso_1` … `proceso_5` | Inicio, "De la ladera a tu barra" (cosecha, secado, envío, tueste, empaque) | 4:5 vertical | 1000 × 1250 |
+| `origen_hero` | Fondo del encabezado de Origen | 16:9 horizontal | 2400 × 1350 |
+| `origen_altura` | Origen, "Por qué importa la altura" | 4:5 vertical | 1000 × 1250 |
+| `origen_canada` | Origen, "Tostado en Canadá" | 4:5 vertical | 1000 × 1250 |
+| `mayoreo` | Página de Mayoreo, arriba de las condiciones | 4:5 vertical | 1000 × 1250 |
+| `cafe_venezuela_1` … `_3` | Producto: la 1 en catálogo, inicio y ficha; la 2 y 3 en la galería de la ficha | 4:5 vertical | 1000 × 1250 |
+| `cafe_colombia_*`, `cafe_costarica_*`, `cafe_panama_*` | Igual, para cada café | 4:5 vertical | 1000 × 1250 |
+
+Con `npm run dev` corriendo, solo recarga la página para ver una foto nueva.
 
 ## Datos: de JSON a base de datos
 

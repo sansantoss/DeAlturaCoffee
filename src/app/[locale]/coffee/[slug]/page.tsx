@@ -4,6 +4,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
 import { Bag } from '@/components/art';
+import { productImages } from '@/lib/images';
+import { Photo } from '@/components/Photo';
 import { ProductSpec } from '@/components/ProductSpec';
 import { AddToCart } from '@/components/AddToCart';
 import { getCurrentCustomer } from '@/lib/auth';
@@ -32,6 +34,7 @@ export default async function ProductPage({ params }: Params) {
   ]);
   if (!origin) notFound();
 
+  const images = productImages(product.slug, product.name[locale]);
   const approved = customer?.status === 'approved';
   const tier = approved ? customer.priceTier : settings.publicPrices ? 'standard' : null;
 
@@ -43,9 +46,20 @@ export default async function ProductPage({ params }: Params) {
           <Link href="/coffee" className="link">← {t('product.back')}</Link>
         </p>
         <div className="catalog">
-          <div className="catalog__bag">
-            <Bag label={t('showcase.bagAlt')} origin={origin.country[locale].toUpperCase()} title={origin.region} notes={product.tastingNotes[locale]} />
-          </div>
+          {images.length ? (
+            <div>
+              <Photo image={images[0]} ratio="4/5" priority sizes="(max-width: 860px) 100vw, 40vw" />
+              {images.length > 1 && (
+                <div className="gallery">
+                  {images.slice(1).map((img) => <Photo key={img.src} image={img} ratio="4/5" sizes="15vw" />)}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="catalog__bag">
+              <Bag label={t('showcase.bagAlt')} origin={origin.country[locale].toUpperCase()} title={origin.region} notes={product.tastingNotes[locale]} />
+            </div>
+          )}
           <div className="stack" data-reveal>
             <h1 className="h-section">{product.name[locale]}</h1>
             <p>{origin.story[locale]}</p>

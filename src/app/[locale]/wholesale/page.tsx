@@ -6,6 +6,8 @@ import { ApplyForm } from '@/components/forms';
 import { getSettings } from '@/lib/catalog';
 import { formatMoney } from '@/lib/format';
 import type { Locale } from '@/lib/types';
+import { siteImage } from '@/lib/images';
+import { Photo } from '@/components/Photo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const t = await getTranslations({ locale: (await params).locale, namespace: 'apply' });
@@ -17,6 +19,7 @@ export default async function WholesalePage({ params }: { params: Promise<{ loca
   setRequestLocale(locale);
   const t = await getTranslations();
   const s = await getSettings();
+  const img = siteImage('mayoreo', locale);
 
   return (
     <>
@@ -29,6 +32,8 @@ export default async function WholesalePage({ params }: { params: Promise<{ loca
             <ApplyForm />
             <p>{t('apply.haveAccount')} <Link href="/login" className="link" style={{ textDecorationColor: 'currentColor' }}>{t('nav.signIn')}</Link></p>
           </div>
+          <div className="stack">
+          {img && <Photo image={img} sizes="(max-width: 960px) 100vw, 33vw" />}
           <aside className="panel panel--dark stack nums">
             <h2>{t('formats.termsTitle')}</h2>
             <div className="totals">
@@ -39,6 +44,7 @@ export default async function WholesalePage({ params }: { params: Promise<{ loca
             </div>
             <p>{t('faq.items.2.a')}</p>
           </aside>
+          </div>
         </div>
       </main>
     </>

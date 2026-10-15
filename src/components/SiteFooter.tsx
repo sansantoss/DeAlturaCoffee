@@ -27,11 +27,11 @@ export async function SiteFooter() {
           <a href={`mailto:${settings.contactEmail}`}>{t('email')}: {settings.contactEmail}</a>
         </nav>
       </div>
+      <div className="site-footer__name" aria-hidden="true"><span className="wordmark__svg" /></div>
       <div className="site-footer__legal">
         <span>{t('rights', { year: new Date().getFullYear() })}</span>
         <span>{t('made')}</span>
       </div>
-      <div className="site-footer__name" aria-hidden="true">DEALTURA</div>
     </footer>
   );
 }

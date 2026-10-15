@@ -19,15 +19,14 @@
   "hero": {
     "title1": "Grown high,",
     "title2": "roasted here.",
-    "line1": "Single origin from Santa Cruz de Mora, Mérida, Venezuela",
-    "line2": "Castillo, washed, grown at 1,600 to 2,000 m",
-    "line3": "Wholesale for cafés and shops across Canada",
-    "notes": "Dark chocolate, vanilla, molasses",
-    "roast": "Roasted every Tuesday in Canada"
+    "lead": "Specialty coffee from Venezuela and Latin America, grown between 1,500 and 2,000 metres and roasted every week in Canada for cafés and shops.",
+    "see": "See the coffee",
+    "meterLabel": "Altitude where each origin grows, compared with Toronto",
+    "home": "Toronto"
   },
   "intro": {
     "heading": "Altitude is flavour",
-    "note": "Above 1,600 metres the air is cool and the cherries ripen slowly. Slow ripening makes denser beans with more sugar, which is why this coffee tastes of chocolate and molasses.",
+    "note": "Above 1,600 metres the air is cool and the cherries ripen slowly. Slow ripening makes denser beans with more sugar, which is why this coffee tastes of chocolate and caramel.",
     "facts": [
       {
         "value": "1,600–2,000 m",

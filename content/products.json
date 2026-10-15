@@ -15,9 +15,9 @@
       "es": "Lavado"
     },
     "tastingNotes": {
-      "en": "Dark chocolate, vanilla, molasses",
-      "fr": "Chocolat noir, vanille, mélasse",
-      "es": "Chocolate oscuro, vainilla, melaza"
+      "en": "Dark chocolate, caramel, orange",
+      "fr": "Chocolat noir, caramel, orange",
+      "es": "Chocolate oscuro, caramelo, naranja"
     },
     "score": 84,
     "roasts": [
@@ -87,9 +87,9 @@
       "es": "Lavado"
     },
     "tastingNotes": {
-      "en": "Panela, red apple, milk chocolate",
-      "fr": "Panela, pomme rouge, chocolat au lait",
-      "es": "Panela, manzana roja, chocolate de leche"
+      "en": "Tropical fruit, chocolate, nutty",
+      "fr": "Fruits tropicaux, chocolat, noisette",
+      "es": "Frutas tropicales, chocolate, nuez"
     },
     "score": 85,
     "roasts": [
@@ -159,9 +159,9 @@
       "es": "Honey"
     },
     "tastingNotes": {
-      "en": "Red berries, citrus, brown sugar",
-      "fr": "Fruits rouges, agrumes, cassonade",
-      "es": "Frutos rojos, cítricos, azúcar morena"
+      "en": "Red berries, honey, citrus",
+      "fr": "Fruits rouges, miel, agrumes",
+      "es": "Frutos rojos, miel, cítricos"
     },
     "score": 86,
     "roasts": [

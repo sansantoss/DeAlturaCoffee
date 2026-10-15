@@ -2,21 +2,26 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
 import { Bag, MomentArt, Topo } from '@/components/art';
-import { WordmarkStatic } from '@/components/Wordmark';
 import { ShowcaseTabs } from '@/components/home/Showcase';
 import { MomentRow } from '@/components/home/MomentRow';
 import { Calculator } from '@/components/home/Calculator';
 import { getCurrentCustomer } from '@/lib/auth';
-import { getSettings, listProducts } from '@/lib/catalog';
+import { getSettings, listOrigins, listProducts } from '@/lib/catalog';
+import { Altimeter } from '@/components/home/Altimeter';
 import { formatMoney } from '@/lib/format';
+import { productImages, siteImage, type SlotName } from '@/lib/images';
+import { Photo } from '@/components/Photo';
+import Image from 'next/image';
 import type { Locale } from '@/lib/types';
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
-  const [products, settings, customer] = await Promise.all([listProducts(), getSettings(), getCurrentCustomer()]);
+  const [products, settings, customer, origins] = await Promise.all([listProducts(), getSettings(), getCurrentCustomer(), listOrigins()]);
   const product = products[0];
+  const heroImg = siteImage('hero', locale);
+  const plateImg = product ? productImages(product.slug, product.name[locale])[0] : undefined;
   const tier = customer?.status === 'approved' ? customer.priceTier : settings.publicPrices ? 'standard' : null;
 
   const facts = t.raw('intro.facts') as { value: string; explain: string }[];
@@ -34,27 +39,32 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     <>
       {/* ---------- Hero: the label on the bag ---------- */}
       <section className="hero">
-        <Topo className="hero__topo" />
+        {heroImg ? (
+          <div className="hero__photo">
+            <Image src={heroImg.src} alt={heroImg.alt} fill priority sizes="100vw" />
+          </div>
+        ) : (
+          <Topo className="hero__topo" />
+        )}
         <SiteHeader variant="hero" />
-        <div className="label" id="content">
-          <span style={{ ['--i' as string]: 0 }}><WordmarkStatic /></span>
-          <h1 className="label__title" style={{ ['--i' as string]: 1 }}>
+        <div className="hero__body" id="content">
+          <h1 className="hero__title">
             <span>{t('hero.title1')}</span>
             <span>{t('hero.title2')}</span>
           </h1>
-          <div className="label__lines" style={{ ['--i' as string]: 2 }}>
-            <span>{t('hero.line1')}</span>
-            <i className="diamond" aria-hidden="true" />
-            <span>{t('hero.line2')}</span>
-            <i className="diamond" aria-hidden="true" />
-            <span>{t('hero.line3')}</span>
+          <p className="hero__lead">{t('hero.lead')}</p>
+          <div className="hero__actions">
+            <Link href="/wholesale" className="btn btn--cream">{t('nav.apply')}</Link>
+            <Link href="/coffee" className="hero__link">{t('hero.see')}</Link>
           </div>
-          <p className="label__notes" style={{ ['--i' as string]: 3 }}>{t('hero.notes')}</p>
-          <p className="label__roast" style={{ ['--i' as string]: 4 }}>{t('hero.roast')}</p>
-          <Link href="/wholesale" className="btn btn--turquoise label__cta" style={{ ['--i' as string]: 5 }}>
-            {t('nav.apply')}
-          </Link>
         </div>
+        <Altimeter
+          bands={origins.filter((o) => o.active).map((o) => ({ id: o.id, label: o.country[locale], min: o.altitude.min, max: o.altitude.max }))}
+          home={{ label: t('hero.home'), m: 76 }}
+          unit="m"
+          label={t('hero.meterLabel')}
+          locale={locale}
+        />
       </section>
 
       {/* ---------- Intro: altitude is flavour ---------- */}
@@ -85,27 +95,33 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             label: t(`showcase.tabs.${f.sku}`),
             text: t(`showcase.formats.${f.sku}`),
           }))}
-          plate={
+          plate={plateImg ? (
+            <Photo image={plateImg} ratio="4/5" sizes="(max-width: 860px) 100vw, 45vw" />
+          ) : (
             <Bag
               label={t('showcase.bagAlt')}
               origin="VENEZUELA"
               title="Santa Cruz de Mora, Mérida"
               notes={product.tastingNotes[locale]}
             />
+          )
           }
         />
       )}
 
       {/* ---------- How it gets to you ---------- */}
       <MomentRow heading={t('how.heading')} backLabel={t('how.back')} nextLabel={t('how.next')}>
-        {moments.map((m, i) => (
+        {moments.map((m, i) => {
+          const img = siteImage(`proceso_${i + 1}` as SlotName, locale);
+          return (
           <article className="moment" key={m.caption}>
             <h3>{m.caption}</h3>
             <p>{m.text}</p>
             <div className="moment__space" style={{ height: spaces[i % spaces.length] }} />
-            <MomentArt index={i} alt={m.caption} day={dayShort} />
+            {img ? <Photo image={img} sizes="(max-width: 760px) 72vw, 280px" /> : <MomentArt index={i} alt={m.caption} day={dayShort} />}
           </article>
-        ))}
+          );
+        })}
       </MomentRow>
 
       {/* ---------- Formats + the calculator ---------- */}

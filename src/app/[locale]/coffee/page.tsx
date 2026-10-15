@@ -6,6 +6,8 @@ import { Bag } from '@/components/art';
 import { ProductSpec } from '@/components/ProductSpec';
 import { getOrigin, listProducts } from '@/lib/catalog';
 import type { Locale } from '@/lib/types';
+import { productImages } from '@/lib/images';
+import { Photo } from '@/components/Photo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const t = await getTranslations({ locale: (await params).locale, namespace: 'coffee' });
@@ -30,11 +32,16 @@ export default async function CoffeePage({ params }: { params: Promise<{ locale:
           {await Promise.all(
             products.map(async (p) => {
               const origin = (await getOrigin(p.originId))!;
+              const img = productImages(p.slug, p.name[locale])[0];
               return (
                 <article className="catalog" key={p.id} data-reveal>
-                  <div className="catalog__bag">
-                    <Bag label={t('showcase.bagAlt')} origin={origin.country[locale].toUpperCase()} title={origin.region} notes={p.tastingNotes[locale]} />
-                  </div>
+                  {img ? (
+                    <Photo image={img} ratio="4/5" sizes="(max-width: 860px) 100vw, 40vw" />
+                  ) : (
+                    <div className="catalog__bag">
+                      <Bag label={t('showcase.bagAlt')} origin={origin.country[locale].toUpperCase()} title={origin.region} notes={p.tastingNotes[locale]} />
+                    </div>
+                  )}
                   <div className="stack">
                     <h2 className="h-section">{p.name[locale]}</h2>
                     <ProductSpec product={p} origin={origin} locale={locale} />

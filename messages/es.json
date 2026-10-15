@@ -19,15 +19,14 @@
   "hero": {
     "title1": "De altura,",
     "title2": "tostado aquí.",
-    "line1": "Origen único: Santa Cruz de Mora, Mérida, Venezuela",
-    "line2": "Castillo, lavado, cultivado entre 1,600 y 2,000 m",
-    "line3": "Mayoreo para cafeterías y tiendas en todo Canadá",
-    "notes": "Chocolate oscuro, vainilla, melaza",
-    "roast": "Tostado cada martes en Canadá"
+    "lead": "Café de especialidad de Venezuela y Latinoamérica, cultivado entre 1,500 y 2,000 metros y tostado cada semana en Canadá para cafeterías y tiendas.",
+    "see": "Ver los cafés",
+    "meterLabel": "Altura a la que crece cada origen, comparada con Toronto",
+    "home": "Toronto"
   },
   "intro": {
     "heading": "La altura es sabor",
-    "note": "Arriba de 1,600 metros el aire es fresco y las cerezas maduran despacio. Esa maduración lenta da granos más densos y con más azúcar; por eso este café sabe a chocolate y melaza.",
+    "note": "Arriba de 1,600 metros el aire es fresco y las cerezas maduran despacio. Esa maduración lenta da granos más densos y con más azúcar; por eso este café sabe a chocolate y caramelo.",
     "facts": [
       {
         "value": "1,600–2,000 m",

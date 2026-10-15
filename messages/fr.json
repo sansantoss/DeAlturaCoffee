@@ -19,15 +19,14 @@
   "hero": {
     "title1": "Cultivé en hauteur,",
     "title2": "torréfié ici.",
-    "line1": "Origine unique : Santa Cruz de Mora, Mérida, Venezuela",
-    "line2": "Castillo, lavé, cultivé entre 1 600 et 2 000 m",
-    "line3": "En gros pour les cafés et commerces du Canada",
-    "notes": "Chocolat noir, vanille, mélasse",
-    "roast": "Torréfié chaque mardi au Canada"
+    "lead": "Café de spécialité du Venezuela et d'Amérique latine, cultivé entre 1 500 et 2 000 mètres et torréfié chaque semaine au Canada pour les cafés et les boutiques.",
+    "see": "Voir les cafés",
+    "meterLabel": "Altitude de culture de chaque origine, comparée à Toronto",
+    "home": "Toronto"
   },
   "intro": {
     "heading": "L'altitude, c'est le goût",
-    "note": "Au-dessus de 1 600 mètres, l'air est frais et les cerises mûrissent lentement. Une maturation lente donne des grains plus denses et plus sucrés : voilà pourquoi ce café goûte le chocolat et la mélasse.",
+    "note": "Au-dessus de 1 600 mètres, l'air est frais et les cerises mûrissent lentement. Une maturation lente donne des grains plus denses et plus sucrés : voilà pourquoi ce café goûte le chocolat et la caramel.",
     "facts": [
       {
         "value": "1 600–2 000 m",

@@ -1,0 +1,61 @@
+{
+  "_ayuda": "Pon las fotos en public/images/ con estos nombres (.jpg, .jpeg, .png o .webp). Si una foto no existe, se muestra la ilustración. 'alt' describe la foto para Google y lectores de pantalla.",
+  "slots": {
+    "hero": {
+      "file": "hero",
+      "ratio": "16/9",
+      "alt": { "en": "Coffee farm on a mountainside", "fr": "Caféière à flanc de montagne", "es": "Cafetal en la ladera de una montaña" }
+    },
+    "proceso_1": {
+      "file": "proceso_1",
+      "ratio": "4/5",
+      "alt": { "en": "Ripe coffee cherries picked by hand", "fr": "Cerises de café mûres cueillies à la main", "es": "Cerezas de café maduras cosechadas a mano" }
+    },
+    "proceso_2": {
+      "file": "proceso_2",
+      "ratio": "4/5",
+      "alt": { "en": "Coffee drying in the sun", "fr": "Café séchant au soleil", "es": "Café secándose al sol" }
+    },
+    "proceso_3": {
+      "file": "proceso_3",
+      "ratio": "4/5",
+      "alt": { "en": "Sacks of green coffee ready to ship", "fr": "Sacs de café vert prêts à expédier", "es": "Sacos de café verde listos para enviar" }
+    },
+    "proceso_4": {
+      "file": "proceso_4",
+      "ratio": "4/5",
+      "alt": { "en": "Coffee roasting", "fr": "Torréfaction du café", "es": "Café tostándose" }
+    },
+    "proceso_5": {
+      "file": "proceso_5",
+      "ratio": "4/5",
+      "alt": { "en": "Bags packed and dated", "fr": "Sacs emballés et datés", "es": "Bolsas empacadas y fechadas" }
+    },
+    "origen_hero": {
+      "file": "origen_hero",
+      "ratio": "16/9",
+      "alt": { "en": "The Andes of Mérida, Venezuela", "fr": "Les Andes de Mérida, au Venezuela", "es": "Los Andes de Mérida, Venezuela" }
+    },
+    "origen_altura": {
+      "file": "origen_altura",
+      "ratio": "4/5",
+      "alt": { "en": "Coffee plants in the mountains", "fr": "Caféiers en montagne", "es": "Matas de café en la montaña" }
+    },
+    "origen_canada": {
+      "file": "origen_canada",
+      "ratio": "4/5",
+      "alt": { "en": "Coffee being roasted in Canada", "fr": "Café torréfié au Canada", "es": "Café tostándose en Canadá" }
+    },
+    "mayoreo": {
+      "file": "mayoreo",
+      "ratio": "4/5",
+      "alt": { "en": "A café counter serving DeAltura coffee", "fr": "Un comptoir de café servant DeAltura", "es": "Barra de una cafetería sirviendo DeAltura" }
+    }
+  },
+  "products": {
+    "venezuela-santa-cruz-de-mora": ["cafe_venezuela_1", "cafe_venezuela_2", "cafe_venezuela_3"],
+    "colombia-huila": ["cafe_colombia_1", "cafe_colombia_2", "cafe_colombia_3"],
+    "costa-rica-tarrazu": ["cafe_costarica_1", "cafe_costarica_2", "cafe_costarica_3"],
+    "panama-boquete-microlot": ["cafe_panama_1", "cafe_panama_2", "cafe_panama_3"]
+  }
+}
