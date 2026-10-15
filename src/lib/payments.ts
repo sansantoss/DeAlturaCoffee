@@ -1,6 +1,7 @@
 import 'server-only';
 import Stripe from 'stripe';
 import type { Locale, Order } from './types';
+import { siteUrl } from './site';
 
 /**
  * Card payments with Stripe Checkout (hosted page: PCI handled by Stripe, Apple Pay / Google Pay included).
@@ -20,7 +21,7 @@ export const paymentsEnabled = () => Boolean(process.env.STRIPE_SECRET_KEY);
 export async function createCheckoutSession(order: Order, email: string, locale: Locale) {
   const s = stripe();
   if (!s) return null;
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const site = siteUrl();
 
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = order.lines.map((l) => ({
     quantity: l.quantity,

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { siteUrl } from '@/lib/site';
 import { routing } from '@/i18n/routing';
 import { SiteFooter } from '@/components/SiteFooter';
 import { Reveal } from '@/components/Reveal';
@@ -17,7 +18,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const site = siteUrl();
   return {
     metadataBase: new URL(site),
     title: { default: t('title'), template: `%s — DeAltura Coffee` },
@@ -26,7 +27,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       canonical: `/${locale}`,
       languages: Object.fromEntries(routing.locales.map((l) => [l === 'fr' ? 'fr-CA' : l === 'es' ? 'es' : 'en-CA', `/${l}`])),
     },
-    openGraph: { title: t('title'), description: t('description'), siteName: 'DeAltura Coffee', locale },
+    openGraph: {
+      title: t('title'), description: t('description'), siteName: 'DeAltura Coffee', locale, type: 'website',
+      images: [{ url: '/og.jpg', width: 1200, height: 630, alt: 'DeAltura Coffee' }],
+    },
+    twitter: { card: 'summary_large_image', title: t('title'), description: t('description'), images: ['/og.jpg'] },
   };
 }
 

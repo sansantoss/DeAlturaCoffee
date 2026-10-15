@@ -190,7 +190,8 @@
     "signIn": "Inicia sesión para ver precios y pedir",
     "pending": "Tu cuenta está en revisión. Podrás pedir en cuanto se apruebe.",
     "perUnit": "por unidad",
-    "back": "Todo el café"
+    "back": "Todo el café",
+    "more": "Más orígenes"
   },
   "origin": {
     "title": "Santa Cruz de Mora",

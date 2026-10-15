@@ -68,27 +68,27 @@
       "file": "origen_hero",
       "ratio": "16/9",
       "alt": {
-        "en": "The Andes of Mérida, Venezuela",
-        "fr": "Les Andes de Mérida, au Venezuela",
-        "es": "Los Andes de Mérida, Venezuela"
+        "en": "Coffee drying in a greenhouse above green mountain valleys",
+        "fr": "Café séchant sous serre au-dessus de vallées de montagne",
+        "es": "Café secándose en un invernadero sobre valles de montaña"
       }
     },
     "origen_altura": {
-      "file": "origen_altura",
+      "file": "proceso_1",
       "ratio": "4/5",
       "alt": {
-        "en": "Coffee plants in the mountains",
-        "fr": "Caféiers en montagne",
-        "es": "Matas de café en la montaña"
+        "en": "Ripe coffee cherries picked by hand",
+        "fr": "Cerises de café mûres cueillies à la main",
+        "es": "Cerezas de café maduras cosechadas a mano"
       }
     },
     "origen_canada": {
-      "file": "origen_canada",
+      "file": "proceso_4",
       "ratio": "4/5",
       "alt": {
-        "en": "Coffee being roasted in Canada",
-        "fr": "Café torréfié au Canada",
-        "es": "Café tostándose en Canadá"
+        "en": "Freshly roasted coffee pouring into the cooling tray",
+        "fr": "Café fraîchement torréfié versé dans le bac de refroidissement",
+        "es": "Café recién tostado cayendo a la charola de enfriado"
       }
     },
     "mayoreo": {
@@ -98,6 +98,15 @@
         "en": "A café counter serving DeAltura coffee",
         "fr": "Un comptoir de café servant DeAltura",
         "es": "Barra de una cafetería sirviendo DeAltura"
+      }
+    },
+    "acceso": {
+      "file": "proceso_6",
+      "ratio": "4/5",
+      "alt": {
+        "en": "A latte served on a bed of roasted coffee beans",
+        "fr": "Un latte servi sur des grains de café torréfiés",
+        "es": "Un latte servido sobre granos de café tostado"
       }
     }
   },

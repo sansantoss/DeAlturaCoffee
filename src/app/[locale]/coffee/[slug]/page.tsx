@@ -9,7 +9,7 @@ import { Photo } from '@/components/Photo';
 import { ProductSpec } from '@/components/ProductSpec';
 import { AddToCart } from '@/components/AddToCart';
 import { getCurrentCustomer } from '@/lib/auth';
-import { getOrigin, getProductBySlug, getSettings } from '@/lib/catalog';
+import { getOrigin, getProductBySlug, getSettings, listOrigins, listProducts } from '@/lib/catalog';
 import { formatMoney } from '@/lib/format';
 import type { Locale } from '@/lib/types';
 
@@ -35,6 +35,8 @@ export default async function ProductPage({ params }: Params) {
   if (!origin) notFound();
 
   const images = productImages(product.slug, product.name[locale]);
+  const [allProducts, allOrigins] = await Promise.all([listProducts(), listOrigins()]);
+  const others = allProducts.filter((p) => p.id !== product.id).slice(0, 3);
   const approved = customer?.status === 'approved';
   const tier = approved ? customer.priceTier : settings.publicPrices ? 'standard' : null;
 
@@ -98,6 +100,24 @@ export default async function ProductPage({ params }: Params) {
             )}
           </div>
         </div>
+        {others.length > 0 && (
+          <section className="more" aria-labelledby="more-h">
+            <h2 id="more-h" className="h-small">{t('product.more')}</h2>
+            <div className="more__grid">
+              {others.map((p) => {
+                const o = allOrigins.find((x) => x.id === p.originId);
+                const img = productImages(p.slug, p.name[locale])[0];
+                return (
+                  <Link key={p.id} href={`/coffee/${p.slug}`} className="more__card">
+                    {img ? <Photo image={img} ratio="4/5" sizes="(max-width: 640px) 50vw, 30vw" /> : <div className="catalog__bag" />}
+                    <strong>{o?.country[locale]}</strong>
+                    <span>{p.name[locale]} · {p.tastingNotes[locale]}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
       </main>
     </>
   );

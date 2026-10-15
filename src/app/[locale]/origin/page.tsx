@@ -34,7 +34,7 @@ export default async function OriginPage({ params }: { params: Promise<{ locale:
       <main id="content">
         <section style={{ position: 'relative', background: 'var(--turquoise)', color: 'var(--cream)', overflow: 'hidden' }}>
           {heroImg ? (
-            <div className="hero__photo"><Image src={heroImg.src} alt={heroImg.alt} fill priority sizes="100vw" /></div>
+            <div className="hero__photo hero__photo--strong"><Image src={heroImg.src} alt={heroImg.alt} fill priority sizes="100vw" /></div>
           ) : (
             <Topo className="hero__topo" />
           )}

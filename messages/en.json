@@ -190,7 +190,8 @@
     "signIn": "Sign in to see prices and order",
     "pending": "Your account is under review. You can order as soon as it is approved.",
     "perUnit": "per unit",
-    "back": "All coffee"
+    "back": "All coffee",
+    "more": "More origins"
   },
   "origin": {
     "title": "Santa Cruz de Mora",

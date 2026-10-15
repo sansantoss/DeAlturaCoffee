@@ -285,7 +285,7 @@ textarea.input { min-height: 7rem; resize: vertical; }
 .row::-webkit-scrollbar { display: none; }
 .moment { flex: 0 0 280px; scroll-snap-align: start; display: flex; flex-direction: column; }
 .moment h3 { font-family: var(--font-text); font-size: 1.125rem; font-weight: 600; letter-spacing: 0; }
-.moment p { margin-top: .5rem; font-size: 1rem; color: var(--muted); min-height: 4.6em; }
+.moment p { margin-top: .5rem; font-size: 1rem; min-height: 4.6em; }
 .moment__space { flex: 0 0 auto; }
 .moment svg { width: 100%; aspect-ratio: 4 / 5; height: auto; }
 @media (max-width: 640px) {
@@ -362,7 +362,7 @@ textarea.input { min-height: 7rem; resize: vertical; }
 
 /* ---------- footer: invitation over a cropped name (sticky, revealed by the curtain) ---------- */
 .site-footer {
-  position: sticky; bottom: 0; z-index: 0; min-height: 100svh; overflow: hidden;
+  position: relative; overflow: hidden;
   background: var(--forest); color: var(--cream); display: flex; flex-direction: column;
   padding: clamp(3rem, 8vw, 7rem) var(--margin) 0;
 }
@@ -393,8 +393,8 @@ textarea.input { min-height: 7rem; resize: vertical; }
 .page-head p { margin-top: 1rem; font-size: 1.125rem; }
 .inner { padding: 0 var(--margin) var(--section); }
 .narrow { max-width: 44rem; }
-.stack { display: grid; gap: 1.25rem; }
-.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.stack { display: grid; gap: 1.25rem; align-content: start; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
 @media (max-width: 640px) { .two { grid-template-columns: 1fr; } }
 
 /* product label card used on catalog and product pages */
@@ -527,3 +527,21 @@ textarea.input { min-height: 7rem; resize: vertical; }
 @media (max-width: 420px) {
   .btn { white-space: normal; text-align: center; height: auto; min-height: var(--control); padding-block: .7rem; max-width: 100%; }
 }
+
+/* ---------- login: formulario + foto ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.split__media .photo { max-height: 78svh; }
+@media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); } .split__media { order: -1; } .split__media .photo { aspect-ratio: 16 / 9 !important; } }
+
+/* ---------- más cafés (ficha de producto) ---------- */
+.more { margin-top: clamp(4rem, 8vw, 7rem); }
+.more__grid { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 2rem); }
+.more__card { text-decoration: none; display: grid; gap: .75rem; }
+.more__card .photo img { transition: transform 600ms var(--ease-out); }
+.more__card:hover .photo img { transform: scale(1.03); }
+.more__card strong { font-family: var(--font-display); font-size: var(--step-2); font-weight: 500; line-height: 1.1; }
+.more__card span { font-size: var(--step-small); }
+@media (max-width: 640px) { .more__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .more__grid > :nth-child(3) { display: none; } }
+
+/* encabezado de Origen sobre foto: más contraste para el título */
+.hero__photo--strong::after { background: rgba(2, 53, 53, 0.5); }

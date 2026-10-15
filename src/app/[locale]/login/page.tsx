@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link, redirect } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
+import { Photo } from '@/components/Photo';
+import { siteImage } from '@/lib/images';
 import { SignInForm } from '@/components/forms';
 import { getUserId } from '@/lib/auth';
 import { backend } from '@/lib/db';
@@ -24,6 +26,7 @@ export default async function LoginPage({
   if (await getUserId()) redirect({ href: '/account', locale });
   const { next } = await searchParams;
   const t = await getTranslations();
+  const img = siteImage('acceso', locale);
   // The demo hint only shows in local mode, never in production with Supabase.
   const demo = backend === 'local' && process.env.NODE_ENV !== 'production'
     ? { email: 'demo@dealtura.ca', password: 'cafe-de-altura' }
@@ -33,11 +36,14 @@ export default async function LoginPage({
     <>
       <SiteHeader />
       <main id="content" className="inner" style={{ paddingTop: 'clamp(3rem, 7vw, 6rem)' }}>
+        <div className="split">
         <div className="stack" style={{ maxWidth: '28rem' }} data-reveal>
           <h1 className="h-section">{t('auth.title')}</h1>
           <p>{t('auth.lead')}</p>
           <SignInForm next={next} demo={demo} />
           <p>{t('auth.noAccount')} <Link href="/wholesale" className="link" style={{ textDecorationColor: 'currentColor' }}>{t('nav.apply')}</Link></p>
+        </div>
+        {img && <div className="split__media"><Photo image={img} priority sizes="(max-width: 860px) 100vw, 50vw" /></div>}
         </div>
       </main>
     </>

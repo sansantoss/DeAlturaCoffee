@@ -185,14 +185,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      {/* ---------- CTA: one word ---------- */}
-      <Link href="/wholesale" className="cta-band">
-        <span className="cta-band__sentence">{t('cta.sentence')}</span>
-        <svg className="cta-band__arrow" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M12 36 36 12M16 12h20v20" stroke="currentColor" strokeWidth="3.5" fill="none" />
-        </svg>
-        <span className="cta-band__word">{t('cta.word')}</span>
-      </Link>
     </>
   );
 }

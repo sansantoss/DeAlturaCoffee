@@ -190,7 +190,8 @@
     "signIn": "Connectez-vous pour voir les prix et commander",
     "pending": "Votre compte est en cours d'examen. Vous pourrez commander dès son approbation.",
     "perUnit": "l'unité",
-    "back": "Tout le café"
+    "back": "Tout le café",
+    "more": "Autres origines"
   },
   "origin": {
     "title": "Santa Cruz de Mora",
