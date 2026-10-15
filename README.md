@@ -57,7 +57,7 @@ Los nombres se cambian en `content/images.json`. Las fotos se recortan solas a l
 | Archivo | Dónde sale | Proporción | Tamaño mínimo |
 | --- | --- | --- | --- |
 | `hero` | Fondo del inicio, detrás de la etiqueta | 16:9 horizontal | 2400 × 1350 |
-| `proceso_1` … `proceso_5` | Inicio, "De la ladera a tu barra" (cosecha, secado, envío, tueste, empaque) | 4:5 vertical | 1000 × 1250 |
+| `proceso_1` … `proceso_6` | Inicio, "De la ladera a tu barra" (cosecha, secado, envío en verde, tueste, empaque, en tu barra) | 4:5 vertical | 1000 × 1250 |
 | `origen_hero` | Fondo del encabezado de Origen | 16:9 horizontal | 2400 × 1350 |
 | `origen_altura` | Origen, "Por qué importa la altura" | 4:5 vertical | 1000 × 1250 |
 | `origen_canada` | Origen, "Tostado en Canadá" | 4:5 vertical | 1000 × 1250 |
