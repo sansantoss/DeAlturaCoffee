@@ -1,6 +1,6 @@
 import 'server-only';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Address, Customer, Order, OrderLine, WholesaleApplication } from '../types';
+import type { Address, Customer, Order, OrderLine, PriceOverride, WholesaleApplication } from '../types';
 import type { Repository } from './repository';
 
 /**
@@ -32,7 +32,7 @@ const toCustomer = (r: Row): Customer => ({
   businessType: r.business_type, phone: r.phone ?? undefined, gstNumber: r.gst_number ?? undefined,
   preferredLocale: r.preferred_locale, status: r.status, priceTier: r.price_tier,
   invoiceTermsDays: r.invoice_terms_days, addresses: (r.addresses ?? []).map(toAddress),
-  createdAt: r.created_at,
+  createdAt: r.created_at, hasLogin: r.has_login ?? true,
 });
 
 const toLine = (r: Row): OrderLine => ({
@@ -91,7 +91,7 @@ export const supabaseRepository: Repository = {
           id: c.id, email: c.email, contact_name: c.contactName, business_name: c.businessName,
           business_type: c.businessType, phone: c.phone ?? null, gst_number: c.gstNumber ?? null,
           preferred_locale: c.preferredLocale, status: c.status, price_tier: c.priceTier,
-          invoice_terms_days: c.invoiceTermsDays,
+          invoice_terms_days: c.invoiceTermsDays, has_login: c.hasLogin ?? true,
         }),
       );
       await saveAddresses(c.id, c.addresses);
@@ -108,6 +108,7 @@ export const supabaseRepository: Repository = {
       if (patch.status !== undefined) row.status = patch.status;
       if (patch.priceTier !== undefined) row.price_tier = patch.priceTier;
       if (patch.invoiceTermsDays !== undefined) row.invoice_terms_days = patch.invoiceTermsDays;
+      if (patch.hasLogin !== undefined) row.has_login = patch.hasLogin;
       if (Object.keys(row).length) check(await db().from('customers').update(row).eq('id', id));
       if (patch.addresses) await saveAddresses(id, patch.addresses);
       return (await this.getById(id))!;
@@ -160,6 +161,20 @@ export const supabaseRepository: Repository = {
         await db().from('orders').select(ORDER_SELECT).eq('stripe_session_id', sessionId).maybeSingle(),
       );
       return r ? toOrder(r) : null;
+    },
+  },
+  prices: {
+    async list() {
+      const rows = check(await db().from('product_prices').select('sku, tier, price_cents'));
+      return (rows ?? []).map((r: Row): PriceOverride => ({ sku: r.sku, tier: r.tier, priceCents: r.price_cents }));
+    },
+    async set(sku, tier, priceCents) {
+      check(
+        await db().from('product_prices').upsert(
+          { sku, tier, price_cents: priceCents, updated_at: new Date().toISOString() },
+          { onConflict: 'sku,tier' },
+        ),
+      );
     },
   },
   applications: {

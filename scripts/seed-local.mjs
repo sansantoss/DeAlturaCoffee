@@ -56,5 +56,39 @@ for (const a of accounts) {
   console.log(`Creada: ${a.email} / ${a.password}`);
 }
 
+// Pedidos de ejemplo repartidos en el año (solo si no hay pedidos), para ver el panel con datos.
+if (!db.orders.length && process.argv.includes('--orders')) {
+  const demo = db.customers.find((c) => c.email === 'demo@dealtura.ca');
+  const cat = JSON.parse(await fs.readFile(path.join(process.cwd(), 'content', 'products.json'), 'utf8'));
+  const statuses = ['delivered', 'delivered', 'delivered', 'shipped', 'roasting', 'invoiced', 'paid', 'awaiting_payment'];
+  const now = new Date();
+  let seq = db.orderSeq;
+  for (let i = 0; i < 70; i++) {
+    const daysAgo = Math.floor(Math.random() * 290 * Math.random());
+    const created = new Date(now.getTime() - daysAgo * 864e5 - Math.random() * 6e7);
+    const lines = [];
+    const nLines = 1 + Math.floor(Math.random() * 2);
+    for (let j = 0; j < nLines; j++) {
+      const p = cat[Math.floor(Math.random() * cat.length)];
+      const f = p.formats[Math.floor(Math.random() * p.formats.length)];
+      lines.push({ sku: f.sku, productId: p.id, productName: p.name.es, formatLabel: f.label.es, roast: p.roasts[0], quantity: 2 + Math.floor(Math.random() * 6), unitPriceCents: f.price.standard, grams: f.grams });
+    }
+    const subtotal = lines.reduce((s, l) => s + l.unitPriceCents * l.quantity, 0);
+    const kg = lines.reduce((s, l) => s + (l.grams * l.quantity) / 1000, 0);
+    const shipping = kg >= 20 ? 0 : 2500;
+    seq += 1;
+    db.orders.push({
+      id: randomUUID(), number: `DA-${seq}`, customerId: demo.id,
+      status: daysAgo < 3 ? statuses[3 + Math.floor(Math.random() * 5)] : statuses[Math.floor(Math.random() * 3)],
+      paymentMethod: Math.random() < 0.5 ? 'invoice' : 'card', lines,
+      subtotalCents: subtotal, shippingCents: shipping, taxCents: 0, totalCents: subtotal + shipping,
+      shippingAddress: { label: 'Café Demo', line1: '123 Example Street', city: 'Toronto', province: 'ON', postalCode: 'M5V 1A1' },
+      createdAt: created.toISOString(), updatedAt: created.toISOString(),
+    });
+  }
+  db.orderSeq = seq;
+  console.log('70 pedidos de ejemplo creados');
+}
+
 await fs.mkdir(path.dirname(FILE), { recursive: true });
 await fs.writeFile(FILE, JSON.stringify(db, null, 2));

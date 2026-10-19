@@ -12,7 +12,8 @@
     "seed": "node scripts/seed-local.mjs",
     "brand": "node scripts/build-brand.mjs",
     "images": "node scripts/scan-images.mjs",
-    "check:supabase": "node --env-file=.env.local scripts/check-supabase.mjs"
+    "check:supabase": "node --env-file=.env.local scripts/check-supabase.mjs",
+    "seed:demo": "node scripts/seed-local.mjs --orders"
   },
   "dependencies": {
     "@fontsource-variable/cormorant-garamond": "^5.3.0",

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link, redirect } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
-import { ProfileForm } from '@/components/forms';
+import { PasswordForm, ProfileForm } from '@/components/forms';
 import { getCurrentCustomer } from '@/lib/auth';
 import { isAdmin } from '@/lib/admin';
 import { repo } from '@/lib/db';
@@ -63,6 +63,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
             <h2 id="profile-h">{t('account.profile')}</h2>
             <p className="hint">{customer.email}</p>
             <ProfileForm customer={customer} />
+            <PasswordForm />
             <form action={signOutAction}>
               <button className="link" style={{ textDecorationColor: 'currentColor' }}>{t('auth.signOut')}</button>
             </form>

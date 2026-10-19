@@ -1,4 +1,4 @@
-import type { Customer, Order, OrderStatus, WholesaleApplication } from '../types';
+import type { Customer, Order, OrderStatus, PriceOverride, PriceTier, WholesaleApplication } from '../types';
 
 /**
  * The only door to customer and order data. Two implementations:
@@ -23,6 +23,10 @@ export interface Repository {
     create(order: Omit<Order, 'number'>): Promise<Order>;
     updateStatus(id: string, status: OrderStatus, patch?: Partial<Order>): Promise<Order>;
     findByStripeSession(sessionId: string): Promise<Order | null>;
+  };
+  prices: {
+    list(): Promise<PriceOverride[]>;
+    set(sku: string, tier: PriceTier, priceCents: number): Promise<void>;
   };
   applications: {
     create(app: WholesaleApplication): Promise<WholesaleApplication>;

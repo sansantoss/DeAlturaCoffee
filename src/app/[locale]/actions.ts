@@ -11,6 +11,7 @@ import { findFormat } from '@/lib/catalog';
 import { repo } from '@/lib/db';
 import { createCheckoutSession, paymentsEnabled } from '@/lib/payments';
 import { createOrder } from '@/lib/orders';
+import { setOwnPassword } from '@/lib/accounts';
 import type { Address, Locale, Order, Province } from '@/lib/types';
 
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'] as const;
@@ -225,4 +226,17 @@ export async function payOrderAction(form: FormData) {
     await repo.orders.updateStatus(order.id, 'awaiting_payment', { stripeSessionId: session.id });
     nextRedirect(session.url);
   }
+}
+
+/* ---------------- Password ---------------- */
+
+export async function changePasswordAction(_: FormState, form: FormData): Promise<FormState> {
+  const customer = await getCurrentCustomer();
+  if (!customer) return { error: 'auth' };
+  const password = String(form.get('password') ?? '');
+  const confirm = String(form.get('confirm') ?? '');
+  if (password.length < 8) return { error: 'short', fields: ['password'] };
+  if (password !== confirm) return { error: 'mismatch', fields: ['confirm'] };
+  await setOwnPassword(customer.id, password);
+  return { ok: true };
 }

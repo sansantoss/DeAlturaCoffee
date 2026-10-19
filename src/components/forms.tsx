@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import {
   applyAction,
+  changePasswordAction,
   placeOrderAction,
   saveProfileAction,
   signInAction,
@@ -204,6 +205,24 @@ export function CheckoutForm({
       <button className="btn btn--block" disabled={!canOrder || pending}>
         {paymentsEnabled ? t('placeAndPay') : t('place')}
       </button>
+    </form>
+  );
+}
+
+/* ---------------- Password ---------------- */
+
+export function PasswordForm() {
+  const t = useTranslations('account.password');
+  const [state, action, pending] = useActionState<FormState, FormData>(changePasswordAction, {});
+  return (
+    <form action={action} className="stack">
+      <h2>{t('title')}</h2>
+      <Field name="password" type="password" label={t('current')} state={state} autoComplete="new-password" />
+      <Field name="confirm" type="password" label={t('confirm')} state={state} autoComplete="new-password" />
+      {state.error === 'short' && <p className="error" role="alert">{t('short')}</p>}
+      {state.error === 'mismatch' && <p className="error" role="alert">{t('mismatch')}</p>}
+      {state.ok && <p className="notice" role="status">{t('saved')}</p>}
+      <div><button className="btn btn--ghost" disabled={pending}>{t('save')}</button></div>
     </form>
   );
 }

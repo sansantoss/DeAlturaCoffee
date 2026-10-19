@@ -2,7 +2,7 @@
   "currency": "CAD",
   "minimumOrderKg": 5,
   "roastDays": [2],
-  "publicPrices": false,
+  "publicPrices": true,
   "contactEmail": "hola@dealtura.ca",
   "freeShippingKg": 20,
   "shippingFlatCents": 2500

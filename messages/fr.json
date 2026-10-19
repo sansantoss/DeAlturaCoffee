@@ -268,7 +268,16 @@
     "line2": "Local, bureau (facultatif)",
     "postal": "Code postal",
     "terms": "Conditions de facture : net {days} jours",
-    "language": "Langue préférée pour les courriels"
+    "language": "Langue préférée pour les courriels",
+    "password": {
+      "title": "Changer le mot de passe",
+      "current": "Nouveau mot de passe",
+      "confirm": "Confirmez-le",
+      "save": "Changer le mot de passe",
+      "saved": "Mot de passe mis à jour.",
+      "mismatch": "Les mots de passe ne correspondent pas.",
+      "short": "Au moins 8 caractères."
+    }
   },
   "order": {
     "number": "Commande {number}",
@@ -335,7 +344,7 @@
   "admin": {
     "title": "Admin",
     "link": "Panneau admin",
-    "lead": "Approuvez les comptes et faites avancer les commandes. Les changements sont enregistrés dès que vous appuyez sur Enregistrer.",
+    "lead": "Approuvez les comptes et faites avancer les commandes. Appuyez sur Modifier, changez ce qu'il faut et Enregistrez.",
     "pendingTitle": "Comptes en attente",
     "pendingNone": "Aucun compte en attente.",
     "customersTitle": "Tous les comptes",
@@ -362,6 +371,123 @@
     },
     "forbidden": "Cette page est réservée à l'équipe DeAltura.",
     "payCard": "Carte",
-    "payInvoice": "Facture"
+    "payInvoice": "Facture",
+    "edit": "Modifier",
+    "cancel": "Annuler",
+    "saving": "Enregistrement…",
+    "nav": {
+      "overview": "Aperçu",
+      "orders": "Commandes",
+      "customers": "Clients",
+      "prices": "Prix",
+      "newOrder": "Nouvelle commande",
+      "newCustomer": "Nouveau client",
+      "site": "Voir le site"
+    },
+    "periods": {
+      "today": "Aujourd'hui",
+      "7d": "7 jours",
+      "month": "Ce mois-ci",
+      "year": "Cette année"
+    },
+    "kpi": {
+      "sales": "Ventes",
+      "orders": "Commandes",
+      "kg": "Kg vendus",
+      "avg": "Panier moyen",
+      "vs": "vs période précédente",
+      "new": "nouveau",
+      "pendingAccounts": "Comptes à examiner",
+      "toFulfil": "Commandes à préparer"
+    },
+    "charts": {
+      "salesDay": "Ventes par jour",
+      "salesMonth": "Ventes par mois",
+      "products": "Café vendu",
+      "customers": "Meilleurs clients",
+      "status": "Commandes par statut",
+      "empty": "Aucune vente pour cette période.",
+      "table": "Voir en tableau"
+    },
+    "col": {
+      "date": "Date",
+      "order": "Commande",
+      "customer": "Client",
+      "kg": "Kg",
+      "payment": "Paiement",
+      "total": "Total",
+      "status": "Statut",
+      "product": "Café",
+      "units": "Unités",
+      "sales": "Ventes",
+      "orders": "Commandes",
+      "business": "Entreprise",
+      "contact": "Contact",
+      "tier": "Grille",
+      "credit": "Crédit",
+      "access": "Accès",
+      "format": "Format",
+      "standard": "Standard (CAD)",
+      "partner": "Partenaire (CAD)",
+      "discount": "Remise partenaire",
+      "period": "Période"
+    },
+    "access": {
+      "yes": "Avec accès",
+      "no": "Sans accès",
+      "grant": "Donner l'accès",
+      "regrant": "Nouveau mot de passe",
+      "tempTitle": "Mot de passe temporaire",
+      "tempNote": "Copiez-le maintenant et envoyez-le au client; il ne sera plus affiché. Il peut le changer dans son compte.",
+      "confirm": "Générer un nouveau mot de passe? L'ancien cessera de fonctionner."
+    },
+    "all": "Tous",
+    "newCustomer": {
+      "title": "Nouveau client",
+      "lead": "Pour les clients qui commandent par courriel ou téléphone. Le compte est approuvé sans accès; quand il voudra se connecter, utilisez Donner l'accès.",
+      "create": "Créer le client",
+      "created": "Client créé.",
+      "orderFor": "Passer une commande pour ce client",
+      "addressTitle": "Adresse de livraison",
+      "accountTitle": "Conditions",
+      "errors": {
+        "exists": "Un compte existe déjà avec ce courriel.",
+        "invalid": "Vérifiez les champs indiqués.",
+        "unknown": "Impossible de le créer. Réessayez."
+      }
+    },
+    "newOrder": {
+      "title": "Nouvelle commande",
+      "lead": "Passez une commande au nom d'un client. Les prix viennent de sa grille.",
+      "customer": "Client",
+      "pick": "Choisissez un client",
+      "add": "Ajouter une ligne",
+      "remove": "Retirer",
+      "format": "Format",
+      "roast": "Torréfaction",
+      "qty": "Quantité",
+      "payment": "Paiement",
+      "card": "Carte ou virement (en attente de paiement)",
+      "invoice": "Facture à crédit",
+      "skipMinimum": "Permettre moins que le minimum de kg",
+      "notes": "Notes",
+      "create": "Créer la commande",
+      "created": "Commande créée.",
+      "view": "Voir les commandes",
+      "estimate": "Sous-total estimé",
+      "errors": {
+        "auth": "Le client n'est pas approuvé.",
+        "address": "Le client n'a pas d'adresse.",
+        "empty": "Ajoutez au moins une ligne.",
+        "minimum": "Sous le minimum de kg. Cochez la case pour le permettre.",
+        "invalid": "Vérifiez la commande."
+      }
+    },
+    "pricesPage": {
+      "title": "Prix",
+      "lead": "Prix par format, en dollars canadiens. Standard est la grille visible par tous; Partenaire, celle des clients avec remise.",
+      "note": "Les changements s'appliquent tout de suite sur le site et aux nouvelles commandes; les commandes existantes gardent leur prix."
+    },
+    "ordersCount": "{count, plural, one {# commande} other {# commandes}}"
   }
 }

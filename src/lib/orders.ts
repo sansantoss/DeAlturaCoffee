@@ -15,7 +15,7 @@ export type CreateOrderResult =
 export async function createOrder(
   customer: Customer | null,
   cart: CartLine[],
-  opts: { payment: 'card' | 'invoice'; notes?: string; locale: Locale },
+  opts: { payment: 'card' | 'invoice'; notes?: string; locale: Locale; skipMinimum?: boolean },
 ): Promise<CreateOrderResult> {
   if (!customer || customer.status !== 'approved') return { ok: false, error: 'auth' };
   const address = customer.addresses.find((a) => a.isDefault) ?? customer.addresses[0];
@@ -24,7 +24,7 @@ export async function createOrder(
   const method = opts.payment === 'invoice' && customer.invoiceTermsDays ? 'invoice' : 'card';
   const priced = await priceCart(cart, customer.priceTier, opts.locale, address.province);
   if (!priced.lines.length) return { ok: false, error: 'empty' };
-  if (!priced.meetsMinimum) return { ok: false, error: 'minimum' };
+  if (!priced.meetsMinimum && !opts.skipMinimum) return { ok: false, error: 'minimum' };
 
   const now = new Date().toISOString();
   const { id: _addrId, isDefault: _d, ...shippingAddress } = address;

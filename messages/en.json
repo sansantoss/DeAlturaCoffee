@@ -268,7 +268,16 @@
     "line2": "Unit, suite (optional)",
     "postal": "Postal code",
     "terms": "Invoice terms: net {days} days",
-    "language": "Preferred language for emails"
+    "language": "Preferred language for emails",
+    "password": {
+      "title": "Change password",
+      "current": "New password",
+      "confirm": "Confirm it",
+      "save": "Change password",
+      "saved": "Password updated.",
+      "mismatch": "The passwords don't match.",
+      "short": "At least 8 characters."
+    }
   },
   "order": {
     "number": "Order {number}",
@@ -335,7 +344,7 @@
   "admin": {
     "title": "Admin",
     "link": "Admin panel",
-    "lead": "Approve accounts and move orders along. Changes save as soon as you press Save.",
+    "lead": "Approve accounts and move orders along. Press Edit, change what you need and Save.",
     "pendingTitle": "Accounts waiting for review",
     "pendingNone": "No accounts waiting.",
     "customersTitle": "All accounts",
@@ -362,6 +371,123 @@
     },
     "forbidden": "This page is for the DeAltura team.",
     "payCard": "Card",
-    "payInvoice": "Invoice"
+    "payInvoice": "Invoice",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "saving": "Saving…",
+    "nav": {
+      "overview": "Overview",
+      "orders": "Orders",
+      "customers": "Customers",
+      "prices": "Prices",
+      "newOrder": "New order",
+      "newCustomer": "New customer",
+      "site": "View site"
+    },
+    "periods": {
+      "today": "Today",
+      "7d": "7 days",
+      "month": "This month",
+      "year": "This year"
+    },
+    "kpi": {
+      "sales": "Sales",
+      "orders": "Orders",
+      "kg": "Kg sold",
+      "avg": "Average order",
+      "vs": "vs previous period",
+      "new": "new",
+      "pendingAccounts": "Accounts to review",
+      "toFulfil": "Orders to fulfil"
+    },
+    "charts": {
+      "salesDay": "Sales by day",
+      "salesMonth": "Sales by month",
+      "products": "Coffee sold",
+      "customers": "Top customers",
+      "status": "Orders by status",
+      "empty": "No sales in this period.",
+      "table": "View as table"
+    },
+    "col": {
+      "date": "Date",
+      "order": "Order",
+      "customer": "Customer",
+      "kg": "Kg",
+      "payment": "Payment",
+      "total": "Total",
+      "status": "Status",
+      "product": "Coffee",
+      "units": "Units",
+      "sales": "Sales",
+      "orders": "Orders",
+      "business": "Business",
+      "contact": "Contact",
+      "tier": "Tier",
+      "credit": "Credit",
+      "access": "Access",
+      "format": "Format",
+      "standard": "Standard (CAD)",
+      "partner": "Partner (CAD)",
+      "discount": "Partner discount",
+      "period": "Period"
+    },
+    "access": {
+      "yes": "Has access",
+      "no": "No access",
+      "grant": "Give access",
+      "regrant": "New password",
+      "tempTitle": "Temporary password",
+      "tempNote": "Copy it now and send it to the customer; it won't be shown again. They can change it in their account.",
+      "confirm": "Generate a new password? The old one stops working."
+    },
+    "all": "All",
+    "newCustomer": {
+      "title": "New customer",
+      "lead": "For customers who order by email or phone. The account is approved without access; when they want to sign in, use Give access.",
+      "create": "Create customer",
+      "created": "Customer created.",
+      "orderFor": "Place an order for this customer",
+      "addressTitle": "Delivery address",
+      "accountTitle": "Terms",
+      "errors": {
+        "exists": "There is already an account with that email.",
+        "invalid": "Check the highlighted fields.",
+        "unknown": "Could not create it. Please try again."
+      }
+    },
+    "newOrder": {
+      "title": "New order",
+      "lead": "Place an order on a customer's behalf. Prices come from their tier.",
+      "customer": "Customer",
+      "pick": "Choose a customer",
+      "add": "Add line",
+      "remove": "Remove",
+      "format": "Format",
+      "roast": "Roast",
+      "qty": "Quantity",
+      "payment": "Payment",
+      "card": "Card or transfer (stays awaiting payment)",
+      "invoice": "Invoice on credit",
+      "skipMinimum": "Allow less than the minimum kg",
+      "notes": "Notes",
+      "create": "Create order",
+      "created": "Order created.",
+      "view": "View orders",
+      "estimate": "Estimated subtotal",
+      "errors": {
+        "auth": "The customer is not approved.",
+        "address": "The customer has no address.",
+        "empty": "Add at least one line.",
+        "minimum": "Below the minimum kg. Tick the box to allow it.",
+        "invalid": "Check the order."
+      }
+    },
+    "pricesPage": {
+      "title": "Prices",
+      "lead": "Price per format, in Canadian dollars. Standard is the list everyone sees; Partner is for discounted customers.",
+      "note": "Changes apply right away across the site and to new orders; existing orders keep their price."
+    },
+    "ordersCount": "{count, plural, one {# order} other {# orders}}"
   }
 }

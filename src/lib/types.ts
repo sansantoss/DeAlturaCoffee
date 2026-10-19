@@ -91,6 +91,8 @@ export interface Customer {
   invoiceTermsDays: number | null;
   addresses: Address[];
   createdAt: string;
+  /** false = cuenta gestionada por el equipo (pide por correo/teléfono), todavía sin contraseña propia. */
+  hasLogin?: boolean;
 }
 
 export type OrderStatus =
@@ -145,6 +147,13 @@ export interface WholesaleApplication {
   message?: string;
   locale: Locale;
   createdAt: string;
+}
+
+/** Precio editado desde el admin. Sobrescribe el de content/products.json. */
+export interface PriceOverride {
+  sku: string;
+  tier: PriceTier;
+  priceCents: number;
 }
 
 export interface CartLine {

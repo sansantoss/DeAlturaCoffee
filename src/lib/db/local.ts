@@ -1,7 +1,7 @@
 import 'server-only';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import type { Customer, Order, WholesaleApplication } from '../types';
+import type { Customer, Order, PriceOverride, WholesaleApplication } from '../types';
 import type { Repository } from './repository';
 
 /**
@@ -16,10 +16,11 @@ export interface LocalDb {
   /** Local-mode login only. In Supabase mode passwords live in Supabase Auth, never here. */
   credentials: { userId: string; email: string; passwordHash: string }[];
   orderSeq: number;
+  prices: PriceOverride[];
 }
 
 const FILE = path.join(process.cwd(), '.data', 'db.json');
-const EMPTY: LocalDb = { customers: [], orders: [], applications: [], credentials: [], orderSeq: 1000 };
+const EMPTY: LocalDb = { customers: [], orders: [], applications: [], credentials: [], orderSeq: 1000, prices: [] };
 
 let queue: Promise<unknown> = Promise.resolve();
 
@@ -101,6 +102,19 @@ export const localRepository: Repository = {
     },
     async findByStripeSession(sessionId) {
       return (await readDb()).orders.find((o) => o.stripeSessionId === sessionId) ?? null;
+    },
+  },
+  prices: {
+    async list() {
+      return (await readDb()).prices ?? [];
+    },
+    set(sku, tier, priceCents) {
+      return mutateDb((db) => {
+        db.prices ??= [];
+        const i = db.prices.findIndex((p) => p.sku === sku && p.tier === tier);
+        if (i >= 0) db.prices[i].priceCents = priceCents;
+        else db.prices.push({ sku, tier, priceCents });
+      });
     },
   },
   applications: {

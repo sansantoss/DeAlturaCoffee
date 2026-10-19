@@ -2,6 +2,7 @@ import 'server-only';
 import productsJson from '@content/products.json';
 import originsJson from '@content/origins.json';
 import settingsJson from '@content/settings.json';
+import { repo } from './db';
 import type { Origin, Product, ProductFormat, Settings } from './types';
 
 /**
@@ -14,12 +15,32 @@ const products = productsJson as Product[];
 const origins = originsJson as Origin[];
 const settings = settingsJson as Settings;
 
+/** Aplica los precios editados en el admin (tabla product_prices) sobre los del JSON. */
+async function withPrices(list: Product[]): Promise<Product[]> {
+  let overrides: Awaited<ReturnType<typeof repo.prices.list>> = [];
+  try {
+    overrides = await repo.prices.list();
+  } catch {
+    overrides = []; // si la tabla aún no existe, se usan los precios del JSON
+  }
+  if (!overrides.length) return list;
+  return list.map((p) => ({
+    ...p,
+    formats: p.formats.map((f) => {
+      const price = { ...f.price };
+      for (const o of overrides) if (o.sku === f.sku) price[o.tier] = o.priceCents;
+      return { ...f, price };
+    }),
+  }));
+}
+
 export async function listProducts(): Promise<Product[]> {
-  return products.filter((p) => p.active);
+  return withPrices(products.filter((p) => p.active));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  return products.find((p) => p.slug === slug && p.active) ?? null;
+  const p = products.find((x) => x.slug === slug && x.active);
+  return p ? (await withPrices([p]))[0] : null;
 }
 
 export async function listOrigins(): Promise<Origin[]> {
@@ -37,7 +58,7 @@ export async function getSettings(): Promise<Settings> {
 export async function findFormat(
   sku: string,
 ): Promise<{ product: Product; format: ProductFormat } | null> {
-  for (const product of products) {
+  for (const product of await listProducts()) {
     const format = product.formats.find((f) => f.sku === sku);
     if (format && product.active) return { product, format };
   }

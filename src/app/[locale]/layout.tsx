@@ -48,7 +48,7 @@ export default async function LocaleLayout({
   const t = await getTranslations('nav');
 
   return (
-    <html lang={locale === 'fr' ? 'fr-CA' : locale === 'es' ? 'es' : 'en-CA'}>
+    <html lang={locale === 'fr' ? 'fr-CA' : locale === 'es' ? 'es' : 'en-CA'} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>

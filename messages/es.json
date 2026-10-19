@@ -268,7 +268,16 @@
     "line2": "Local, oficina (opcional)",
     "postal": "Código postal",
     "terms": "Factura a {days} días",
-    "language": "Idioma preferido para correos"
+    "language": "Idioma preferido para correos",
+    "password": {
+      "title": "Cambiar contraseña",
+      "current": "Nueva contraseña",
+      "confirm": "Confírmala",
+      "save": "Cambiar contraseña",
+      "saved": "Contraseña actualizada.",
+      "mismatch": "Las contraseñas no coinciden.",
+      "short": "Mínimo 8 caracteres."
+    }
   },
   "order": {
     "number": "Pedido {number}",
@@ -335,7 +344,7 @@
   "admin": {
     "title": "Admin",
     "link": "Panel de admin",
-    "lead": "Aprueba cuentas y avanza los pedidos. Los cambios se guardan al presionar Guardar.",
+    "lead": "Aprueba cuentas y avanza los pedidos. Presiona Editar, cambia lo que necesites y Guarda.",
     "pendingTitle": "Cuentas por revisar",
     "pendingNone": "No hay cuentas por revisar.",
     "customersTitle": "Todas las cuentas",
@@ -362,6 +371,123 @@
     },
     "forbidden": "Esta página es para el equipo de DeAltura.",
     "payCard": "Tarjeta",
-    "payInvoice": "Factura"
+    "payInvoice": "Factura",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "saving": "Guardando…",
+    "nav": {
+      "overview": "Resumen",
+      "orders": "Pedidos",
+      "customers": "Clientes",
+      "prices": "Precios",
+      "newOrder": "Nuevo pedido",
+      "newCustomer": "Nuevo cliente",
+      "site": "Ver el sitio"
+    },
+    "periods": {
+      "today": "Hoy",
+      "7d": "7 días",
+      "month": "Este mes",
+      "year": "Este año"
+    },
+    "kpi": {
+      "sales": "Ventas",
+      "orders": "Pedidos",
+      "kg": "Kg vendidos",
+      "avg": "Ticket promedio",
+      "vs": "vs periodo anterior",
+      "new": "nuevo",
+      "pendingAccounts": "Cuentas por revisar",
+      "toFulfil": "Pedidos por surtir"
+    },
+    "charts": {
+      "salesDay": "Ventas por día",
+      "salesMonth": "Ventas por mes",
+      "products": "Café vendido",
+      "customers": "Mejores clientes",
+      "status": "Pedidos por estado",
+      "empty": "Sin ventas en este periodo.",
+      "table": "Ver como tabla"
+    },
+    "col": {
+      "date": "Fecha",
+      "order": "Pedido",
+      "customer": "Cliente",
+      "kg": "Kg",
+      "payment": "Pago",
+      "total": "Total",
+      "status": "Estado",
+      "product": "Café",
+      "units": "Unidades",
+      "sales": "Ventas",
+      "orders": "Pedidos",
+      "business": "Negocio",
+      "contact": "Contacto",
+      "tier": "Lista",
+      "credit": "Crédito",
+      "access": "Acceso",
+      "format": "Formato",
+      "standard": "Estándar (CAD)",
+      "partner": "Socio (CAD)",
+      "discount": "Descuento socio",
+      "period": "Periodo"
+    },
+    "access": {
+      "yes": "Con acceso",
+      "no": "Sin acceso",
+      "grant": "Dar acceso",
+      "regrant": "Nueva contraseña",
+      "tempTitle": "Contraseña temporal",
+      "tempNote": "Cópiala ahora y mándasela al cliente; no se vuelve a mostrar. Puede cambiarla en Tu cuenta.",
+      "confirm": "¿Generar una contraseña nueva? La anterior deja de funcionar."
+    },
+    "all": "Todos",
+    "newCustomer": {
+      "title": "Nuevo cliente",
+      "lead": "Para clientes que piden por correo o teléfono. Queda aprobado y sin acceso; cuando quiera entrar, usa Dar acceso.",
+      "create": "Crear cliente",
+      "created": "Cliente creado.",
+      "orderFor": "Hacer un pedido para este cliente",
+      "addressTitle": "Dirección de entrega",
+      "accountTitle": "Condiciones",
+      "errors": {
+        "exists": "Ya existe una cuenta con ese correo.",
+        "invalid": "Revisa los campos marcados.",
+        "unknown": "No se pudo crear. Intenta de nuevo."
+      }
+    },
+    "newOrder": {
+      "title": "Nuevo pedido",
+      "lead": "Haz un pedido a nombre de un cliente. Los precios salen de su lista.",
+      "customer": "Cliente",
+      "pick": "Elige un cliente",
+      "add": "Agregar línea",
+      "remove": "Quitar",
+      "format": "Formato",
+      "roast": "Tueste",
+      "qty": "Cantidad",
+      "payment": "Pago",
+      "card": "Tarjeta o transferencia (queda esperando pago)",
+      "invoice": "Factura a crédito",
+      "skipMinimum": "Permitir menos del mínimo de kg",
+      "notes": "Notas",
+      "create": "Crear pedido",
+      "created": "Pedido creado.",
+      "view": "Ver pedidos",
+      "estimate": "Subtotal estimado",
+      "errors": {
+        "auth": "El cliente no está aprobado.",
+        "address": "El cliente no tiene dirección.",
+        "empty": "Agrega al menos una línea.",
+        "minimum": "No llega al mínimo de kg. Marca la casilla para permitirlo.",
+        "invalid": "Revisa el pedido."
+      }
+    },
+    "pricesPage": {
+      "title": "Precios",
+      "lead": "Precio por formato, en dólares canadienses. Estándar es la lista que ven todos; Socio, la de clientes con descuento.",
+      "note": "Los cambios aplican al momento en todo el sitio y en pedidos nuevos; los pedidos ya hechos conservan su precio."
+    },
+    "ordersCount": "{count, plural, one {# pedido} other {# pedidos}}"
   }
 }

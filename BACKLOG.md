@@ -24,7 +24,7 @@ Ideas y decisiones para siguientes sprints. Lo de arriba es lo más urgente.
 - Decisión pendiente: ¿cobrar todo con tarjeta, o tarjeta + factura a crédito para clientes aprobados?
 
 ### 2. Precios visibles sin cuenta / comprar sin cuenta
-- Ya existe el interruptor `publicPrices` en `content/settings.json` (mostrar precios estándar a visitantes).
+- **Hecho:** `publicPrices` activado; los visitantes ven la lista Estándar.
 - Comprar sin cuenta (checkout de invitado) cambia el modelo: hoy es solo mayoreo con aprobación.
 - Decidir antes de construir:
   - ¿Precio público = precio de mayoreo estándar, o un precio de menudeo más alto?
@@ -33,6 +33,7 @@ Ideas y decisiones para siguientes sprints. Lo de arriba es lo más urgente.
 - Posible enfoque: dos canales en el mismo catálogo — "Tienda" (público, menudeo, tarjeta) y "Mayoreo" (cuenta aprobada, precios por volumen, crédito).
 
 ### 3. Estampas / lealtad para clientes con cuenta
+- **Decidido:** estampas por kg entregado, no por pedido (pendiente: cuántos kg por estampa y qué premio).
 - Mecánica propuesta: cada pedido suma una estampa; la 10ª da una bolsa gratis.
 - Ojo B2B: a una cafetería que pide 20 kg por semana, una bolsa gratis le importa poco y premia igual un pedido de 5 kg que uno de 50 kg.
 - Alternativas a evaluar:
@@ -45,7 +46,15 @@ Ideas y decisiones para siguientes sprints. Lo de arriba es lo más urgente.
 - Viable y barato: un widget que responde solo con información del sitio (FAQ, mínimos, envíos, orígenes, cómo abrir cuenta).
 - Con la API de Claude, respuestas en EN/FR/ES; si no sabe, ofrece el correo de contacto.
 - Cuidar: que no invente precios ni promesas de entrega; registrar las preguntas para mejorar la FAQ.
-- Costo esperado bajo (centavos por conversación); necesita una llave de API y un límite de uso.
+- Cotización (precios API oct 2026): con Claude Haiku 5.5 ≈ USD 0.002 por conversación de 5 mensajes → ~USD 2 al mes por 1,000 conversaciones. Con Sonnet 5.5 ≈ USD 0.04 por conversación (~USD 37 / 1,000). Recomendado: Haiku.
+- Trabajo: 1 sprint (widget, respuestas con la info del sitio, límite de uso, registro de preguntas).
+
+### 5. Clientes por correo / teléfono (cuentas gestionadas)
+- El admin da de alta al cliente (negocio, contacto, correo, dirección) sin que el cliente tenga contraseña.
+- El admin hace pedidos a nombre de ese cliente desde el panel; quedan en su historial.
+- "Dar acceso": el admin genera una contraseña temporal y se la pasa por WhatsApp/teléfono; el cliente entra y la cambia. Sus pedidos anteriores ya están ahí (misma cuenta, no hay que ligar nada).
+- Requiere: formulario de alta en admin, formulario de pedido en admin, cambio de contraseña en "Tu cuenta".
+- Seguridad: nunca permitir que alguien "reclame" una cuenta solo con escribir el correo; el acceso lo da el admin (o un correo de verificación cuando haya Resend).
 
 ## Ideas tomadas de otros sitios
 - Barra superior con el mínimo de pedido y el día de tueste (Alexander Henry Coffee).
