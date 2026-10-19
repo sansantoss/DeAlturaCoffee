@@ -62,7 +62,7 @@ export function SignInForm({ next, demo }: { next?: string; demo?: { email: stri
       <input type="hidden" name="next" value={next ?? ''} />
       <Field name="email" type="email" label={t('email')} state={state} autoComplete="email" defaultValue={demo?.email} />
       <Field name="password" type="password" label={t('password')} state={state} autoComplete="current-password" />
-      {state.error && <p className="error" role="alert">{t('invalid')}</p>}
+      {state.error && <p className="error" role="alert">{t(state.error === 'unconfirmed' ? 'unconfirmed' : 'invalid')}</p>}
       <button className="btn" disabled={pending}>{t('submit')}</button>
       {demo && <p className="notice">{t('demo', demo)}</p>}
     </form>
@@ -75,6 +75,14 @@ export function ApplyForm() {
   const t = useTranslations('apply');
   const [state, action, pending] = useActionState<FormState, FormData>(applyAction, {});
   const types = ['cafe', 'restaurant', 'retail', 'office', 'other'] as const;
+  if (state.ok) {
+    return (
+      <div className="notice notice--strong stack" role="status">
+        <strong>{t('confirmTitle')}</strong>
+        <p>{t('confirmText')}</p>
+      </div>
+    );
+  }
   return (
     <form action={action} className="stack" noValidate>
       <div className="two">

@@ -232,7 +232,9 @@
       "exists": "Ya hay una cuenta con ese correo. Mejor inicia sesión.",
       "invalid": "Revisa los campos marcados.",
       "unknown": "Algo salió mal. Inténtalo de nuevo."
-    }
+    },
+    "confirmTitle": "Revisa tu correo",
+    "confirmText": "Te mandamos un correo para confirmar tu dirección. Haz clic en el enlace y tu solicitud queda registrada: revisamos cada cuenta en dos días hábiles."
   },
   "auth": {
     "title": "Iniciar sesión",
@@ -243,7 +245,8 @@
     "invalid": "El correo y la contraseña no coinciden.",
     "noAccount": "¿Aún no tienes cuenta?",
     "signOut": "Cerrar sesión",
-    "demo": "Cuenta demo: {email} / {password}"
+    "demo": "Cuenta demo: {email} / {password}",
+    "unconfirmed": "Primero confirma tu correo. Busca en tu bandeja el enlace que te mandamos."
   },
   "account": {
     "title": "Tu cuenta",

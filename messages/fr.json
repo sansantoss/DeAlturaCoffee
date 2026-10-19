@@ -232,7 +232,9 @@
       "exists": "Un compte existe déjà avec ce courriel. Connectez-vous plutôt.",
       "invalid": "Vérifiez les champs indiqués.",
       "unknown": "Une erreur est survenue. Réessayez."
-    }
+    },
+    "confirmTitle": "Vérifiez votre boîte de réception",
+    "confirmText": "Nous vous avons envoyé un courriel pour confirmer votre adresse. Cliquez sur le lien et votre demande est envoyée : nous examinons chaque compte en deux jours ouvrables."
   },
   "auth": {
     "title": "Connexion",
@@ -243,7 +245,8 @@
     "invalid": "Ce courriel et ce mot de passe ne correspondent pas.",
     "noAccount": "Pas encore de compte ?",
     "signOut": "Se déconnecter",
-    "demo": "Compte de démonstration : {email} / {password}"
+    "demo": "Compte de démonstration : {email} / {password}",
+    "unconfirmed": "Veuillez d'abord confirmer votre courriel. Le lien se trouve dans votre boîte de réception."
   },
   "account": {
     "title": "Votre compte",

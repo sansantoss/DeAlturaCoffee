@@ -88,19 +88,30 @@ El catálogo sigue en JSON; se puede pasar a tablas después reimplementando `sr
    git remote add origin https://github.com/<tu-usuario>/dealtura-web.git
    git push -u origin main
    ```
-2. **Supabase:** crea un proyecto en supabase.com → SQL Editor → pega y corre
-   `supabase/migrations/0001_init.sql`. En Authentication → Providers deja Email activado. Mientras no configuren correos
-   propios, desactiva "Confirm email" para que quien solicita cuenta entre directo a su panel
-   (igual no puede pedir hasta que lo apruebes).
-3. **Vercel:** "Add New Project" → importa el repo. En Environment Variables pon:
-   - `DATA_BACKEND=supabase`
-   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (Supabase → Settings → API)
-   - `AUTH_SECRET` (cualquier texto largo aleatorio)
-   - `NEXT_PUBLIC_SITE_URL` (la URL final, p. ej. `https://dealtura.ca`)
-   - `ADMIN_EMAILS` (los correos del equipo que pueden entrar a `/admin`)
-4. Deploy. Cada `git push` a `main` vuelve a publicar solo.
-5. Para entrar como admin: abre una cuenta desde `/wholesale` con un correo de `ADMIN_EMAILS`,
-   y en Supabase cambia su `status` a `approved` en la tabla `customers` (solo la primera vez).
+2. **Vercel:** importa el repo (Framework Preset: Next.js). Cada `git push` a `main` publica solo.
+
+## Conectar Supabase (cuentas, solicitudes y pedidos en línea)
+
+1. **Base de datos.** Supabase → **SQL Editor** → New query. Pega y corre, en este orden:
+   - `supabase/migrations/0001_init.sql`
+   - `supabase/migrations/0002_grants.sql`
+2. **Correo de confirmación.** Supabase → **Authentication → URL Configuration**:
+   - *Site URL*: la URL del sitio (`https://dealturacoffee.vercel.app` o su dominio).
+   - *Redirect URLs*: agrega `https://dealturacoffee.vercel.app/api/auth/callback` y `http://localhost:3000/api/auth/callback`.
+   Si prefieren que el cliente entre sin confirmar su correo: **Authentication → Sign In / Providers → Email**, apaga *Confirm email*.
+3. **Llaves.** Supabase → **Project Settings → API Keys** (y *Data API* para la URL). En `.env.local`:
+   ```
+   DATA_BACKEND=supabase
+   NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=<llave publishable / anon>
+   SUPABASE_SERVICE_ROLE_KEY=<llave secret / service_role>
+   ADMIN_EMAILS=tu-correo@ejemplo.com
+   AUTH_SECRET=<texto largo aleatorio>
+   ```
+   La llave secreta da acceso total a la base: no la subas a GitHub ni la mandes por chat.
+4. **Revisa:** `npm run check:supabase`. Si todo sale con ✔, corre `npm run dev` y prueba.
+5. **Vercel:** Settings → Environment Variables → las mismas seis variables → Redeploy.
+6. **Primer admin:** abre una cuenta en `/es/wholesale` con el correo de `ADMIN_EMAILS`, entra a `/es/admin` y apruébate (y a los demás).
 
 ## Pagos con Stripe
 

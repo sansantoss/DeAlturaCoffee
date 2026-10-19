@@ -62,7 +62,7 @@ export async function signInAction(_: FormState, form: FormData): Promise<FormSt
   const password = String(form.get('password') ?? '');
   if (!email || !password) return { error: 'invalid' };
   const res = await signIn(email, password);
-  if (!res.ok) return { error: 'invalid' };
+  if (!res.ok) return { error: res.error === 'unconfirmed' ? 'unconfirmed' : 'invalid' };
   const next = String(form.get('next') ?? '');
   redirect({ href: next.startsWith('/') && !next.startsWith('//') ? next : '/account', locale: await locale() });
   return {};
@@ -88,7 +88,8 @@ export async function applyAction(_: FormState, form: FormData): Promise<FormSta
   }
   const d = parsed.data;
   const loc = await locale();
-  const res = await signUp(d.email, d.password);
+  if (await repo.customers.getByEmail(d.email)) return { error: 'exists' };
+  const res = await signUp(d.email, d.password, `/${loc}/account`);
   if (!res.ok) return { error: res.error === 'exists' ? 'exists' : 'unknown' };
 
   const now = new Date().toISOString();
@@ -119,6 +120,7 @@ export async function applyAction(_: FormState, form: FormData): Promise<FormSta
     locale: loc,
     createdAt: now,
   });
+  if (res.needsConfirmation) return { ok: true };
   redirect({ href: '/account', locale: loc });
   return {};
 }

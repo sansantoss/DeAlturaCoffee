@@ -6,6 +6,7 @@ import { createServerClient } from '@supabase/ssr';
 import { backend, repo } from './db';
 import { mutateDb, readDb } from './db/local';
 import type { Customer } from './types';
+import { siteUrl } from './site';
 
 /**
  * Authentication with two backends behind one API:
@@ -17,7 +18,9 @@ const scrypt = promisify(scryptCb) as (pw: string, salt: string, len: number) =>
 const SESSION_COOKIE = 'da_session';
 const MAX_AGE = 60 * 60 * 24 * 30;
 
-export type AuthResult = { ok: true; userId: string } | { ok: false; error: 'invalid' | 'exists' | 'unknown' };
+export type AuthResult =
+  | { ok: true; userId: string; needsConfirmation?: boolean }
+  | { ok: false; error: 'invalid' | 'exists' | 'unknown' | 'unconfirmed' };
 
 /* ---------------- Supabase ---------------- */
 
@@ -100,6 +103,9 @@ export async function getCurrentCustomer(): Promise<Customer | null> {
 export async function signIn(email: string, password: string): Promise<AuthResult> {
   if (backend === 'supabase') {
     const { data, error } = await (await supabase()).auth.signInWithPassword({ email, password });
+    if (error && (error.code === 'email_not_confirmed' || /not confirmed/i.test(error.message))) {
+      return { ok: false, error: 'unconfirmed' };
+    }
     return error || !data.user ? { ok: false, error: 'invalid' } : { ok: true, userId: data.user.id };
   }
   const db = await readDb();
@@ -109,11 +115,19 @@ export async function signIn(email: string, password: string): Promise<AuthResul
   return { ok: true, userId: cred.userId };
 }
 
-export async function signUp(email: string, password: string): Promise<AuthResult> {
+/** `afterConfirm`: a dónde regresa el usuario al hacer clic en el correo de confirmación (ej. '/es/account'). */
+export async function signUp(email: string, password: string, afterConfirm = '/en/account'): Promise<AuthResult> {
   if (backend === 'supabase') {
-    const { data, error } = await (await supabase()).auth.signUp({ email, password });
+    const { data, error } = await (await supabase()).auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: `${siteUrl()}/api/auth/callback?next=${encodeURIComponent(afterConfirm)}` },
+    });
     if (error) return { ok: false, error: /registered|exists/i.test(error.message) ? 'exists' : 'unknown' };
-    return data.user ? { ok: true, userId: data.user.id } : { ok: false, error: 'unknown' };
+    if (!data.user) return { ok: false, error: 'unknown' };
+    // Con "Confirm email" activo, Supabase no revela si el correo ya existía: regresa un usuario sin identidades.
+    if (data.user.identities && data.user.identities.length === 0) return { ok: false, error: 'exists' };
+    return { ok: true, userId: data.user.id, needsConfirmation: !data.session };
   }
   const passwordHash = await hashPassword(password);
   const result = await mutateDb((db): AuthResult => {
