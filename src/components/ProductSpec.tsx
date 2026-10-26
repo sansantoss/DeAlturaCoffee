@@ -2,9 +2,23 @@ import { getTranslations } from 'next-intl/server';
 import type { Locale, Origin, Product } from '@/lib/types';
 import { formatNumber } from '@/lib/format';
 
-/** The bag label as a card: origin and score, tasting notes, variety / process / altitude. */
+export function altitudeText(origin: Origin, locale: Locale) {
+  const { min, max } = origin.altitude;
+  return min === max ? `${formatNumber(min, locale)} m` : `${formatNumber(min, locale)}–${formatNumber(max, locale)} m`;
+}
+
+/** La etiqueta de la bolsa como tarjeta: origen y puntaje, notas, y los datos del grano. */
 export async function ProductSpec({ product, origin, locale }: { product: Product; origin: Origin; locale: Locale }) {
   const t = await getTranslations('coffee');
+  const rows = [
+    { k: t('variety'), v: product.variety },
+    { k: t('process'), v: product.process[locale] },
+    { k: t('altitude'), v: altitudeText(origin, locale) },
+    product.harvest && { k: t('harvest'), v: product.harvest },
+    product.farm && { k: t('farm'), v: product.farm },
+    product.producer && { k: t('producer'), v: product.producer },
+  ].filter(Boolean) as { k: string; v: string }[];
+
   return (
     <div className="spec">
       <div className="spec__origin">
@@ -14,7 +28,7 @@ export async function ProductSpec({ product, origin, locale }: { product: Produc
         </div>
         {product.score && (
           <p className="spec__score nums">
-            {product.score}+<small>{t('score')}</small>
+            {product.score}<small>{t('score')}</small>
           </p>
         )}
       </div>
@@ -23,12 +37,9 @@ export async function ProductSpec({ product, origin, locale }: { product: Produc
         <p className="spec__notes">{product.tastingNotes[locale]}</p>
       </div>
       <dl className="spec__row">
-        <div><dt>{t('variety')}</dt><dd>{product.variety}</dd></div>
-        <div><dt>{t('process')}</dt><dd>{product.process[locale]}</dd></div>
-        <div>
-          <dt>{t('altitude')}</dt>
-          <dd className="nums">{formatNumber(origin.altitude.min, locale)}–{formatNumber(origin.altitude.max, locale)} m</dd>
-        </div>
+        {rows.map((r) => (
+          <div key={r.k}><dt>{r.k}</dt><dd className="nums">{r.v}</dd></div>
+        ))}
       </dl>
     </div>
   );

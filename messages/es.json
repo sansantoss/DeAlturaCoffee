@@ -1,10 +1,10 @@
 {
   "meta": {
     "title": "DeAltura Coffee — Café de altura de Latinoamérica, tostado en Canadá",
-    "description": "Café de especialidad al mayoreo de Santa Cruz de Mora, Mérida, cultivado entre 1,600 y 2,000 m y tostado en Canadá para cafeterías y tiendas."
+    "description": "Café de especialidad al mayoreo de Santa Cruz de Mora, en los Andes de Mérida, Venezuela, tostado en Canadá para cafeterías y tiendas."
   },
   "nav": {
-    "coffee": "Café",
+    "coffee": "Nuestro café",
     "origin": "Origen",
     "wholesale": "Mayoreo",
     "signIn": "Iniciar sesión",
@@ -14,22 +14,23 @@
     "language": "Idioma",
     "menu": "Menú",
     "close": "Cerrar",
-    "skip": "Ir al contenido"
+    "skip": "Ir al contenido",
+    "about": "Quiénes somos"
   },
   "hero": {
     "title1": "De altura,",
     "title2": "tostado aquí.",
-    "lead": "Café de especialidad de Venezuela y Latinoamérica, cultivado entre 1,500 y 2,000 metros y tostado cada semana en Canadá para cafeterías y tiendas.",
+    "lead": "Café de especialidad de los Andes de Mérida, Venezuela, tostado cada semana en Canadá para cafeterías, restaurantes y tiendas.",
     "see": "Ver los cafés",
     "meterLabel": "Altura a la que crece cada origen, comparada con Toronto",
     "home": "Toronto"
   },
   "intro": {
     "heading": "La altura es sabor",
-    "note": "Arriba de 1,600 metros el aire es fresco y las cerezas maduran despacio. Esa maduración lenta da granos más densos y con más azúcar; por eso este café sabe a chocolate y melaza.",
+    "note": "Con el aire fresco de los Andes la cereza madura despacio. Una maduración lenta da granos más densos y con más azúcar: azúcar de caña, caramelo y nuez en la taza.",
     "facts": [
       {
-        "value": "1,600–2,000 m",
+        "value": "1.200 m",
         "explain": "Sobre el nivel del mar, en los Andes de Mérida"
       },
       {
@@ -37,12 +38,12 @@
         "explain": "La variedad que siembran nuestros productores"
       },
       {
-        "value": "Lavado",
-        "explain": "Se retira la fruta antes de secar, para una taza limpia"
+        "value": "84 pts",
+        "explain": "Grado especialidad, verificado con catación SCA"
       },
       {
         "value": "Martes",
-        "explain": "Día de tueste en Canadá; se envía en 48 horas"
+        "explain": "Día de tueste en Canadá, se envía en 48 horas"
       }
     ]
   },
@@ -81,7 +82,7 @@
       },
       {
         "caption": "Tostado el martes",
-        "text": "Tostamos sobre pedido cada semana, un perfil para espresso y otro para filtro."
+        "text": "Tostamos sobre pedido cada semana, en tres niveles: claro, medio y oscuro."
       },
       {
         "caption": "Empacado y fechado",
@@ -94,7 +95,7 @@
     ]
   },
   "formats": {
-    "word": "Formatos",
+    "word": "Precios",
     "signInForPrice": "Inicia sesión para ver precio",
     "perKg": "{price} por kg",
     "espresso": "Tueste espresso",
@@ -107,7 +108,11 @@
     "freeFromValue": "{kg} kg",
     "flat": "Envío debajo de {kg} kg",
     "tax": "GST / HST en café en grano",
-    "taxValue": "Tasa cero"
+    "taxValue": "Tasa cero",
+    "light": "Tueste claro",
+    "medium": "Tueste medio",
+    "dark": "Tueste oscuro",
+    "available": "Disponible en tueste claro, medio y oscuro"
   },
   "calc": {
     "heading": "¿Cuánto vas a necesitar?",
@@ -124,42 +129,45 @@
         "a": "Cafeterías, restaurantes, tiendas y oficinas en Canadá con cuenta de negocio. Solicitas una vez y la revisamos en dos días hábiles."
       },
       {
-        "q": "¿Hay un mínimo?",
-        "a": "{kg} kg por pedido, combinando formatos y tuestes como quieras."
+        "q": "¿Hay pedido mínimo?",
+        "a": "{kg} kg por pedido, combinando formatos y tostados como quieras."
       },
       {
         "q": "¿Cuándo tuestan?",
         "a": "Cada martes. Los pedidos hechos antes del lunes a mediodía entran al tueste de esa semana y salen en 48 horas."
       },
       {
+        "q": "¿Claro, medio u oscuro?",
+        "a": "El mismo grano con tres curvas de tueste. Claro para filtro, medio para casi todo, oscuro para espresso con leche. Eliges el tueste en cada línea de tu pedido."
+      },
+      {
         "q": "¿A dónde envían?",
-        "a": "A todo Canadá por paquetería. Gratis desde {free} kg; debajo de eso, una tarifa fija de {flat}."
+        "a": "A todo Canadá por paquetería. El envío es gratis desde {free} kg; por debajo es una tarifa fija de {flat}."
       },
       {
         "q": "¿Cómo pago?",
-        "a": "Con tarjeta al hacer el pedido. Las cuentas aprobadas pueden pedir factura a 30 días."
+        "a": "Con tarjeta al finalizar el pedido. Las cuentas aprobadas pueden pedir factura a 30 días."
       },
       {
-        "q": "¿Cobran impuestos sobre el café?",
-        "a": "El café tostado en grano es un alimento básico en Canadá, así que tiene tasa cero de GST y HST."
+        "q": "¿El café paga impuestos?",
+        "a": "El café en grano tostado es un alimento básico en Canadá, así que tiene tasa cero de GST y HST."
       },
       {
         "q": "¿En grano o molido?",
-        "a": "Solo en grano, para que llegue fresco hasta tu molino."
+        "a": "Solo en grano, para que el café llegue fresco hasta tu molino."
       },
       {
-        "q": "¿Espresso o filtro?",
-        "a": "Los dos. Eliges el tueste en cada línea del pedido; es el mismo grano con otra curva."
-      },
-      {
-        "q": "¿Qué orígenes manejan?",
-        "a": "Venezuela es nuestro origen insignia, junto con lotes de altura de Colombia, Costa Rica y Panamá. Llegan lotes nuevos con cada cosecha."
+        "q": "¿De dónde viene el café?",
+        "a": "De Santa Cruz de Mora, en los Andes de Mérida, Venezuela. Cada lote se rastrea hasta su finca y se analiza en laboratorio antes de salir."
       }
     ]
   },
   "cta": {
     "sentence": "Cuéntanos de tu negocio. Respondemos en dos días hábiles.",
-    "word": "Solicita"
+    "word": "Solicitar",
+    "orderLine": "¿Listo para pedir?",
+    "orderLink": "Ver precios y pedir",
+    "applyLink": "Abrir una cuenta"
   },
   "footer": {
     "invite1": "Sírvelo en",
@@ -170,15 +178,19 @@
     "made": "Cultivado en altura en Latinoamérica, tostado en Canadá."
   },
   "coffee": {
-    "title": "El café",
-    "lead": "Lotes de altura de Venezuela, Colombia, Costa Rica y Panamá, tostados para espresso o filtro.",
+    "title": "Nuestro café",
+    "lead": "Un origen de los Andes de Mérida, en tueste claro, medio u oscuro.",
     "variety": "Variedad",
     "process": "Proceso",
     "altitude": "Altitud",
     "notes": "Notas de cata",
-    "score": "Puntaje de taza",
+    "score": "Puntaje SCA",
     "view": "Ver y pedir",
-    "comingSoon": "Llegan lotes nuevos con cada cosecha."
+    "comingSoon": "Llegan lotes nuevos con cada cosecha.",
+    "harvest": "Cosecha",
+    "roastTitle": "Elige tu tueste",
+    "farm": "Finca",
+    "producer": "Productor"
   },
   "product": {
     "format": "Formato",
@@ -382,7 +394,10 @@
       "prices": "Precios",
       "newOrder": "Nuevo pedido",
       "newCustomer": "Nuevo cliente",
-      "site": "Ver el sitio"
+      "site": "Ver el sitio",
+      "inventory": "Inventario",
+      "expenses": "Gastos",
+      "margins": "Márgenes"
     },
     "periods": {
       "today": "Hoy",
@@ -488,6 +503,266 @@
       "lead": "Precio por formato, en dólares canadienses. Estándar es la lista que ven todos; Socio, la de clientes con descuento.",
       "note": "Los cambios aplican al momento en todo el sitio y en pedidos nuevos; los pedidos ya hechos conservan su precio."
     },
-    "ordersCount": "{count, plural, one {# pedido} other {# pedidos}}"
+    "ordersCount": "{count, plural, one {# pedido} other {# pedidos}}",
+    "converter": {
+      "title": "Conversor lb ⇄ kg"
+    },
+    "filter": {
+      "title": "Filtrar clientes",
+      "search": "Buscar",
+      "searchPh": "Negocio, contacto, correo…",
+      "city": "Ciudad",
+      "apply": "Filtrar",
+      "clear": "Quitar filtros",
+      "showing": "Mostrando {n} de {total}"
+    },
+    "fin": {
+      "notes": "Notas",
+      "delete": "Borrar",
+      "confirmDelete": "¿Borrar este registro? No se puede deshacer.",
+      "perLb": "{v} por lb",
+      "errors": {
+        "invalid": "Revisa los campos marcados.",
+        "roastedMore": "Salió más café tostado que verde: revisa los kilos.",
+        "unknown": "Algo salió mal. Intenta de nuevo."
+      },
+      "lotStatus": {
+        "ordered": "Pedido",
+        "in_transit": "En tránsito",
+        "received": "Recibido"
+      },
+      "costCat": {
+        "coffee": "Café verde",
+        "freight": "Flete a Canadá",
+        "customs": "Aduana e impuestos",
+        "broker": "Agente aduanal",
+        "insurance": "Seguro",
+        "storage": "Almacén",
+        "other": "Otro"
+      },
+      "lot": {
+        "new": "Nueva compra",
+        "lead": "La ficha de un pedido de café verde: cuánto, a qué precio y en qué moneda. Después le agregas el flete, la aduana y lo demás hasta tenerlo en Canadá.",
+        "code": "Código del lote",
+        "date": "Fecha de compra",
+        "supplier": "Proveedor",
+        "origin": "Origen",
+        "quantity": "Cantidad de café verde",
+        "status": "Estado",
+        "price": "Precio del café por unidad",
+        "priceHint": "Por {unit}, solo el café (sin flete ni aduana).",
+        "currency": "Moneda",
+        "fx": "Tipo de cambio a CAD",
+        "fxHint": "Cuántos CAD vale 1 USD.",
+        "estimate": "{kg} kg de café verde · {total} · {perKg} por kg (sin gastos todavía)",
+        "estimateEmpty": "Escribe la cantidad y el precio para ver el costo en CAD.",
+        "create": "Guardar compra",
+        "created": "Compra guardada.",
+        "createdNext": "Ahora agrega sus gastos (flete, aduana…) para tener el costo real por kilo.",
+        "open": "Abrir la ficha",
+        "sheet": "Ficha de compra",
+        "bought": "Comprado",
+        "usedOf": "{kg} kg ya tostados",
+        "coffee": "Café",
+        "landed": "Costo total en Canadá",
+        "landedHint": "Café + {costs} de gastos",
+        "perKg": "Costo por kg verde",
+        "costsTitle": "Desglose de costos",
+        "costsLead": "Todo lo que se pagó para tener este café en Canadá. Los montos en USD se convierten con el tipo de cambio de la compra."
+      },
+      "cost": {
+        "category": "Concepto",
+        "label": "Detalle",
+        "labelPh": "Ej. contenedor Puerto Cabello → Montreal",
+        "amount": "Monto",
+        "add": "Agregar gasto"
+      },
+      "batch": {
+        "new": "Registrar tueste",
+        "lead": "Lo que sale del lote en verde y lo que entra al inventario ya tostado. Con el cobro del tostador y los insumos calcula el costo por kilo.",
+        "noLots": "Primero registra una compra de café verde.",
+        "created": "Tueste registrado. Puedes registrar otro.",
+        "lot": "Lote de café verde",
+        "lotCost": "Costo del verde: {cost} por kg",
+        "date": "Fecha del tueste",
+        "roast": "Tueste",
+        "green": "Café verde que entra",
+        "roasted": "Café tostado que sale",
+        "rate": "Cobro del tostador",
+        "basis": "Se cobra sobre",
+        "basisGreen": "kg de café verde",
+        "basisRoasted": "kg de café tostado",
+        "packaging": "Insumos (CAD)",
+        "packagingHint": "Bolsas, etiquetas, válvulas… de este tueste.",
+        "estimate": "Merma {shrink}% · costo total {total} · {perKg} por kg tostado ({perLb} por lb)",
+        "estimateEmpty": "Escribe los kilos para ver la merma y el costo por kilo.",
+        "create": "Guardar tueste"
+      },
+      "inv": {
+        "empty": "Aún no hay compras registradas. Empieza con «Nueva compra» y luego registra cada tueste.",
+        "green": "Café verde en bodega",
+        "incoming": "+ {kg} kg pedidos o en camino",
+        "roasted": "Café tostado en mano",
+        "committed": "Comprometido",
+        "committedHint": "En pedidos que no han salido",
+        "avgCost": "Costo promedio por kg tostado",
+        "noBatches": "Aún no hay tuestes",
+        "byRoast": "Tostado por nivel",
+        "toRoast": "falta tostar",
+        "since": "Cuenta los pedidos desde la primera compra ({date}).",
+        "lots": "Compras de café verde",
+        "noLots": "Sin compras.",
+        "batches": "Tuestes"
+      },
+      "col": {
+        "roast": "Tueste",
+        "produced": "Tostado",
+        "shipped": "Enviado",
+        "onHand": "En mano",
+        "committed": "Comprometido",
+        "free": "Libre",
+        "costKg": "Costo/kg",
+        "lot": "Lote",
+        "status": "Estado",
+        "bought": "Comprado",
+        "used": "Tostado",
+        "remaining": "Queda",
+        "landed": "Costo total",
+        "costKgGreen": "Costo/kg verde",
+        "greenIn": "Verde",
+        "roastedOut": "Tostado",
+        "shrink": "Merma",
+        "batchCost": "Costo"
+      },
+      "exp": {
+        "month": "Mes",
+        "tag": "Etiqueta",
+        "description": "Descripción",
+        "descriptionPh": "Ej. renta del local de octubre",
+        "amount": "Monto (CAD)",
+        "add": "Agregar gasto",
+        "total": "Total del mes",
+        "vsPrev": "vs mes anterior",
+        "count": "Registros",
+        "year": "Total {year}",
+        "listTitle": "Gastos de {month}",
+        "none": "Sin gastos este mes.",
+        "byTag": "Por etiqueta",
+        "tags": [
+          "Renta",
+          "Tostador",
+          "Insumos",
+          "Transporte",
+          "Aduana",
+          "Marketing",
+          "Servicios",
+          "Sueldos",
+          "Software",
+          "Otro"
+        ]
+      },
+      "mar": {
+        "noCost": "Para calcular márgenes registra al menos una compra y un tueste: así se sabe cuánto cuesta cada kilo.",
+        "sales": "Ventas de café",
+        "shipping": "+ {v} de envío cobrado",
+        "cogs": "Costo del café vendido",
+        "gross": "Margen bruto",
+        "ofSales": "{pct} de las ventas",
+        "net": "Utilidad",
+        "afterExpenses": "Después de {v} de gastos operativos",
+        "perKgTitle": "Por kilo vendido",
+        "pricePerKg": "Precio promedio",
+        "costPerKg": "Costo promedio",
+        "marginPerKg": "Margen",
+        "byMonth": "Mes a mes, {year}",
+        "month": "Mes",
+        "expenses": "Gastos",
+        "total": "Total",
+        "how": "Cómo se calcula: costo del café = kg vendidos × costo promedio por kg tostado de ese tueste (café verde con flete y aduana + tostador + insumos). Utilidad = ventas + envío − costo del café − gastos operativos del mes. No incluye impuestos sobre la renta."
+      }
+    }
+  },
+  "roasts": {
+    "heading": "Un origen, tres tostados",
+    "kicker": "Santa Cruz de Mora · Venezuela",
+    "light": "Tueste claro",
+    "medium": "Tueste medio",
+    "dark": "Tueste oscuro",
+    "cta": "Pedir este tueste",
+    "prev": "Tueste anterior",
+    "next": "Siguiente tueste",
+    "slide": "{n} de {total}"
+  },
+  "lab": {
+    "title": "Ficha técnica",
+    "lead": "Análisis físico y sensorial del lote {lot}, {date}, por {lab}.",
+    "cupTitle": "Catación",
+    "cupNote": "Cada atributo sobre 10. Total: {score} puntos.",
+    "inCup": "En la taza",
+    "physical": "Café verde",
+    "moisture": "Humedad",
+    "density": "Densidad",
+    "screen": "Tamaño de malla",
+    "screenNote": "{pct}% en malla 16 o mayor",
+    "defects": "Defectos primarios",
+    "grade": "Grado",
+    "gradeValue": "Especialidad (SCA)",
+    "keys": {
+      "fragrance": "Fragancia y aroma",
+      "flavor": "Sabor",
+      "aftertaste": "Sabor residual",
+      "acidity": "Acidez",
+      "body": "Cuerpo",
+      "balance": "Balance",
+      "uniformity": "Uniformidad",
+      "cleanCup": "Taza limpia",
+      "sweetness": "Dulzor",
+      "overall": "Puntaje del catador"
+    }
+  },
+  "farms": {
+    "heading": "¿De dónde viene?",
+    "lead": "Las fincas detrás de cada bolsa, en los Andes de Mérida.",
+    "altitude": "{m} m sobre el nivel del mar"
+  },
+  "about": {
+    "title": "Quiénes somos",
+    "lead": "Llevamos café de los Andes venezolanos a las barras de Canadá, tostado fresco cada semana.",
+    "storyTitle": "Nuestra historia",
+    "story": [
+      "DeAltura nació de una idea sencilla: el café que crece en las montañas de Venezuela merece un lugar en las cafeterías de Canadá.",
+      "Trabajamos con productores de Santa Cruz de Mora, Mérida. Importamos su café verde, lo tostamos aquí cada semana y lo llevamos a cafeterías, restaurantes y tiendas de todo el país."
+    ],
+    "pillarsTitle": "Cómo trabajamos",
+    "pillars": [
+      {
+        "title": "Desde la finca",
+        "text": "Sabemos quién cultiva cada lote: el productor, la finca y la altura. Esa historia viaja en la bolsa."
+      },
+      {
+        "title": "Verificado en laboratorio",
+        "text": "Cada lote se analiza antes de salir. Nuestro lote actual de la Finca La Curva obtuvo 84 puntos SCA, grado especialidad."
+      },
+      {
+        "title": "Tostado en Canadá",
+        "text": "El café verde se conserva por meses, así que lo tostamos aquí cada semana. Te llega a días de haberse tostado."
+      }
+    ],
+    "forTitle": "Para quién tostamos",
+    "forText": "Cafeterías, restaurantes, tiendas y oficinas que quieren un café de especialidad con origen claro y un proveedor que contesta el teléfono.",
+    "values": [
+      {
+        "value": "Trazable",
+        "explain": "Cada bolsa ligada a su finca"
+      },
+      {
+        "value": "Fresco",
+        "explain": "Tostado cada semana, con fecha en la bolsa"
+      },
+      {
+        "value": "Directo",
+        "explain": "De Mérida a tu barra"
+      }
+    ]
   }
 }

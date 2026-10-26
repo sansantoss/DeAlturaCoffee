@@ -1,15 +1,15 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
-import { Bag, MomentArt, Topo } from '@/components/art';
-import { ShowcaseTabs } from '@/components/home/Showcase';
+import { MomentArt, Topo } from '@/components/art';
+import { RoastCarousel } from '@/components/home/RoastCarousel';
 import { MomentRow } from '@/components/home/MomentRow';
+import { OrderCta } from '@/components/OrderCta';
 import { Calculator } from '@/components/home/Calculator';
 import { getCurrentCustomer } from '@/lib/auth';
-import { getSettings, listOrigins, listProducts } from '@/lib/catalog';
-import { Altimeter } from '@/components/home/Altimeter';
+import { getSettings, listProducts } from '@/lib/catalog';
 import { formatMoney } from '@/lib/format';
-import { productImages, siteImage, type SlotName } from '@/lib/images';
+import { roastImage, siteImage, type SlotName } from '@/lib/images';
 import { Photo } from '@/components/Photo';
 import Image from 'next/image';
 import type { Locale } from '@/lib/types';
@@ -18,11 +18,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
-  const [products, settings, customer, origins] = await Promise.all([listProducts(), getSettings(), getCurrentCustomer(), listOrigins()]);
+  const [products, settings, customer] = await Promise.all([listProducts(), getSettings(), getCurrentCustomer()]);
   const product = products[0];
   const heroImg = siteImage('hero', locale);
   const faqImg = siteImage('preguntas', locale);
-  const plateImg = product ? productImages(product.slug, product.name[locale])[0] : undefined;
   const tier = customer?.status === 'approved' ? customer.priceTier : settings.publicPrices ? 'standard' : null;
 
   const facts = t.raw('intro.facts') as { value: string; explain: string }[];
@@ -59,13 +58,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <Link href="/coffee" className="hero__link">{t('hero.see')}</Link>
           </div>
         </div>
-        <Altimeter
-          bands={origins.filter((o) => o.active).map((o) => ({ id: o.id, label: o.country[locale], min: o.altitude.min, max: o.altitude.max }))}
-          home={{ label: t('hero.home'), m: 76 }}
-          unit="m"
-          label={t('hero.meterLabel')}
-          locale={locale}
-        />
       </section>
 
       {/* ---------- Intro: altitude is flavour ---------- */}
@@ -84,29 +76,23 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </ul>
       </section>
 
-      {/* ---------- Showcase: the bag, by format ---------- */}
+      {/* ---------- Carrusel de tostados (antes: la bolsa por formato) ---------- */}
       {product && (
-        <ShowcaseTabs
-          title={t('showcase.title')}
-          seeLabel={t('showcase.see')}
-          applyLabel={customer ? t('nav.account') : t('showcase.apply')}
-          applyHref={customer ? '/account' : '/wholesale'}
-          tabs={product.formats.map((f) => ({
-            sku: f.sku,
-            label: t(`showcase.tabs.${f.sku}`),
-            text: t(`showcase.formats.${f.sku}`),
+        <RoastCarousel
+          heading={t('roasts.heading')}
+          kicker={t('roasts.kicker')}
+          product={product.name[locale]}
+          cta={t('roasts.cta')}
+          prev={t('roasts.prev')}
+          next={t('roasts.next')}
+          counter={t.raw('roasts.slide') as string}
+          slides={product.roasts.map((r) => ({
+            id: r,
+            name: t(`roasts.${r}`),
+            notes: product.roastInfo?.[r]?.notes[locale] ?? product.tastingNotes[locale],
+            use: product.roastInfo?.[r]?.use[locale] ?? '',
+            image: roastImage(product.slug, r, product.name[locale]),
           }))}
-          plate={plateImg ? (
-            <Photo image={plateImg} ratio="4/5" sizes="(max-width: 860px) 100vw, 45vw" />
-          ) : (
-            <Bag
-              label={t('showcase.bagAlt')}
-              origin="VENEZUELA"
-              title="Santa Cruz de Mora, Mérida"
-              notes={product.tastingNotes[locale]}
-            />
-          )
-          }
         />
       )}
 
@@ -124,6 +110,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           );
         })}
       </MomentRow>
+      <div className="wrap"><OrderCta /></div>
 
       {/* ---------- Formats + the calculator ---------- */}
       {product && (
@@ -136,25 +123,23 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
                   <details className="bar" key={f.sku} open={i === 0}>
                     <summary>{f.label[locale]}</summary>
                     <div className="bar__panel">
-                      {product.roasts.map((r) => (
-                        <div className="bar__item" key={r}>
-                          <span>
-                            {t(`formats.${r}`)}
-                            {tier && (
-                              <small className="nums">
-                                {t('formats.perKg', { price: formatMoney(Math.round((f.price[tier] / f.grams) * 1000), locale) })}
-                              </small>
-                            )}
-                          </span>
-                          <span className="bar__price nums">
-                            {tier ? (
-                              formatMoney(f.price[tier], locale)
-                            ) : (
-                              <Link href="/login" className="link">{t('formats.signInForPrice')}</Link>
-                            )}
-                          </span>
-                        </div>
-                      ))}
+                      <div className="bar__item">
+                        <span>
+                          {t('formats.available')}
+                          {tier && (
+                            <small className="nums">
+                              {t('formats.perKg', { price: formatMoney(Math.round((f.price[tier] / f.grams) * 1000), locale) })}
+                            </small>
+                          )}
+                        </span>
+                        <span className="bar__price nums">
+                          {tier ? (
+                            formatMoney(f.price[tier], locale)
+                          ) : (
+                            <Link href="/login" className="link">{t('formats.signInForPrice')}</Link>
+                          )}
+                        </span>
+                      </div>
                     </div>
                   </details>
                 ))}
@@ -174,21 +159,21 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </section>
       )}
 
-      {/* ---------- FAQ ---------- */}
+      {/* ---------- FAQ: preguntas como acordeón ---------- */}
       <section className="section wrap grid12 faq" aria-labelledby="faq-title">
         <div className="faq__side">
           <h2 id="faq-title">{t('faq.heading')}</h2>
           {faqImg && <Photo image={faqImg} sizes="(max-width: 860px) 100vw, 25vw" className="faq__photo" />}
         </div>
-        <div className="faq__text" data-reveal>
-          {faq.map((item) => (
-            <p key={item.q}>
-              <strong>{item.q}</strong> {interpolate(item.a, faqVars)}
-            </p>
+        <div className="bars faq__list" data-reveal>
+          {faq.map((item, i) => (
+            <details className="bar" key={item.q} open={i === 0}>
+              <summary>{item.q}</summary>
+              <div className="bar__panel"><p>{interpolate(item.a, faqVars)}</p></div>
+            </details>
           ))}
         </div>
       </section>
-
     </>
   );
 }

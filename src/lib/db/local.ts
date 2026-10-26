@@ -1,7 +1,7 @@
 import 'server-only';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import type { Customer, Order, PriceOverride, WholesaleApplication } from '../types';
+import type { Customer, Expense, GreenLot, Order, PriceOverride, RoastBatch, WholesaleApplication } from '../types';
 import type { Repository } from './repository';
 
 /**
@@ -17,10 +17,13 @@ export interface LocalDb {
   credentials: { userId: string; email: string; passwordHash: string }[];
   orderSeq: number;
   prices: PriceOverride[];
+  lots: GreenLot[];
+  batches: RoastBatch[];
+  expenses: Expense[];
 }
 
 const FILE = path.join(process.cwd(), '.data', 'db.json');
-const EMPTY: LocalDb = { customers: [], orders: [], applications: [], credentials: [], orderSeq: 1000, prices: [] };
+const EMPTY: LocalDb = { customers: [], orders: [], applications: [], credentials: [], orderSeq: 1000, prices: [], lots: [], batches: [], expenses: [] };
 
 let queue: Promise<unknown> = Promise.resolve();
 
@@ -115,6 +118,47 @@ export const localRepository: Repository = {
         if (i >= 0) db.prices[i].priceCents = priceCents;
         else db.prices.push({ sku, tier, priceCents });
       });
+    },
+  },
+  lots: {
+    async list() {
+      return [...(await readDb()).lots].sort((a, b) => b.purchasedAt.localeCompare(a.purchasedAt));
+    },
+    async getById(id) {
+      return (await readDb()).lots.find((l) => l.id === id) ?? null;
+    },
+    create(lot) {
+      return mutateDb((db) => { db.lots.push(lot); return lot; });
+    },
+    update(id, patch) {
+      return mutateDb((db) => {
+        const l = db.lots.find((x) => x.id === id);
+        if (!l) throw new Error('Lot not found');
+        Object.assign(l, patch);
+        return l;
+      });
+    },
+  },
+  batches: {
+    async list() {
+      return [...(await readDb()).batches].sort((a, b) => b.roastedAt.localeCompare(a.roastedAt));
+    },
+    create(batch) {
+      return mutateDb((db) => { db.batches.push(batch); return batch; });
+    },
+    remove(id) {
+      return mutateDb((db) => { db.batches = db.batches.filter((b) => b.id !== id); });
+    },
+  },
+  expenses: {
+    async list() {
+      return [...(await readDb()).expenses].sort((a, b) => b.month.localeCompare(a.month) || b.createdAt.localeCompare(a.createdAt));
+    },
+    create(expense) {
+      return mutateDb((db) => { db.expenses.push(expense); return expense; });
+    },
+    remove(id) {
+      return mutateDb((db) => { db.expenses = db.expenses.filter((e) => e.id !== id); });
     },
   },
   applications: {

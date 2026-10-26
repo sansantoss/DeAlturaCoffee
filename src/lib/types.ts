@@ -18,7 +18,43 @@ export interface Origin {
   active: boolean; // false = announced, not yet sold
 }
 
-export type RoastProfile = 'filter' | 'espresso' | 'omni';
+/** Niveles de tueste que se venden hoy. */
+export const ROAST_LEVELS = ['light', 'medium', 'dark'] as const;
+export type RoastLevel = (typeof ROAST_LEVELS)[number];
+/** Incluye los perfiles viejos (espresso/filtro) para que los pedidos anteriores se sigan leyendo. */
+export type RoastProfile = RoastLevel | 'filter' | 'espresso' | 'omni';
+
+/** Cómo sabe y para qué sirve cada tueste de un café. */
+export interface RoastInfo { notes: Localized; use: Localized }
+
+/** Resultado del análisis de laboratorio (ficha técnica). */
+export interface LabSheet {
+  date: string; // '2026-03-20'
+  lab: string; // quién lo analizó
+  lot: string;
+  harvest: string; // '2025–2026'
+  moisturePct: number;
+  densityGL: number;
+  screen: string; // '16–18'
+  screenAbove16Pct: number;
+  primaryDefects: number;
+  cupping: { key: string; score: number }[]; // aroma, sabor... (máx. 10)
+  descriptors: Localized;
+}
+
+/** Una finca de la que viene el café. Se publica solo si published = true. */
+export interface Farm {
+  id: string;
+  published: boolean;
+  name: string;
+  producer: string;
+  town: string;
+  state: string;
+  altitude: number; // msnm
+  variety: string;
+  image: string; // nombre del archivo en public/images (sin extensión)
+  text: Localized;
+}
 
 export interface ProductFormat {
   sku: string; // 'VEN-SCM-1KG'
@@ -38,7 +74,12 @@ export interface Product {
   process: Localized;
   tastingNotes: Localized;
   score?: number; // SCA cupping score, only if certified
-  roasts: RoastProfile[];
+  roasts: RoastLevel[];
+  roastInfo?: Partial<Record<RoastLevel, RoastInfo>>;
+  farm?: string;
+  producer?: string;
+  harvest?: string;
+  lab?: LabSheet;
   formats: ProductFormat[];
   /** Canadian sales tax category. Roasted coffee beans are basic groceries: zero-rated. */
   taxCategory: 'zero-rated-grocery' | 'standard';
@@ -158,6 +199,69 @@ export interface PriceOverride {
 
 export interface CartLine {
   sku: string;
-  roast: RoastProfile;
+  roast: RoastLevel;
   quantity: number;
+}
+
+/* ---------- Inventario y costos (panel de admin) ---------- */
+
+export type MassUnit = 'kg' | 'lb';
+export type CostCurrency = 'CAD' | 'USD';
+export type LotStatus = 'ordered' | 'in_transit' | 'received';
+export type LotCostCategory = 'freight' | 'customs' | 'broker' | 'insurance' | 'storage' | 'other';
+
+/** Un gasto ligado a una compra: flete a Canadá, aduana, agente, seguro... */
+export interface LotCost {
+  id: string;
+  category: LotCostCategory;
+  label: string;
+  amountCents: number;
+  currency: CostCurrency;
+}
+
+/** Ficha de compra de café verde (un lote). Se compra en lb o kg, en USD o CAD. */
+export interface GreenLot {
+  id: string;
+  code: string; // 'VEN-2026-01'
+  supplier: string;
+  origin: string;
+  purchasedAt: string; // YYYY-MM-DD
+  status: LotStatus;
+  quantity: number; // en inputUnit
+  inputUnit: MassUnit;
+  /** Precio del café por unidad (lb o kg), en la moneda de la compra, en centavos. */
+  pricePerUnitCents: number;
+  currency: CostCurrency;
+  /** Tipo de cambio a CAD (1 si la compra es en CAD). */
+  fxToCad: number;
+  costs: LotCost[];
+  notes?: string;
+  createdAt: string;
+}
+
+/** Un tueste: kg verdes que entran, kg tostados que salen, cobro del tostador e insumos. */
+export interface RoastBatch {
+  id: string;
+  lotId: string;
+  roastedAt: string; // YYYY-MM-DD
+  roast: RoastLevel;
+  greenKg: number;
+  roastedKg: number;
+  /** Lo que cobra el tostador, CAD por kg. */
+  roasterRateCents: number;
+  roasterBasis: 'green' | 'roasted';
+  /** Empaque, etiquetas, válvulas... del tueste, total en CAD. */
+  packagingCents: number;
+  notes?: string;
+  createdAt: string;
+}
+
+/** Gasto operativo del mes con etiqueta libre (renta, transporte, marketing...). */
+export interface Expense {
+  id: string;
+  month: string; // YYYY-MM
+  tag: string;
+  description: string;
+  amountCents: number; // CAD
+  createdAt: string;
 }

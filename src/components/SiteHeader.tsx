@@ -10,7 +10,7 @@ export async function SiteHeader({ variant = 'light', current }: { variant?: 'li
   const [userId, count] = await Promise.all([getUserId(), cartCount()]);
   const links = [
     { href: '/coffee', label: t('coffee') },
-    { href: '/origin', label: t('origin') },
+    { href: '/about', label: t('about') },
     { href: '/wholesale', label: t('wholesale') },
   ];
 

@@ -6,7 +6,7 @@ import { siteUrl } from '@/lib/site';
 import { routing } from '@/i18n/routing';
 import { SiteFooter } from '@/components/SiteFooter';
 import { Reveal } from '@/components/Reveal';
-import '@fontsource-variable/jost';
+import '@fontsource-variable/montserrat';
 import '@fontsource-variable/cormorant-garamond';
 import '@fontsource-variable/cormorant-garamond/wght-italic.css';
 import '../globals.css';

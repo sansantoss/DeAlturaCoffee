@@ -15,14 +15,15 @@
       "es": "Lavado"
     },
     "tastingNotes": {
-      "en": "Dark chocolate, vanilla, molasses",
-      "fr": "Chocolat noir, vanille, mélasse",
-      "es": "Chocolate oscuro, vainilla, melaza"
+      "en": "Cane sugar, caramel, walnut, grapefruit",
+      "fr": "Sucre de canne, caramel, noix, pamplemousse",
+      "es": "Azúcar de caña, caramelo, nuez, toronja"
     },
     "score": 84,
     "roasts": [
-      "espresso",
-      "filter"
+      "light",
+      "medium",
+      "dark"
     ],
     "formats": [
       {
@@ -69,7 +70,106 @@
       }
     ],
     "taxCategory": "zero-rated-grocery",
-    "active": true
+    "active": true,
+    "farm": "La Curva",
+    "producer": "Luis Humberto Andrade",
+    "harvest": "2025–2026",
+    "roastInfo": {
+      "light": {
+        "notes": {
+          "en": "Grapefruit, orange peel, cane sugar. Bright and juicy.",
+          "fr": "Pamplemousse, zeste d'orange, sucre de canne. Vif et juteux.",
+          "es": "Toronja, cáscara de naranja, azúcar de caña. Brillante y jugoso."
+        },
+        "use": {
+          "en": "For filter, pour-over and batch brew.",
+          "fr": "Pour le filtre, la méthode douce et le batch brew.",
+          "es": "Para filtro, métodos de goteo y batch brew."
+        }
+      },
+      "medium": {
+        "notes": {
+          "en": "Caramel, walnut, cane sugar. Silky and balanced.",
+          "fr": "Caramel, noix, sucre de canne. Soyeux et équilibré.",
+          "es": "Caramelo, nuez, azúcar de caña. Sedoso y balanceado."
+        },
+        "use": {
+          "en": "The all-rounder: espresso, milk drinks and filter.",
+          "fr": "Le polyvalent : espresso, boissons lactées et filtre.",
+          "es": "El todoterreno: espresso, bebidas con leche y filtro."
+        }
+      },
+      "dark": {
+        "notes": {
+          "en": "Toasted walnut, dark caramel, cocoa. Full body.",
+          "fr": "Noix grillée, caramel foncé, cacao. Corps plein.",
+          "es": "Nuez tostada, caramelo oscuro, cacao. Cuerpo pleno."
+        },
+        "use": {
+          "en": "For espresso with milk and traditional coffee.",
+          "fr": "Pour l'espresso avec du lait et le café traditionnel.",
+          "es": "Para espresso con leche y café tradicional."
+        }
+      }
+    },
+    "lab": {
+      "date": "2026-03-20",
+      "lab": "Café y Ciencia — Q Arabica Grader",
+      "lot": "0002",
+      "harvest": "2025–2026",
+      "moisturePct": 11.9,
+      "densityGL": 700,
+      "screen": "16–18",
+      "screenAbove16Pct": 99.4,
+      "primaryDefects": 0,
+      "cupping": [
+        {
+          "key": "fragrance",
+          "score": 8
+        },
+        {
+          "key": "flavor",
+          "score": 8
+        },
+        {
+          "key": "aftertaste",
+          "score": 7.75
+        },
+        {
+          "key": "acidity",
+          "score": 7.5
+        },
+        {
+          "key": "body",
+          "score": 7.5
+        },
+        {
+          "key": "balance",
+          "score": 7.5
+        },
+        {
+          "key": "uniformity",
+          "score": 10
+        },
+        {
+          "key": "cleanCup",
+          "score": 10
+        },
+        {
+          "key": "sweetness",
+          "score": 10
+        },
+        {
+          "key": "overall",
+          "score": 7.75
+        }
+      ],
+      "descriptors": {
+        "en": "Cane sugar, caramel, walnut, grapefruit, orange peel, sage. Silky body, bright medium acidity, structured, balanced and consistent.",
+        "fr": "Sucre de canne, caramel, noix, pamplemousse, zeste d'orange, sauge. Corps soyeux, acidité moyenne et vive, structuré, équilibré et constant.",
+        "es": "Azúcar de caña, caramelo, nuez, toronja, cáscara de naranja, salvia. Cuerpo sedoso, acidez media brillante, estructurado, balanceado y consistente."
+      }
+    }
   },
   {
     "id": "prd_col_hui",
@@ -93,8 +193,9 @@
     },
     "score": 85,
     "roasts": [
-      "espresso",
-      "filter"
+      "light",
+      "medium",
+      "dark"
     ],
     "formats": [
       {
@@ -141,7 +242,7 @@
       }
     ],
     "taxCategory": "zero-rated-grocery",
-    "active": true
+    "active": false
   },
   {
     "id": "prd_cri_tar",
@@ -165,8 +266,9 @@
     },
     "score": 86,
     "roasts": [
-      "filter",
-      "espresso"
+      "light",
+      "medium",
+      "dark"
     ],
     "formats": [
       {
@@ -213,7 +315,7 @@
       }
     ],
     "taxCategory": "zero-rated-grocery",
-    "active": true
+    "active": false
   },
   {
     "id": "prd_pan_boq",
@@ -237,7 +339,9 @@
     },
     "score": 88,
     "roasts": [
-      "filter"
+      "light",
+      "medium",
+      "dark"
     ],
     "formats": [
       {
@@ -270,6 +374,6 @@
       }
     ],
     "taxCategory": "zero-rated-grocery",
-    "active": true
+    "active": false
   }
 ]

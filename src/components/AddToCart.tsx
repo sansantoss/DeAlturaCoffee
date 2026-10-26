@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { addToCart, type FormState } from '@/app/[locale]/actions';
 import { formatMoney } from '@/lib/format';
-import type { Locale, RoastProfile } from '@/lib/types';
+import type { Locale, RoastLevel } from '@/lib/types';
 
 export interface FormatOption {
   sku: string;
@@ -13,7 +13,8 @@ export interface FormatOption {
   unitPriceCents: number;
 }
 
-export function AddToCart({ formats, roasts }: { formats: FormatOption[]; roasts: RoastProfile[] }) {
+/** Si se pasa `roast`, el tueste lo elige la página (pestañas de arriba) y aquí no se repite. */
+export function AddToCart({ formats, roasts, roast }: { formats: FormatOption[]; roasts: RoastLevel[]; roast?: RoastLevel }) {
   const t = useTranslations();
   const locale = useLocale() as Locale;
   const [state, action, pending] = useActionState<FormState, FormData>(addToCart, {});
@@ -37,6 +38,7 @@ export function AddToCart({ formats, roasts }: { formats: FormatOption[]; roasts
           ))}
         </div>
       </fieldset>
+      {roast ? <input type="hidden" name="roast" value={roast} /> : (
       <fieldset className="stack" style={{ border: 0, padding: 0, margin: 0 }}>
         <legend className="field"><span>{t('product.roast')}</span></legend>
         <div className="choice">
@@ -48,6 +50,7 @@ export function AddToCart({ formats, roasts }: { formats: FormatOption[]; roasts
           ))}
         </div>
       </fieldset>
+      )}
       <div className="field">
         <span id="qty-label">{t('product.quantity')}</span>
         <div className="qty">

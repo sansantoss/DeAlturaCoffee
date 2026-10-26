@@ -2,12 +2,16 @@
 
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
+import { UnitConverter } from './admin-finance';
 
 const ITEMS = [
   { href: '/admin', key: 'overview', exact: true },
   { href: '/admin/orders', key: 'orders' },
   { href: '/admin/customers', key: 'customers' },
   { href: '/admin/prices', key: 'prices' },
+  { href: '/admin/inventory', key: 'inventory' },
+  { href: '/admin/expenses', key: 'expenses' },
+  { href: '/admin/margins', key: 'margins' },
 ] as const;
 
 export function AdminNav({ pending }: { pending: number }) {
@@ -30,6 +34,7 @@ export function AdminNav({ pending }: { pending: number }) {
         <Link href="/admin/orders/new" className="btn btn--sm">+ {t('newOrder')}</Link>
         <Link href="/admin/customers/new" className="btn btn--sm btn--ghost">+ {t('newCustomer')}</Link>
       </div>
+      <UnitConverter />
     </nav>
   );
 }

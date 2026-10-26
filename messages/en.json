@@ -1,10 +1,10 @@
 {
   "meta": {
     "title": "DeAltura Coffee — High-altitude Latin American coffee, roasted in Canada",
-    "description": "Wholesale specialty coffee from Santa Cruz de Mora, Mérida, grown at 1,600 to 2,000 m and roasted in Canada for cafés and shops."
+    "description": "Wholesale specialty coffee from Santa Cruz de Mora, in the Andes of Mérida, Venezuela, roasted in Canada for cafés and shops."
   },
   "nav": {
-    "coffee": "Coffee",
+    "coffee": "Our coffee",
     "origin": "Origin",
     "wholesale": "Wholesale",
     "signIn": "Sign in",
@@ -14,22 +14,23 @@
     "language": "Language",
     "menu": "Menu",
     "close": "Close",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "about": "About us"
   },
   "hero": {
     "title1": "Grown high,",
     "title2": "roasted here.",
-    "lead": "Specialty coffee from Venezuela and Latin America, grown between 1,500 and 2,000 metres and roasted every week in Canada for cafés and shops.",
+    "lead": "Specialty coffee from the Andes of Mérida, Venezuela, roasted every week in Canada for cafés, restaurants and shops.",
     "see": "See the coffee",
     "meterLabel": "Altitude where each origin grows, compared with Toronto",
     "home": "Toronto"
   },
   "intro": {
     "heading": "Altitude is flavour",
-    "note": "Above 1,600 metres the air is cool and the cherries ripen slowly. Slow ripening makes denser beans with more sugar, which is why this coffee tastes of chocolate and molasses.",
+    "note": "In the cool air of the Andes the cherries ripen slowly. Slow ripening makes denser beans with more sugar: cane sugar, caramel and walnut in the cup.",
     "facts": [
       {
-        "value": "1,600–2,000 m",
+        "value": "1,200 m",
         "explain": "Above sea level, in the Andes of Mérida"
       },
       {
@@ -37,8 +38,8 @@
         "explain": "The variety our growers plant"
       },
       {
-        "value": "Washed",
-        "explain": "Fruit removed before drying, for a clean cup"
+        "value": "84 pts",
+        "explain": "Specialty grade, verified by an SCA cupping"
       },
       {
         "value": "Tuesday",
@@ -81,7 +82,7 @@
       },
       {
         "caption": "Roasted on Tuesday",
-        "text": "We roast to order each week, one profile for espresso and one for filter."
+        "text": "We roast to order each week, in three levels: light, medium and dark."
       },
       {
         "caption": "Packed and dated",
@@ -94,7 +95,7 @@
     ]
   },
   "formats": {
-    "word": "Formats",
+    "word": "Prices",
     "signInForPrice": "Sign in for price",
     "perKg": "{price} per kg",
     "espresso": "Espresso roast",
@@ -107,7 +108,11 @@
     "freeFromValue": "{kg} kg",
     "flat": "Delivery under {kg} kg",
     "tax": "GST / HST on coffee beans",
-    "taxValue": "Zero-rated"
+    "taxValue": "Zero-rated",
+    "light": "Light roast",
+    "medium": "Medium roast",
+    "dark": "Dark roast",
+    "available": "Available in light, medium and dark"
   },
   "calc": {
     "heading": "How much will you need?",
@@ -132,6 +137,10 @@
         "a": "Every Tuesday. Orders placed by Monday at noon go into that week's roast and ship within 48 hours."
       },
       {
+        "q": "Light, medium or dark?",
+        "a": "The same beans with three roast curves. Light for filter, medium for almost everything, dark for espresso with milk. You choose the roast for each line of your order."
+      },
+      {
         "q": "Where do you deliver?",
         "a": "Across Canada by courier. Delivery is free from {free} kg; below that it is a flat {flat}."
       },
@@ -148,18 +157,17 @@
         "a": "Whole bean only, so the coffee stays fresh until it reaches your grinder."
       },
       {
-        "q": "Espresso or filter?",
-        "a": "Both. Pick the roast for each line in your order; the beans are the same, the curve is different."
-      },
-      {
-        "q": "Which origins do you carry?",
-        "a": "Venezuela is our flagship, alongside high-grown lots from Colombia, Costa Rica and Panama. New lots arrive with each harvest."
+        "q": "Where does the coffee come from?",
+        "a": "From Santa Cruz de Mora, in the Andes of Mérida, Venezuela. Every lot is traced to its farm and analysed in a lab before it ships."
       }
     ]
   },
   "cta": {
     "sentence": "Tell us about your business. We reply within two business days.",
-    "word": "Apply"
+    "word": "Apply",
+    "orderLine": "Ready to order?",
+    "orderLink": "See prices and order",
+    "applyLink": "Open an account"
   },
   "footer": {
     "invite1": "Pour it at",
@@ -170,15 +178,19 @@
     "made": "Grown high in Latin America, roasted in Canada."
   },
   "coffee": {
-    "title": "The coffee",
-    "lead": "High-grown lots from Venezuela, Colombia, Costa Rica and Panama, each roasted for espresso or filter.",
+    "title": "Our coffee",
+    "lead": "One origin from the Andes of Mérida, roasted light, medium or dark.",
     "variety": "Variety",
     "process": "Process",
     "altitude": "Altitude",
     "notes": "Tasting notes",
-    "score": "Cupping score",
+    "score": "SCA score",
     "view": "View and order",
-    "comingSoon": "New lots arrive with each harvest."
+    "comingSoon": "New lots arrive with each harvest.",
+    "harvest": "Harvest",
+    "roastTitle": "Choose your roast",
+    "farm": "Farm",
+    "producer": "Producer"
   },
   "product": {
     "format": "Format",
@@ -382,7 +394,10 @@
       "prices": "Prices",
       "newOrder": "New order",
       "newCustomer": "New customer",
-      "site": "View site"
+      "site": "View site",
+      "inventory": "Inventory",
+      "expenses": "Expenses",
+      "margins": "Margins"
     },
     "periods": {
       "today": "Today",
@@ -488,6 +503,266 @@
       "lead": "Price per format, in Canadian dollars. Standard is the list everyone sees; Partner is for discounted customers.",
       "note": "Changes apply right away across the site and to new orders; existing orders keep their price."
     },
-    "ordersCount": "{count, plural, one {# order} other {# orders}}"
+    "ordersCount": "{count, plural, one {# order} other {# orders}}",
+    "converter": {
+      "title": "lb ⇄ kg converter"
+    },
+    "filter": {
+      "title": "Filter customers",
+      "search": "Search",
+      "searchPh": "Business, contact, email…",
+      "city": "City",
+      "apply": "Filter",
+      "clear": "Clear filters",
+      "showing": "Showing {n} of {total}"
+    },
+    "fin": {
+      "notes": "Notes",
+      "delete": "Delete",
+      "confirmDelete": "Delete this record? This can't be undone.",
+      "perLb": "{v} per lb",
+      "errors": {
+        "invalid": "Please check the highlighted fields.",
+        "roastedMore": "More roasted than green coffee: check the weights.",
+        "unknown": "Something went wrong. Please try again."
+      },
+      "lotStatus": {
+        "ordered": "Ordered",
+        "in_transit": "In transit",
+        "received": "Received"
+      },
+      "costCat": {
+        "coffee": "Green coffee",
+        "freight": "Freight to Canada",
+        "customs": "Customs and duties",
+        "broker": "Customs broker",
+        "insurance": "Insurance",
+        "storage": "Storage",
+        "other": "Other"
+      },
+      "lot": {
+        "new": "New purchase",
+        "lead": "The sheet for a green coffee order: how much, at what price and in which currency. Then add freight, customs and everything else until it lands in Canada.",
+        "code": "Lot code",
+        "date": "Purchase date",
+        "supplier": "Supplier",
+        "origin": "Origin",
+        "quantity": "Green coffee quantity",
+        "status": "Status",
+        "price": "Coffee price per unit",
+        "priceHint": "Per {unit}, coffee only (no freight or customs).",
+        "currency": "Currency",
+        "fx": "Exchange rate to CAD",
+        "fxHint": "How many CAD 1 USD is worth.",
+        "estimate": "{kg} kg of green coffee · {total} · {perKg} per kg (before costs)",
+        "estimateEmpty": "Enter quantity and price to see the cost in CAD.",
+        "create": "Save purchase",
+        "created": "Purchase saved.",
+        "createdNext": "Now add its costs (freight, customs…) to get the real cost per kilo.",
+        "open": "Open the sheet",
+        "sheet": "Purchase sheet",
+        "bought": "Bought",
+        "usedOf": "{kg} kg already roasted",
+        "coffee": "Coffee",
+        "landed": "Landed cost in Canada",
+        "landedHint": "Coffee + {costs} in costs",
+        "perKg": "Cost per green kg",
+        "costsTitle": "Cost breakdown",
+        "costsLead": "Everything paid to get this coffee to Canada. USD amounts use the purchase exchange rate."
+      },
+      "cost": {
+        "category": "Type",
+        "label": "Detail",
+        "labelPh": "e.g. container Puerto Cabello → Montreal",
+        "amount": "Amount",
+        "add": "Add cost"
+      },
+      "batch": {
+        "new": "Log a roast",
+        "lead": "What leaves the lot as green coffee and enters inventory as roasted. With the roaster's fee and supplies it works out the cost per kilo.",
+        "noLots": "Log a green coffee purchase first.",
+        "created": "Roast saved. You can log another one.",
+        "lot": "Green coffee lot",
+        "lotCost": "Green cost: {cost} per kg",
+        "date": "Roast date",
+        "roast": "Roast",
+        "green": "Green coffee in",
+        "roasted": "Roasted coffee out",
+        "rate": "Roaster fee",
+        "basis": "Charged on",
+        "basisGreen": "kg of green coffee",
+        "basisRoasted": "kg of roasted coffee",
+        "packaging": "Supplies (CAD)",
+        "packagingHint": "Bags, labels, valves… for this roast.",
+        "estimate": "Shrink {shrink}% · total cost {total} · {perKg} per roasted kg ({perLb} per lb)",
+        "estimateEmpty": "Enter the weights to see shrink and cost per kilo.",
+        "create": "Save roast"
+      },
+      "inv": {
+        "empty": "No purchases yet. Start with “New purchase”, then log each roast.",
+        "green": "Green coffee in stock",
+        "incoming": "+ {kg} kg ordered or on the way",
+        "roasted": "Roasted coffee on hand",
+        "committed": "Committed",
+        "committedHint": "In orders not shipped yet",
+        "avgCost": "Average cost per roasted kg",
+        "noBatches": "No roasts yet",
+        "byRoast": "Roasted, by level",
+        "toRoast": "needs roasting",
+        "since": "Counts orders from the first purchase ({date}).",
+        "lots": "Green coffee purchases",
+        "noLots": "No purchases.",
+        "batches": "Roasts"
+      },
+      "col": {
+        "roast": "Roast",
+        "produced": "Roasted",
+        "shipped": "Shipped",
+        "onHand": "On hand",
+        "committed": "Committed",
+        "free": "Free",
+        "costKg": "Cost/kg",
+        "lot": "Lot",
+        "status": "Status",
+        "bought": "Bought",
+        "used": "Roasted",
+        "remaining": "Left",
+        "landed": "Landed cost",
+        "costKgGreen": "Cost/kg green",
+        "greenIn": "Green",
+        "roastedOut": "Roasted",
+        "shrink": "Shrink",
+        "batchCost": "Cost"
+      },
+      "exp": {
+        "month": "Month",
+        "tag": "Tag",
+        "description": "Description",
+        "descriptionPh": "e.g. October rent",
+        "amount": "Amount (CAD)",
+        "add": "Add expense",
+        "total": "Month total",
+        "vsPrev": "vs previous month",
+        "count": "Entries",
+        "year": "{year} total",
+        "listTitle": "Expenses for {month}",
+        "none": "No expenses this month.",
+        "byTag": "By tag",
+        "tags": [
+          "Rent",
+          "Roaster",
+          "Supplies",
+          "Transport",
+          "Customs",
+          "Marketing",
+          "Services",
+          "Payroll",
+          "Software",
+          "Other"
+        ]
+      },
+      "mar": {
+        "noCost": "To calculate margins, log at least one purchase and one roast so we know what each kilo costs.",
+        "sales": "Coffee sales",
+        "shipping": "+ {v} shipping charged",
+        "cogs": "Cost of coffee sold",
+        "gross": "Gross margin",
+        "ofSales": "{pct} of sales",
+        "net": "Profit",
+        "afterExpenses": "After {v} in operating expenses",
+        "perKgTitle": "Per kilo sold",
+        "pricePerKg": "Average price",
+        "costPerKg": "Average cost",
+        "marginPerKg": "Margin",
+        "byMonth": "Month by month, {year}",
+        "month": "Month",
+        "expenses": "Expenses",
+        "total": "Total",
+        "how": "How it's calculated: cost of coffee = kg sold × average cost per roasted kg of that roast (green coffee with freight and customs + roaster + supplies). Profit = sales + shipping − cost of coffee − the month's operating expenses. Income tax not included."
+      }
+    }
+  },
+  "roasts": {
+    "heading": "One origin, three roasts",
+    "kicker": "Santa Cruz de Mora · Venezuela",
+    "light": "Light roast",
+    "medium": "Medium roast",
+    "dark": "Dark roast",
+    "cta": "Order this roast",
+    "prev": "Previous roast",
+    "next": "Next roast",
+    "slide": "{n} of {total}"
+  },
+  "lab": {
+    "title": "Technical sheet",
+    "lead": "Physical and sensory analysis of lot {lot}, {date}, by {lab}.",
+    "cupTitle": "Cupping",
+    "cupNote": "Each attribute out of 10. Total: {score} points.",
+    "inCup": "In the cup",
+    "physical": "Green coffee",
+    "moisture": "Moisture",
+    "density": "Density",
+    "screen": "Screen size",
+    "screenNote": "{pct}% at screen 16 or larger",
+    "defects": "Primary defects",
+    "grade": "Grade",
+    "gradeValue": "Specialty (SCA)",
+    "keys": {
+      "fragrance": "Fragrance & aroma",
+      "flavor": "Flavour",
+      "aftertaste": "Aftertaste",
+      "acidity": "Acidity",
+      "body": "Body",
+      "balance": "Balance",
+      "uniformity": "Uniformity",
+      "cleanCup": "Clean cup",
+      "sweetness": "Sweetness",
+      "overall": "Overall"
+    }
+  },
+  "farms": {
+    "heading": "Where does it come from?",
+    "lead": "The farms behind every bag, in the Andes of Mérida.",
+    "altitude": "{m} m above sea level"
+  },
+  "about": {
+    "title": "Who we are",
+    "lead": "We bring coffee from the Venezuelan Andes to Canadian counters, roasted fresh every week.",
+    "storyTitle": "Our story",
+    "story": [
+      "DeAltura started with a simple idea: the coffee grown in the mountains of Venezuela deserves a place in Canada's cafés.",
+      "We work with growers in Santa Cruz de Mora, Mérida. We import their green coffee, roast it here every week and deliver it to cafés, restaurants and shops across the country."
+    ],
+    "pillarsTitle": "How we work",
+    "pillars": [
+      {
+        "title": "From the farm",
+        "text": "We know who grows every lot: the producer, the farm and the altitude. That story travels on the bag."
+      },
+      {
+        "title": "Verified in the lab",
+        "text": "Every lot is analysed before it ships. Our current lot from Finca La Curva scored 84 SCA points, specialty grade."
+      },
+      {
+        "title": "Roasted in Canada",
+        "text": "Green coffee keeps for months, so we roast here each week. Your coffee reaches you within days of roasting."
+      }
+    ],
+    "forTitle": "Who we roast for",
+    "forText": "Cafés, restaurants, shops and offices that want a traceable specialty coffee and a supplier that answers the phone.",
+    "values": [
+      {
+        "value": "Traceable",
+        "explain": "Every bag tied to its farm"
+      },
+      {
+        "value": "Fresh",
+        "explain": "Roasted weekly, dated on the bag"
+      },
+      {
+        "value": "Direct",
+        "explain": "From Mérida to your counter"
+      }
+    ]
   }
 }

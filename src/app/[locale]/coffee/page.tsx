@@ -1,66 +1,31 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
-import { Bag } from '@/components/art';
-import { ProductSpec } from '@/components/ProductSpec';
-import { getOrigin, listProducts } from '@/lib/catalog';
+import { ProductDetail } from '@/components/ProductDetail';
+import { listProducts } from '@/lib/catalog';
 import type { Locale } from '@/lib/types';
-import { productImages, siteImage } from '@/lib/images';
-import { Photo } from '@/components/Photo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const t = await getTranslations({ locale: (await params).locale, namespace: 'coffee' });
-  return { title: t('title') };
+  return { title: t('title'), description: t('lead') };
 }
 
-export default async function CoffeePage({ params }: { params: Promise<{ locale: Locale }> }) {
+/** Hoy hay un solo café (Venezuela, tres tostados): la pestaña "Nuestro café" es directamente su página. */
+export default async function CoffeePage({
+  params, searchParams,
+}: { params: Promise<{ locale: Locale }>; searchParams: Promise<{ roast?: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations();
-  const products = await listProducts();
-  const banner = siteImage('catalogo', locale);
+  const { roast } = await searchParams;
+  const [product] = await listProducts();
+  if (!product) notFound();
 
   return (
     <>
       <SiteHeader current="/coffee" />
       <main id="content">
-        <header className="page-head" data-reveal>
-          <h1>{t('coffee.title')}</h1>
-          <p>{t('coffee.lead')}</p>
-        </header>
-        {banner && (
-          <div className="wrap banner">
-            <Photo image={banner} priority sizes="100vw" />
-          </div>
-        )}
-        <div className="inner stack">
-          {await Promise.all(
-            products.map(async (p) => {
-              const origin = (await getOrigin(p.originId))!;
-              const img = productImages(p.slug, p.name[locale])[0];
-              return (
-                <article className="catalog" key={p.id} data-reveal>
-                  {img ? (
-                    <Photo image={img} ratio="4/5" sizes="(max-width: 860px) 100vw, 40vw" />
-                  ) : (
-                    <div className="catalog__bag">
-                      <Bag label={t('showcase.bagAlt')} origin={origin.country[locale].toUpperCase()} title={origin.region} notes={p.tastingNotes[locale]} />
-                    </div>
-                  )}
-                  <div className="stack">
-                    <h2 className="h-section">{p.name[locale]}</h2>
-                    <ProductSpec product={p} origin={origin} locale={locale} />
-                    <div>
-                      <Link href={`/coffee/${p.slug}`} className="btn">{t('coffee.view')}</Link>
-                    </div>
-                  </div>
-                </article>
-              );
-            }),
-          )}
-          <p className="coming">{t('coffee.comingSoon')}</p>
-        </div>
+        <ProductDetail product={product} locale={locale} roast={roast} />
       </main>
     </>
   );

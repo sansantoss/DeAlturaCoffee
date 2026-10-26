@@ -279,7 +279,7 @@ export function NewOrderForm({ customers, options, defaultCustomer, minimumKg }:
   const locale = useLocale();
   const [state, action, pending] = useActionState<AdminFormState, FormData>(adminCreateOrder, {});
   const [customerId, setCustomerId] = useState(defaultCustomer ?? '');
-  const [lines, setLines] = useState([{ sku: options[0]?.sku ?? '', roast: options[0]?.roasts[0] ?? 'espresso', quantity: 1 }]);
+  const [lines, setLines] = useState([{ sku: options[0]?.sku ?? '', roast: options[0]?.roasts[0] ?? 'medium', quantity: 1 }]);
   const customer = customers.find((c) => c.id === customerId);
   const bySku = useMemo(() => new Map(options.map((o) => [o.sku, o])), [options]);
   const subtotal = customer ? lines.reduce((s, l) => s + (bySku.get(l.sku)?.price[customer.tier] ?? 0) * l.quantity, 0) : 0;
@@ -313,14 +313,14 @@ export function NewOrderForm({ customers, options, defaultCustomer, minimumKg }:
             <div className="order-line" key={i}>
               <label className="field">
                 <span>{t('admin.newOrder.format')}</span>
-                <select className="input" value={l.sku} onChange={(e) => set(i, { sku: e.target.value, roast: bySku.get(e.target.value)?.roasts[0] ?? 'espresso' })}>
+                <select className="input" value={l.sku} onChange={(e) => set(i, { sku: e.target.value, roast: bySku.get(e.target.value)?.roasts[0] ?? 'medium' })}>
                   {options.map((o) => <option key={o.sku} value={o.sku}>{o.label}</option>)}
                 </select>
               </label>
               <label className="field">
                 <span>{t('admin.newOrder.roast')}</span>
                 <select className="input" value={l.roast} onChange={(e) => set(i, { roast: e.target.value })}>
-                  {(opt?.roasts ?? []).map((r) => <option key={r} value={r}>{t(`formats.${r}` as 'formats.espresso')}</option>)}
+                  {(opt?.roasts ?? []).map((r) => <option key={r} value={r}>{t(`formats.${r}` as 'formats.medium')}</option>)}
                 </select>
               </label>
               <label className="field">

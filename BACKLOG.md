@@ -63,3 +63,12 @@ Ideas y decisiones para siguientes sprints. Lo de arriba es lo más urgente.
 
 ## La app (Expo)
 - Catálogo, pedidos, repetir pedido, chat y pagos. Usa la API `/api/v1` que ya existe.
+
+## Rediseño oct 2026 — pendiente de contenido (lo mandan ellos)
+- Fotos: `hero` (finca, fondo del inicio), `cafe_light` / `cafe_medium` / `cafe_dark` (una bolsa por tueste), `granos` (ficha técnica), `nosotros` (Quiénes somos), una por finca (`finca_la_curva`, …). Van en public/images con ese nombre.
+- Fincas 2–4: llenar content/farms.json y poner `published: true`.
+- Quiénes somos: la historia real del equipo (el texto actual es general).
+- Notas por tueste (claro/medio/oscuro): confirmar con el tostador; las de la ficha técnica son del grano verde catado.
+- La foto actual de la bolsa dice 1,600–2,000 m; el análisis dice 1,200 msnm. El sitio ya usa 1,200.
+- Revisar el dashboard "La Sirena" que mandará San y ajustar inventario/márgenes a su forma de trabajar.
+- Notificaciones: correo (Resend) primero; WhatsApp solo para avisos internos al equipo, más adelante.

@@ -109,7 +109,7 @@ const newOrderSchema = z.object({
   skipMinimum: z.string().optional(),
   lines: z.array(z.object({
     sku: z.string().min(1),
-    roast: z.enum(['espresso', 'filter', 'omni']),
+    roast: z.enum(['light', 'medium', 'dark']),
     quantity: z.number().int().min(1).max(999),
   })).min(1),
 });

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "la-curva",
+    "published": true,
+    "name": "Finca La Curva",
+    "producer": "Luis Humberto Andrade",
+    "town": "Santa Cruz de Mora",
+    "state": "Mérida",
+    "altitude": 1200,
+    "variety": "Castillo",
+    "image": "finca_la_curva",
+    "text": {
+      "es": "Luis Humberto Andrade cultiva Castillo en las laderas de Santa Cruz de Mora. Cosecha a mano y proceso lavado. Su lote de la cosecha 2025–2026 obtuvo 84 puntos SCA.",
+      "en": "Luis Humberto Andrade grows Castillo on the slopes of Santa Cruz de Mora. Hand-picked and washed. His 2025–2026 lot scored 84 SCA points.",
+      "fr": "Luis Humberto Andrade cultive du Castillo sur les pentes de Santa Cruz de Mora. Cueillette à la main, procédé lavé. Son lot de la récolte 2025–2026 a obtenu 84 points SCA."
+    }
+  },
+  {
+    "id": "finca-2",
+    "published": false,
+    "name": "Finca 2 (por confirmar)",
+    "producer": "",
+    "town": "",
+    "state": "Mérida",
+    "altitude": 0,
+    "variety": "",
+    "image": "finca_2",
+    "text": {
+      "es": "Tres líneas sobre la finca: quién la trabaja, a qué altura y qué la hace especial.",
+      "en": "",
+      "fr": ""
+    }
+  },
+  {
+    "id": "finca-3",
+    "published": false,
+    "name": "Finca 3 (por confirmar)",
+    "producer": "",
+    "town": "",
+    "state": "Mérida",
+    "altitude": 0,
+    "variety": "",
+    "image": "finca_3",
+    "text": {
+      "es": "Tres líneas sobre la finca: quién la trabaja, a qué altura y qué la hace especial.",
+      "en": "",
+      "fr": ""
+    }
+  },
+  {
+    "id": "finca-4",
+    "published": false,
+    "name": "Finca 4 (por confirmar)",
+    "producer": "",
+    "town": "",
+    "state": "Mérida",
+    "altitude": 0,
+    "variety": "",
+    "image": "finca_4",
+    "text": {
+      "es": "Tres líneas sobre la finca: quién la trabaja, a qué altura y qué la hace especial.",
+      "en": "",
+      "fr": ""
+    }
+  }
+]

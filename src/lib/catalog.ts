@@ -2,8 +2,9 @@ import 'server-only';
 import productsJson from '@content/products.json';
 import originsJson from '@content/origins.json';
 import settingsJson from '@content/settings.json';
+import farmsJson from '@content/farms.json';
 import { repo } from './db';
-import type { Origin, Product, ProductFormat, Settings } from './types';
+import type { Farm, Origin, Product, ProductFormat, Settings } from './types';
 
 /**
  * Catalog repository. Today it reads the JSON files in /content.
@@ -63,4 +64,9 @@ export async function findFormat(
     if (format && product.active) return { product, format };
   }
   return null;
+}
+
+/** Fincas publicadas (content/farms.json, published: true). */
+export async function listFarms(): Promise<Farm[]> {
+  return (farmsJson as Farm[]).filter((f) => f.published);
 }

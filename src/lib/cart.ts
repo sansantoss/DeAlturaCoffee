@@ -1,6 +1,6 @@
 import 'server-only';
 import { cookies } from 'next/headers';
-import type { CartLine, RoastProfile } from './types';
+import { ROAST_LEVELS, type CartLine, type RoastLevel } from './types';
 
 /**
  * The cart lives in a small cookie (SKU, roast, quantity only; never prices), so the server can
@@ -8,7 +8,7 @@ import type { CartLine, RoastProfile } from './types';
  * on the server from the catalog.
  */
 const COOKIE = 'da_cart';
-const ROASTS: RoastProfile[] = ['espresso', 'filter', 'omni'];
+const ROASTS: readonly RoastLevel[] = ROAST_LEVELS;
 
 export async function readCart(): Promise<CartLine[]> {
   const raw = (await cookies()).get(COOKIE)?.value;

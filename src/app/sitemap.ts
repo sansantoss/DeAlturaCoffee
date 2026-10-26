@@ -7,7 +7,7 @@ import { siteUrl } from '@/lib/site';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
   const products = await listProducts();
-  const paths = ['', '/coffee', '/origin', '/wholesale', ...products.map((p) => `/coffee/${p.slug}`)];
+  const paths = ['', '/coffee', '/about', '/wholesale', ...(products.length > 1 ? products.map((p) => `/coffee/${p.slug}`) : [])];
   return paths.flatMap((path) =>
     routing.locales.map((l) => ({
       url: `${base}/${l}${path}`,

@@ -1,13 +1,13 @@
 {
-  "_ayuda": "Pon las fotos en public/images/ con estos nombres (.jpg, .jpeg, .png o .webp). Si una foto no existe, se muestra la ilustración. 'alt' describe la foto para Google y lectores de pantalla.",
+  "_ayuda": "Pon las fotos en public/images/ con estos nombres (.jpg, .jpeg, .png o .webp). Si una foto no existe, se muestra la ilustración. 'alt' describe la foto para Google y lectores de pantalla. Tostados: cafe_light, cafe_medium, cafe_dark (una foto por tueste; si falta, se usa cafe_venezuela_1). Fincas: el nombre de 'image' en content/farms.json (ej. finca_la_curva).",
   "slots": {
     "hero": {
       "file": "hero",
       "ratio": "16/9",
       "alt": {
-        "en": "Freshly roasted coffee pouring into the cooling tray",
-        "fr": "Café fraîchement torréfié versé dans le bac de refroidissement",
-        "es": "Café recién tostado cayendo a la charola de enfriado"
+        "en": "Coffee farm in the Andes of Mérida, Venezuela",
+        "fr": "Ferme caféière dans les Andes de Mérida, au Venezuela",
+        "es": "Finca de café en los Andes de Mérida, Venezuela"
       }
     },
     "proceso_1": {
@@ -126,6 +126,24 @@
         "fr": "Deux porte-filtres, l'un avec des grains, l'autre avec du café moulu",
         "es": "Dos portafiltros, uno con grano entero y otro con café molido"
       }
+    },
+    "granos": {
+      "file": "granos",
+      "ratio": "4/5",
+      "alt": {
+        "en": "Green and roasted Santa Cruz de Mora beans",
+        "fr": "Grains verts et torréfiés de Santa Cruz de Mora",
+        "es": "Granos verdes y tostados de Santa Cruz de Mora"
+      }
+    },
+    "nosotros": {
+      "file": "nosotros",
+      "ratio": "4/5",
+      "alt": {
+        "en": "The DeAltura team",
+        "fr": "L'équipe DeAltura",
+        "es": "El equipo de DeAltura"
+      }
     }
   },
   "products": {
@@ -149,5 +167,12 @@
       "cafe_panama_2",
       "cafe_panama_3"
     ]
+  },
+  "roasts": {
+    "venezuela-santa-cruz-de-mora": {
+      "light": "cafe_light",
+      "medium": "cafe_medium",
+      "dark": "cafe_dark"
+    }
   }
 }

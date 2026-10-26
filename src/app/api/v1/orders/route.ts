@@ -13,7 +13,7 @@ export async function GET(req: Request) {
 const body = z.object({
   lines: z.array(z.object({
     sku: z.string(),
-    roast: z.enum(['espresso', 'filter', 'omni']),
+    roast: z.enum(['light', 'medium', 'dark']),
     quantity: z.number().int().min(1).max(500),
   })).min(1),
   payment: z.enum(['card', 'invoice']).default('card'),

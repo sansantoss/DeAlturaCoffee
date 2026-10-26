@@ -1,6 +1,6 @@
 import 'server-only';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Address, Customer, Order, OrderLine, PriceOverride, WholesaleApplication } from '../types';
+import type { Address, Customer, Expense, GreenLot, Order, OrderLine, PriceOverride, RoastBatch, WholesaleApplication } from '../types';
 import type { Repository } from './repository';
 
 /**
@@ -52,6 +52,29 @@ function check<T>(res: { data: T; error: { message: string } | null }): T {
   if (res.error) throw new Error(res.error.message);
   return res.data;
 }
+
+const toLot = (r: Row): GreenLot => ({
+  id: r.id, code: r.code, supplier: r.supplier, origin: r.origin, purchasedAt: r.purchased_at, status: r.status,
+  quantity: Number(r.quantity), inputUnit: r.input_unit, pricePerUnitCents: r.price_per_unit_cents, currency: r.currency,
+  fxToCad: Number(r.fx_to_cad), costs: r.costs ?? [], notes: r.notes ?? undefined, createdAt: r.created_at,
+});
+const fromLot = (l: Partial<GreenLot>): Row => {
+  const m: Record<string, string> = {
+    code: 'code', supplier: 'supplier', origin: 'origin', purchasedAt: 'purchased_at', status: 'status', quantity: 'quantity',
+    inputUnit: 'input_unit', pricePerUnitCents: 'price_per_unit_cents', currency: 'currency', fxToCad: 'fx_to_cad', costs: 'costs', notes: 'notes',
+  };
+  const out: Row = {};
+  for (const [k, v] of Object.entries(l)) if (m[k]) out[m[k]] = v ?? null;
+  return out;
+};
+const toBatch = (r: Row): RoastBatch => ({
+  id: r.id, lotId: r.lot_id, roastedAt: r.roasted_at, roast: r.roast, greenKg: Number(r.green_kg), roastedKg: Number(r.roasted_kg),
+  roasterRateCents: r.roaster_rate_cents, roasterBasis: r.roaster_basis, packagingCents: r.packaging_cents,
+  notes: r.notes ?? undefined, createdAt: r.created_at,
+});
+const toExpense = (r: Row): Expense => ({
+  id: r.id, month: r.month, tag: r.tag, description: r.description, amountCents: r.amount_cents, createdAt: r.created_at,
+});
 
 const CUSTOMER_SELECT = '*, addresses(*)';
 const ORDER_SELECT = '*, order_lines(*)';
@@ -175,6 +198,56 @@ export const supabaseRepository: Repository = {
           { onConflict: 'sku,tier' },
         ),
       );
+    },
+  },
+  lots: {
+    async list() {
+      const rows = check(await db().from('green_lots').select('*').order('purchased_at', { ascending: false }));
+      return (rows ?? []).map(toLot);
+    },
+    async getById(id) {
+      const r = check(await db().from('green_lots').select('*').eq('id', id).maybeSingle());
+      return r ? toLot(r) : null;
+    },
+    async create(lot) {
+      check(await db().from('green_lots').insert({ id: lot.id, created_at: lot.createdAt, ...fromLot(lot) }));
+      return lot;
+    },
+    async update(id, patch) {
+      const r = check(await db().from('green_lots').update(fromLot(patch)).eq('id', id).select('*').single());
+      return toLot(r);
+    },
+  },
+  batches: {
+    async list() {
+      const rows = check(await db().from('roast_batches').select('*').order('roasted_at', { ascending: false }));
+      return (rows ?? []).map(toBatch);
+    },
+    async create(b) {
+      check(await db().from('roast_batches').insert({
+        id: b.id, lot_id: b.lotId, roasted_at: b.roastedAt, roast: b.roast, green_kg: b.greenKg, roasted_kg: b.roastedKg,
+        roaster_rate_cents: b.roasterRateCents, roaster_basis: b.roasterBasis, packaging_cents: b.packagingCents,
+        notes: b.notes ?? null, created_at: b.createdAt,
+      }));
+      return b;
+    },
+    async remove(id) {
+      check(await db().from('roast_batches').delete().eq('id', id));
+    },
+  },
+  expenses: {
+    async list() {
+      const rows = check(await db().from('expenses').select('*').order('month', { ascending: false }).order('created_at', { ascending: false }));
+      return (rows ?? []).map(toExpense);
+    },
+    async create(e) {
+      check(await db().from('expenses').insert({
+        id: e.id, month: e.month, tag: e.tag, description: e.description, amount_cents: e.amountCents, created_at: e.createdAt,
+      }));
+      return e;
+    },
+    async remove(id) {
+      check(await db().from('expenses').delete().eq('id', id));
     },
   },
   applications: {

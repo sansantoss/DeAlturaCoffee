@@ -1,4 +1,6 @@
-import type { Customer, Order, OrderStatus, PriceOverride, PriceTier, WholesaleApplication } from '../types';
+import type {
+  Customer, Expense, GreenLot, Order, OrderStatus, PriceOverride, PriceTier, RoastBatch, WholesaleApplication,
+} from '../types';
 
 /**
  * The only door to customer and order data. Two implementations:
@@ -27,6 +29,23 @@ export interface Repository {
   prices: {
     list(): Promise<PriceOverride[]>;
     set(sku: string, tier: PriceTier, priceCents: number): Promise<void>;
+  };
+  /** Compras de café verde (con sus gastos de importación dentro). */
+  lots: {
+    list(): Promise<GreenLot[]>;
+    getById(id: string): Promise<GreenLot | null>;
+    create(lot: GreenLot): Promise<GreenLot>;
+    update(id: string, patch: Partial<Omit<GreenLot, 'id' | 'createdAt'>>): Promise<GreenLot>;
+  };
+  batches: {
+    list(): Promise<RoastBatch[]>;
+    create(batch: RoastBatch): Promise<RoastBatch>;
+    remove(id: string): Promise<void>;
+  };
+  expenses: {
+    list(): Promise<Expense[]>;
+    create(expense: Expense): Promise<Expense>;
+    remove(id: string): Promise<void>;
   };
   applications: {
     create(app: WholesaleApplication): Promise<WholesaleApplication>;

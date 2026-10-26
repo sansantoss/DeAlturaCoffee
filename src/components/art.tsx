@@ -4,14 +4,14 @@
  */
 
 const C = {
-  turquoise: '#006F72',
-  forest: '#023535',
-  sand: '#E6D5C1',
-  coffee: '#382517',
-  gold: '#B0814C',
-  cream: '#F6EEE3',
-  deep: '#00585B',
-  sand2: '#D8C2A8',
+  turquoise: '#2F6A5C',
+  forest: '#0C3B32',
+  sand: '#E5ECE5',
+  coffee: '#2B2B2B',
+  gold: '#B67D43',
+  cream: '#F5EFE4',
+  deep: '#1D5446',
+  sand2: '#C9D9CF',
 };
 
 /* ---------- topographic contours, like the side of the bag ---------- */

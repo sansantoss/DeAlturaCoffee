@@ -1,10 +1,10 @@
 {
   "meta": {
     "title": "DeAltura Coffee — Cafés d'altitude d'Amérique latine, torréfiés au Canada",
-    "description": "Café de spécialité en gros de Santa Cruz de Mora, Mérida, cultivé entre 1 600 et 2 000 m et torréfié au Canada pour les cafés et les commerces."
+    "description": "Café de spécialité en gros de Santa Cruz de Mora, dans les Andes de Mérida, au Venezuela, torréfié au Canada pour les cafés et boutiques."
   },
   "nav": {
-    "coffee": "Café",
+    "coffee": "Notre café",
     "origin": "Origine",
     "wholesale": "Vente en gros",
     "signIn": "Connexion",
@@ -14,35 +14,36 @@
     "language": "Langue",
     "menu": "Menu",
     "close": "Fermer",
-    "skip": "Aller au contenu"
+    "skip": "Aller au contenu",
+    "about": "Qui sommes-nous"
   },
   "hero": {
     "title1": "Cultivé en hauteur,",
     "title2": "torréfié ici.",
-    "lead": "Café de spécialité du Venezuela et d'Amérique latine, cultivé entre 1 500 et 2 000 mètres et torréfié chaque semaine au Canada pour les cafés et les boutiques.",
+    "lead": "Café de spécialité des Andes de Mérida, au Venezuela, torréfié chaque semaine au Canada pour les cafés, restaurants et boutiques.",
     "see": "Voir les cafés",
     "meterLabel": "Altitude de culture de chaque origine, comparée à Toronto",
     "home": "Toronto"
   },
   "intro": {
     "heading": "L'altitude, c'est le goût",
-    "note": "Au-dessus de 1 600 mètres, l'air est frais et les cerises mûrissent lentement. Une maturation lente donne des grains plus denses et plus sucrés : voilà pourquoi ce café goûte le chocolat et la mélasse.",
+    "note": "Dans l'air frais des Andes, les cerises mûrissent lentement. Une maturation lente donne des grains plus denses et plus sucrés : sucre de canne, caramel et noix dans la tasse.",
     "facts": [
       {
-        "value": "1 600–2 000 m",
-        "explain": "D'altitude, dans les Andes de Mérida"
+        "value": "1 200 m",
+        "explain": "Au-dessus du niveau de la mer, dans les Andes de Mérida"
       },
       {
         "value": "Castillo",
-        "explain": "La variété cultivée par nos producteurs"
+        "explain": "La variété que plantent nos producteurs"
       },
       {
-        "value": "Lavé",
-        "explain": "Le fruit est retiré avant le séchage, pour une tasse nette"
+        "value": "84 pts",
+        "explain": "Grade spécialité, vérifié par une dégustation SCA"
       },
       {
         "value": "Mardi",
-        "explain": "Jour de torréfaction au Canada, expédié sous 48 heures"
+        "explain": "Jour de torréfaction au Canada, expédié en 48 heures"
       }
     ]
   },
@@ -81,7 +82,7 @@
       },
       {
         "caption": "Torréfié le mardi",
-        "text": "Nous torréfions sur commande chaque semaine, un profil pour l'espresso, un pour le filtre."
+        "text": "Nous torréfions sur commande chaque semaine, en trois niveaux : claire, moyenne et foncée."
       },
       {
         "caption": "Emballé et daté",
@@ -94,7 +95,7 @@
     ]
   },
   "formats": {
-    "word": "Formats",
+    "word": "Tarifs",
     "signInForPrice": "Connectez-vous pour le prix",
     "perKg": "{price} le kg",
     "espresso": "Torréfaction espresso",
@@ -107,7 +108,11 @@
     "freeFromValue": "{kg} kg",
     "flat": "Livraison sous {kg} kg",
     "tax": "TPS / TVH sur le café en grains",
-    "taxValue": "Détaxé"
+    "taxValue": "Détaxé",
+    "light": "Torréfaction claire",
+    "medium": "Torréfaction moyenne",
+    "dark": "Torréfaction foncée",
+    "available": "Offert en torréfaction claire, moyenne et foncée"
   },
   "calc": {
     "heading": "De combien aurez-vous besoin ?",
@@ -121,45 +126,48 @@
     "items": [
       {
         "q": "Qui peut acheter ?",
-        "a": "Les cafés, restaurants, commerces et bureaux au Canada qui ont un compte professionnel. Faites une demande une seule fois; nous l'étudions en deux jours ouvrables."
+        "a": "Les cafés, restaurants, boutiques et bureaux au Canada avec un compte entreprise. Faites une demande une fois, nous l'examinons en deux jours ouvrables."
       },
       {
         "q": "Y a-t-il un minimum ?",
-        "a": "{kg} kg par commande, tous formats et torréfactions confondus."
+        "a": "{kg} kg par commande, en combinant formats et torréfactions."
       },
       {
         "q": "Quand torréfiez-vous ?",
-        "a": "Chaque mardi. Les commandes passées avant lundi midi entrent dans la torréfaction de la semaine et partent sous 48 heures."
+        "a": "Chaque mardi. Les commandes passées avant lundi midi entrent dans la torréfaction de la semaine et partent en 48 heures."
+      },
+      {
+        "q": "Claire, moyenne ou foncée ?",
+        "a": "Les mêmes grains, trois courbes de torréfaction. Claire pour le filtre, moyenne pour presque tout, foncée pour l'espresso au lait. Vous choisissez la torréfaction pour chaque ligne de commande."
       },
       {
         "q": "Où livrez-vous ?",
-        "a": "Partout au Canada par messagerie. Gratuit dès {free} kg; en dessous, un forfait de {flat}."
+        "a": "Partout au Canada par messagerie. La livraison est gratuite dès {free} kg ; en dessous, c'est un forfait de {flat}."
       },
       {
         "q": "Comment payer ?",
-        "a": "Par carte au moment de commander. Les comptes approuvés peuvent demander une facture à 30 jours."
+        "a": "Par carte à la commande. Les comptes approuvés peuvent demander une facture à 30 jours."
       },
       {
-        "q": "Facturez-vous des taxes sur le café ?",
-        "a": "Le café en grains torréfié est un produit alimentaire de base au Canada : il est détaxé pour la TPS et la TVH."
+        "q": "Le café est-il taxé ?",
+        "a": "Le café en grains torréfié est un produit alimentaire de base au Canada : il est détaxé (TPS et TVH à zéro)."
       },
       {
         "q": "En grains ou moulu ?",
-        "a": "En grains seulement, pour qu'il reste frais jusqu'à votre moulin."
+        "a": "En grains seulement, pour que le café reste frais jusqu'à votre moulin."
       },
       {
-        "q": "Espresso ou filtre ?",
-        "a": "Les deux. Choisissez la torréfaction pour chaque ligne de votre commande; même grain, courbe différente."
-      },
-      {
-        "q": "Quelles origines proposez-vous ?",
-        "a": "Le Venezuela est notre origine phare, avec des lots d'altitude de Colombie, du Costa Rica et du Panama. De nouveaux lots arrivent à chaque récolte."
+        "q": "D'où vient le café ?",
+        "a": "De Santa Cruz de Mora, dans les Andes de Mérida, au Venezuela. Chaque lot est tracé jusqu'à sa ferme et analysé en laboratoire avant l'expédition."
       }
     ]
   },
   "cta": {
-    "sentence": "Parlez-nous de votre commerce. Nous répondons en deux jours ouvrables.",
-    "word": "Postuler"
+    "sentence": "Parlez-nous de votre entreprise. Nous répondons en deux jours ouvrables.",
+    "word": "Postuler",
+    "orderLine": "Prêt à commander ?",
+    "orderLink": "Voir les prix et commander",
+    "applyLink": "Ouvrir un compte"
   },
   "footer": {
     "invite1": "Servez-le à",
@@ -170,15 +178,19 @@
     "made": "Cultivé en altitude en Amérique latine, torréfié au Canada."
   },
   "coffee": {
-    "title": "Le café",
-    "lead": "Des lots d'altitude du Venezuela, de Colombie, du Costa Rica et du Panama, torréfiés pour l'espresso ou le filtre.",
+    "title": "Notre café",
+    "lead": "Une origine des Andes de Mérida, en torréfaction claire, moyenne ou foncée.",
     "variety": "Variété",
     "process": "Procédé",
     "altitude": "Altitude",
     "notes": "Notes de dégustation",
-    "score": "Note de dégustation",
+    "score": "Note SCA",
     "view": "Voir et commander",
-    "comingSoon": "De nouveaux lots arrivent à chaque récolte."
+    "comingSoon": "De nouveaux lots arrivent à chaque récolte.",
+    "harvest": "Récolte",
+    "roastTitle": "Choisissez votre torréfaction",
+    "farm": "Ferme",
+    "producer": "Producteur"
   },
   "product": {
     "format": "Format",
@@ -382,7 +394,10 @@
       "prices": "Prix",
       "newOrder": "Nouvelle commande",
       "newCustomer": "Nouveau client",
-      "site": "Voir le site"
+      "site": "Voir le site",
+      "inventory": "Inventaire",
+      "expenses": "Dépenses",
+      "margins": "Marges"
     },
     "periods": {
       "today": "Aujourd'hui",
@@ -488,6 +503,266 @@
       "lead": "Prix par format, en dollars canadiens. Standard est la grille visible par tous; Partenaire, celle des clients avec remise.",
       "note": "Les changements s'appliquent tout de suite sur le site et aux nouvelles commandes; les commandes existantes gardent leur prix."
     },
-    "ordersCount": "{count, plural, one {# commande} other {# commandes}}"
+    "ordersCount": "{count, plural, one {# commande} other {# commandes}}",
+    "converter": {
+      "title": "Convertisseur lb ⇄ kg"
+    },
+    "filter": {
+      "title": "Filtrer les clients",
+      "search": "Rechercher",
+      "searchPh": "Entreprise, contact, courriel…",
+      "city": "Ville",
+      "apply": "Filtrer",
+      "clear": "Effacer les filtres",
+      "showing": "{n} sur {total}"
+    },
+    "fin": {
+      "notes": "Notes",
+      "delete": "Supprimer",
+      "confirmDelete": "Supprimer cet enregistrement ? C'est définitif.",
+      "perLb": "{v} par lb",
+      "errors": {
+        "invalid": "Vérifiez les champs indiqués.",
+        "roastedMore": "Plus de café torréfié que de café vert : vérifiez les poids.",
+        "unknown": "Une erreur est survenue. Réessayez."
+      },
+      "lotStatus": {
+        "ordered": "Commandé",
+        "in_transit": "En transit",
+        "received": "Reçu"
+      },
+      "costCat": {
+        "coffee": "Café vert",
+        "freight": "Fret vers le Canada",
+        "customs": "Douane et droits",
+        "broker": "Courtier en douane",
+        "insurance": "Assurance",
+        "storage": "Entreposage",
+        "other": "Autre"
+      },
+      "lot": {
+        "new": "Nouvel achat",
+        "lead": "La fiche d'une commande de café vert : combien, à quel prix et dans quelle devise. Ajoutez ensuite le fret, la douane et le reste jusqu'au Canada.",
+        "code": "Code du lot",
+        "date": "Date d'achat",
+        "supplier": "Fournisseur",
+        "origin": "Origine",
+        "quantity": "Quantité de café vert",
+        "status": "Statut",
+        "price": "Prix du café par unité",
+        "priceHint": "Par {unit}, café seulement (sans fret ni douane).",
+        "currency": "Devise",
+        "fx": "Taux de change en CAD",
+        "fxHint": "Combien de CAD vaut 1 USD.",
+        "estimate": "{kg} kg de café vert · {total} · {perKg} par kg (avant frais)",
+        "estimateEmpty": "Saisissez la quantité et le prix pour voir le coût en CAD.",
+        "create": "Enregistrer l'achat",
+        "created": "Achat enregistré.",
+        "createdNext": "Ajoutez maintenant ses frais (fret, douane…) pour obtenir le coût réel par kilo.",
+        "open": "Ouvrir la fiche",
+        "sheet": "Fiche d'achat",
+        "bought": "Acheté",
+        "usedOf": "{kg} kg déjà torréfiés",
+        "coffee": "Café",
+        "landed": "Coût rendu au Canada",
+        "landedHint": "Café + {costs} de frais",
+        "perKg": "Coût par kg vert",
+        "costsTitle": "Détail des coûts",
+        "costsLead": "Tout ce qui a été payé pour amener ce café au Canada. Les montants en USD utilisent le taux de l'achat."
+      },
+      "cost": {
+        "category": "Type",
+        "label": "Détail",
+        "labelPh": "p. ex. conteneur Puerto Cabello → Montréal",
+        "amount": "Montant",
+        "add": "Ajouter un frais"
+      },
+      "batch": {
+        "new": "Saisir une torréfaction",
+        "lead": "Ce qui sort du lot en vert et entre en stock torréfié. Avec les frais du torréfacteur et les fournitures, on obtient le coût par kilo.",
+        "noLots": "Saisissez d'abord un achat de café vert.",
+        "created": "Torréfaction enregistrée. Vous pouvez en saisir une autre.",
+        "lot": "Lot de café vert",
+        "lotCost": "Coût du vert : {cost} par kg",
+        "date": "Date de torréfaction",
+        "roast": "Torréfaction",
+        "green": "Café vert utilisé",
+        "roasted": "Café torréfié obtenu",
+        "rate": "Frais du torréfacteur",
+        "basis": "Facturé sur",
+        "basisGreen": "kg de café vert",
+        "basisRoasted": "kg de café torréfié",
+        "packaging": "Fournitures (CAD)",
+        "packagingHint": "Sacs, étiquettes, valves… de cette torréfaction.",
+        "estimate": "Perte {shrink} % · coût total {total} · {perKg} par kg torréfié ({perLb} par lb)",
+        "estimateEmpty": "Saisissez les poids pour voir la perte et le coût par kilo.",
+        "create": "Enregistrer"
+      },
+      "inv": {
+        "empty": "Aucun achat pour l'instant. Commencez par « Nouvel achat », puis saisissez chaque torréfaction.",
+        "green": "Café vert en stock",
+        "incoming": "+ {kg} kg commandés ou en route",
+        "roasted": "Café torréfié en stock",
+        "committed": "Réservé",
+        "committedHint": "Dans des commandes non expédiées",
+        "avgCost": "Coût moyen par kg torréfié",
+        "noBatches": "Aucune torréfaction",
+        "byRoast": "Torréfié, par niveau",
+        "toRoast": "à torréfier",
+        "since": "Commandes comptées depuis le premier achat ({date}).",
+        "lots": "Achats de café vert",
+        "noLots": "Aucun achat.",
+        "batches": "Torréfactions"
+      },
+      "col": {
+        "roast": "Torréfaction",
+        "produced": "Torréfié",
+        "shipped": "Expédié",
+        "onHand": "En stock",
+        "committed": "Réservé",
+        "free": "Libre",
+        "costKg": "Coût/kg",
+        "lot": "Lot",
+        "status": "Statut",
+        "bought": "Acheté",
+        "used": "Torréfié",
+        "remaining": "Reste",
+        "landed": "Coût rendu",
+        "costKgGreen": "Coût/kg vert",
+        "greenIn": "Vert",
+        "roastedOut": "Torréfié",
+        "shrink": "Perte",
+        "batchCost": "Coût"
+      },
+      "exp": {
+        "month": "Mois",
+        "tag": "Étiquette",
+        "description": "Description",
+        "descriptionPh": "p. ex. loyer d'octobre",
+        "amount": "Montant (CAD)",
+        "add": "Ajouter une dépense",
+        "total": "Total du mois",
+        "vsPrev": "vs mois précédent",
+        "count": "Entrées",
+        "year": "Total {year}",
+        "listTitle": "Dépenses de {month}",
+        "none": "Aucune dépense ce mois-ci.",
+        "byTag": "Par étiquette",
+        "tags": [
+          "Loyer",
+          "Torréfacteur",
+          "Fournitures",
+          "Transport",
+          "Douane",
+          "Marketing",
+          "Services",
+          "Salaires",
+          "Logiciels",
+          "Autre"
+        ]
+      },
+      "mar": {
+        "noCost": "Pour calculer les marges, saisissez au moins un achat et une torréfaction afin de connaître le coût de chaque kilo.",
+        "sales": "Ventes de café",
+        "shipping": "+ {v} de livraison facturée",
+        "cogs": "Coût du café vendu",
+        "gross": "Marge brute",
+        "ofSales": "{pct} des ventes",
+        "net": "Bénéfice",
+        "afterExpenses": "Après {v} de dépenses d'exploitation",
+        "perKgTitle": "Par kilo vendu",
+        "pricePerKg": "Prix moyen",
+        "costPerKg": "Coût moyen",
+        "marginPerKg": "Marge",
+        "byMonth": "Mois par mois, {year}",
+        "month": "Mois",
+        "expenses": "Dépenses",
+        "total": "Total",
+        "how": "Calcul : coût du café = kg vendus × coût moyen par kg torréfié de cette torréfaction (café vert avec fret et douane + torréfacteur + fournitures). Bénéfice = ventes + livraison − coût du café − dépenses du mois. Impôt sur le revenu non inclus."
+      }
+    }
+  },
+  "roasts": {
+    "heading": "Une origine, trois torréfactions",
+    "kicker": "Santa Cruz de Mora · Venezuela",
+    "light": "Torréfaction claire",
+    "medium": "Torréfaction moyenne",
+    "dark": "Torréfaction foncée",
+    "cta": "Commander cette torréfaction",
+    "prev": "Torréfaction précédente",
+    "next": "Torréfaction suivante",
+    "slide": "{n} sur {total}"
+  },
+  "lab": {
+    "title": "Fiche technique",
+    "lead": "Analyse physique et sensorielle du lot {lot}, {date}, par {lab}.",
+    "cupTitle": "Dégustation",
+    "cupNote": "Chaque attribut sur 10. Total : {score} points.",
+    "inCup": "En tasse",
+    "physical": "Café vert",
+    "moisture": "Humidité",
+    "density": "Densité",
+    "screen": "Calibre",
+    "screenNote": "{pct} % au crible 16 ou plus",
+    "defects": "Défauts primaires",
+    "grade": "Grade",
+    "gradeValue": "Spécialité (SCA)",
+    "keys": {
+      "fragrance": "Fragrance et arôme",
+      "flavor": "Saveur",
+      "aftertaste": "Arrière-goût",
+      "acidity": "Acidité",
+      "body": "Corps",
+      "balance": "Équilibre",
+      "uniformity": "Uniformité",
+      "cleanCup": "Tasse propre",
+      "sweetness": "Douceur",
+      "overall": "Note globale"
+    }
+  },
+  "farms": {
+    "heading": "D'où vient-il ?",
+    "lead": "Les fermes derrière chaque sac, dans les Andes de Mérida.",
+    "altitude": "{m} m d'altitude"
+  },
+  "about": {
+    "title": "Qui sommes-nous",
+    "lead": "Nous apportons le café des Andes vénézuéliennes aux comptoirs canadiens, torréfié chaque semaine.",
+    "storyTitle": "Notre histoire",
+    "story": [
+      "DeAltura est née d'une idée simple : le café cultivé dans les montagnes du Venezuela mérite sa place dans les cafés du Canada.",
+      "Nous travaillons avec des producteurs de Santa Cruz de Mora, à Mérida. Nous importons leur café vert, le torréfions ici chaque semaine et le livrons aux cafés, restaurants et boutiques de tout le pays."
+    ],
+    "pillarsTitle": "Notre façon de travailler",
+    "pillars": [
+      {
+        "title": "Depuis la ferme",
+        "text": "Nous savons qui cultive chaque lot : le producteur, la ferme et l'altitude. Cette histoire voyage sur le sac."
+      },
+      {
+        "title": "Vérifié en laboratoire",
+        "text": "Chaque lot est analysé avant l'expédition. Notre lot actuel de la Finca La Curva a obtenu 84 points SCA, grade spécialité."
+      },
+      {
+        "title": "Torréfié au Canada",
+        "text": "Le café vert se conserve des mois : nous le torréfions ici chaque semaine. Il vous arrive quelques jours après la torréfaction."
+      }
+    ],
+    "forTitle": "Pour qui nous torréfions",
+    "forText": "Les cafés, restaurants, boutiques et bureaux qui veulent un café de spécialité traçable et un fournisseur qui répond au téléphone.",
+    "values": [
+      {
+        "value": "Traçable",
+        "explain": "Chaque sac lié à sa ferme"
+      },
+      {
+        "value": "Frais",
+        "explain": "Torréfié chaque semaine, daté sur le sac"
+      },
+      {
+        "value": "Direct",
+        "explain": "De Mérida à votre comptoir"
+      }
+    ]
   }
 }

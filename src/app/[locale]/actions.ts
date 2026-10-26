@@ -15,7 +15,7 @@ import { setOwnPassword } from '@/lib/accounts';
 import type { Address, Locale, Order, Province } from '@/lib/types';
 
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'] as const;
-const ROAST = z.enum(['espresso', 'filter', 'omni']);
+const ROAST = z.enum(['light', 'medium', 'dark']);
 
 export type FormState = { error?: string; fields?: string[]; ok?: boolean };
 

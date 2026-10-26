@@ -22,7 +22,7 @@ export async function SiteFooter() {
         <nav className="site-footer__links" aria-label="Footer">
           <Emblem onDark size={112} className="site-footer__emblem" />
           <Link href="/coffee">{nav('coffee')}</Link>
-          <Link href="/origin">{nav('origin')}</Link>
+          <Link href="/about">{nav('about')}</Link>
           <Link href="/login">{nav('signIn')}</Link>
           <a href={`mailto:${settings.contactEmail}`}>{t('email')}: {settings.contactEmail}</a>
         </nav>
