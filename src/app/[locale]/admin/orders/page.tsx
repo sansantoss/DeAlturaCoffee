@@ -55,10 +55,10 @@ export default async function AdminOrders({ params, searchParams }: { params: Pr
                   status={o.status}
                   cells={
                     <>
-                      <td><strong className="nums">{o.number}</strong></td>
+                      <td><Link className="link" href={`/admin/orders/${o.id}`}><strong className="nums">{o.number}</strong></Link></td>
                       <td className="nums">{formatDate(o.createdAt, locale)}</td>
-                      <td>{names.get(o.customerId) ?? '—'}<br /><small className="hint">{o.shippingAddress.city}, {o.shippingAddress.province}</small></td>
-                      <td><small>{o.lines.map((l) => `${l.quantity} × ${l.productName} · ${l.formatLabel}`).join(' / ')}</small>{o.notes ? <><br /><small className="hint">“{o.notes}”</small></> : null}</td>
+                      <td><Link className="link" href={`/admin/customers/${o.customerId}`}>{names.get(o.customerId) ?? '—'}</Link><br /><small className="hint">{o.shippingAddress.city}, {o.shippingAddress.province}</small></td>
+                      <td><small>{o.lines.map((l) => `${l.quantity} × ${l.productName} · ${l.formatLabel} · ${t(`formats.${l.roast}` as 'formats.medium')}`).join(' / ')}</small>{o.notes ? <><br /><small className="hint">“{o.notes}”</small></> : null}</td>
                       <td className="num">{nf.format(kgOf(o))}</td>
                       <td>{o.paymentMethod === 'invoice' ? t('admin.payInvoice') : t('admin.payCard')}</td>
                       <td className="num"><strong>{formatMoney(o.totalCents, locale)}</strong></td>

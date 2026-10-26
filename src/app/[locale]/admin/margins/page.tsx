@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { StatTile } from '@/components/admin-charts';
 import { PrintButton } from '@/components/PrintButton';
+import { defaultProductId } from '@/lib/catalog';
 import { repo } from '@/lib/db';
 import { buildInventory, buildMargins, buildStatement, LB_PER_KG, periodMonths } from '@/lib/finance';
 import { formatMoney } from '@/lib/format';
@@ -24,8 +25,9 @@ export default async function MarginsPage({ params, searchParams }: { params: Pr
   const [t, orders, lots, batches, expenses] = await Promise.all([
     getTranslations(), repo.orders.listAll(), repo.lots.list(), repo.batches.list(), repo.expenses.list(),
   ]);
-  const st = buildStatement(months, orders, lots, batches, expenses);
-  const inv = buildInventory(lots, batches, orders);
+  const def = await defaultProductId();
+  const st = buildStatement(months, orders, lots, batches, expenses, def);
+  const inv = buildInventory(lots, batches, orders, def);
   const byMonth = buildMargins(year, orders, inv, expenses);
 
   const money = (c: number) => formatMoney(Math.round(c), locale);
@@ -96,7 +98,7 @@ export default async function MarginsPage({ params, searchParams }: { params: Pr
 
             <tr className="statement__group"><td colSpan={3}>{t('admin.fin.st.opexTitle')}</td></tr>
             {st.expensesByTag.length ? st.expensesByTag.map((e) => (
-              <tr key={e.tag}><td className="indent">{e.tag}</td><td className="num">{money(e.cents)}</td><td className="num">{pct(e.cents)}</td></tr>
+              <tr key={e.tag}><td className="indent">{months.length === 1 ? <Link className="link" href={`/admin/expenses?month=${months[0]}&tag=${encodeURIComponent(e.tag)}`}>{e.tag}</Link> : e.tag}</td><td className="num">{money(e.cents)}</td><td className="num">{pct(e.cents)}</td></tr>
             )) : <tr><td className="indent hint" colSpan={3}>{t('admin.fin.exp.none')}</td></tr>}
             <tr className="statement__sum"><td>{t('admin.fin.st.opex')}</td><td className="num">{money(st.expensesCad)}</td><td className="num">{pct(st.expensesCad)}</td></tr>
 

@@ -120,7 +120,7 @@ export default async function AdminCustomers({ params, searchParams }: { params:
                   hasLogin={c.hasLogin !== false}
                   who={
                     <>
-                      <strong>{c.businessName}</strong>
+                      <Link className="link" href={`/admin/customers/${c.id}`}><strong>{c.businessName}</strong></Link>
                       {(() => { const p = placeOf(c); return p.city ? <><br /><small className="hint">{p.city}{p.province ? `, ${p.province}` : ''}{app ? ` · ${t('admin.kgMonth', { kg: app.estimatedKgPerMonth })}` : ''}</small></> : null; })()}
                       {app?.message && <><br /><small className="hint">“{app.message}”</small></>}
                       <br /><small className="hint">{formatDate(c.createdAt, locale)}</small>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { BarList, ColumnChart, StatTile } from '@/components/admin-charts';
+import { defaultProductId } from '@/lib/catalog';
 import { repo } from '@/lib/db';
 import { buildDashboard, PERIODS, type Period } from '@/lib/metrics';
 import { buildInventory, buildStatement, periodMonths } from '@/lib/finance';
@@ -25,8 +26,9 @@ export default async function AdminOverview({
   const [t, orders, customers, lots, batches, expenses] = await Promise.all([
     getTranslations(), repo.orders.listAll(), repo.customers.list(), repo.lots.list(), repo.batches.list(), repo.expenses.list(),
   ]);
-  const fin = buildStatement(periodMonths('month'), orders, lots, batches, expenses);
-  const inv = buildInventory(lots, batches, orders);
+  const def = await defaultProductId();
+  const fin = buildStatement(periodMonths('month'), orders, lots, batches, expenses, def);
+  const inv = buildInventory(lots, batches, orders, def);
   const freeKg = inv.roasts.reduce((sum, r) => sum + r.freeKg, 0);
   const d = buildDashboard(orders, customers, period, locale);
   const pendingAccounts = customers.filter((c) => c.status === 'pending');

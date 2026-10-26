@@ -1,7 +1,7 @@
 import 'server-only';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import type { Customer, Expense, GreenLot, Order, PriceOverride, RoastBatch, WholesaleApplication } from '../types';
+import type { Customer, Expense, Farm, GreenLot, Order, Origin, PriceOverride, Product, RoastBatch, WholesaleApplication } from '../types';
 import type { Repository } from './repository';
 
 /**
@@ -20,10 +20,13 @@ export interface LocalDb {
   lots: GreenLot[];
   batches: RoastBatch[];
   expenses: Expense[];
+  products: Product[];
+  origins: Origin[];
+  farms: Farm[];
 }
 
 const FILE = path.join(process.cwd(), '.data', 'db.json');
-const EMPTY: LocalDb = { customers: [], orders: [], applications: [], credentials: [], orderSeq: 1000, prices: [], lots: [], batches: [], expenses: [] };
+const EMPTY: LocalDb = { customers: [], orders: [], applications: [], credentials: [], orderSeq: 1000, prices: [], lots: [], batches: [], expenses: [], products: [], origins: [], farms: [] };
 
 let queue: Promise<unknown> = Promise.resolve();
 
@@ -118,6 +121,23 @@ export const localRepository: Repository = {
         if (i >= 0) db.prices[i].priceCents = priceCents;
         else db.prices.push({ sku, tier, priceCents });
       });
+    },
+  },
+  catalog: {
+    async listProducts() { return (await readDb()).products ?? []; },
+    saveProduct(p) {
+      return mutateDb((db) => { db.products ??= []; db.products = [...db.products.filter((x) => x.id !== p.id), p]; });
+    },
+    async listOrigins() { return (await readDb()).origins ?? []; },
+    saveOrigin(o) {
+      return mutateDb((db) => { db.origins ??= []; db.origins = [...db.origins.filter((x) => x.id !== o.id), o]; });
+    },
+    async listFarms() { return (await readDb()).farms ?? []; },
+    saveFarm(f) {
+      return mutateDb((db) => { db.farms ??= []; db.farms = [...db.farms.filter((x) => x.id !== f.id), f]; });
+    },
+    removeFarm(id) {
+      return mutateDb((db) => { db.farms = (db.farms ?? []).filter((x) => x.id !== id); });
     },
   },
   lots: {

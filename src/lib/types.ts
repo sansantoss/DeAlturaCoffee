@@ -52,8 +52,12 @@ export interface Farm {
   state: string;
   altitude: number; // msnm
   variety: string;
-  image: string; // nombre del archivo en public/images (sin extensión)
+  image: string; // nombre del archivo en public/images (sin extensión) o URL de una foto subida
   text: Localized;
+  /** Café al que pertenece (para mostrarla en su página). Vacío = se muestra en todos. */
+  productId?: string;
+  sort?: number;
+  deleted?: boolean;
 }
 
 export interface ProductFormat {
@@ -80,6 +84,11 @@ export interface Product {
   producer?: string;
   harvest?: string;
   lab?: LabSheet;
+  /** Fotos subidas desde el admin (URLs). Si no hay, se usan las de content/images.json. */
+  images?: string[];
+  /** Foto por tueste (URL). */
+  roastImages?: Partial<Record<RoastLevel, string>>;
+  sort?: number;
   formats: ProductFormat[];
   /** Canadian sales tax category. Roasted coffee beans are basic groceries: zero-rated. */
   taxCategory: 'zero-rated-grocery' | 'standard';
@@ -222,6 +231,8 @@ export interface LotCost {
 /** Ficha de compra de café verde (un lote). Se compra en lb o kg, en USD o CAD. */
 export interface GreenLot {
   id: string;
+  /** Café del catálogo al que corresponde esta compra (lo que se tuesta y se vende con ese nombre). */
+  productId?: string;
   code: string; // 'VEN-2026-01'
   supplier: string;
   origin: string;
@@ -260,6 +271,8 @@ export interface RoastBatch {
 export interface Expense {
   id: string;
   month: string; // YYYY-MM
+  /** Fecha exacta del gasto (YYYY-MM-DD); el mes se toma de aquí. */
+  date?: string;
   tag: string;
   description: string;
   amountCents: number; // CAD

@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import { StatTile } from '@/components/admin-charts';
 import { AddCostForm, DeleteButton, LotEdit } from '@/components/admin-finance';
 import { repo } from '@/lib/db';
+import { listAllProducts } from '@/lib/catalog';
 import { batchTotals, LB_PER_KG, lotTotals } from '@/lib/finance';
 import { formatDate, formatMoney } from '@/lib/format';
 import type { Locale } from '@/lib/types';
@@ -12,7 +13,7 @@ import type { Locale } from '@/lib/types';
 export default async function LotPage({ params }: { params: Promise<{ locale: Locale; id: string }> }) {
   const { locale, id } = await params;
   setRequestLocale(locale);
-  const [t, lot, batches] = await Promise.all([getTranslations(), repo.lots.getById(id), repo.batches.list()]);
+  const [t, lot, batches, products] = await Promise.all([getTranslations(), repo.lots.getById(id), repo.batches.list(), listAllProducts()]);
   if (!lot) notFound();
   const tot = lotTotals(lot);
   const own = batches.filter((b) => b.lotId === lot.id);
@@ -31,7 +32,7 @@ export default async function LotPage({ params }: { params: Promise<{ locale: Lo
           <h1 className="h-section">{lot.code}</h1>
           <p className="hint">{lot.supplier} · {lot.origin} · {formatDate(lot.purchasedAt, locale)}</p>
         </div>
-        <LotEdit id={lot.id} status={lot.status} fxToCad={lot.fxToCad} currency={lot.currency} key={`${lot.status}-${lot.fxToCad}`} />
+        <LotEdit id={lot.id} status={lot.status} fxToCad={lot.fxToCad} currency={lot.currency} productId={lot.productId} products={products.map((p) => ({ id: p.id, name: p.name[locale] }))} key={`${lot.status}-${lot.fxToCad}-${lot.productId}`} />
       </header>
 
       <section className="tiles">

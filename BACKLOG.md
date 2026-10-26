@@ -72,3 +72,10 @@ Ideas y decisiones para siguientes sprints. Lo de arriba es lo más urgente.
 - La foto actual de la bolsa dice 1,600–2,000 m; el análisis dice 1,200 msnm. El sitio ya usa 1,200.
 - Revisar el dashboard "La Sirena" que mandará San y ajustar inventario/márgenes a su forma de trabajar.
 - Notificaciones: correo (Resend) primero; WhatsApp solo para avisos internos al equipo, más adelante.
+
+## Catálogo en el admin (oct 2026)
+- Los cafés, su origen, fincas, notas por tueste, ficha técnica, formatos/precios y fotos se editan en Admin › Catálogo (tablas products, origins, farms; fotos en Supabase Storage, bucket "catalog").
+- content/*.json queda como respaldo: si la base no tiene un café/finca con ese id, se usa el JSON.
+- Las compras de café verde se ligan a un café del catálogo; inventario y costos se calculan por café × tueste.
+- Siguiente paso posible: inventario por bolsa (empacado: kg tostados → bolsas de 1 kg / 5 lb / 340 g), cuando el volumen lo justifique.
+- Pendiente: notas reales por tueste del tostador; fotos en alta resolución.

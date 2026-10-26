@@ -1,5 +1,5 @@
 import type {
-  Customer, Expense, GreenLot, Order, OrderStatus, PriceOverride, PriceTier, RoastBatch, WholesaleApplication,
+  Customer, Expense, Farm, GreenLot, Order, OrderStatus, Origin, PriceOverride, PriceTier, Product, RoastBatch, WholesaleApplication,
 } from '../types';
 
 /**
@@ -29,6 +29,19 @@ export interface Repository {
   prices: {
     list(): Promise<PriceOverride[]>;
     set(sku: string, tier: PriceTier, priceCents: number): Promise<void>;
+  };
+  /**
+   * Catálogo editable desde el admin. Lo que hay aquí sobrescribe a content/*.json (mismo id);
+   * si la tabla está vacía o no existe, la web usa los JSON.
+   */
+  catalog: {
+    listProducts(): Promise<Product[]>;
+    saveProduct(product: Product): Promise<void>;
+    listOrigins(): Promise<Origin[]>;
+    saveOrigin(origin: Origin): Promise<void>;
+    listFarms(): Promise<Farm[]>;
+    saveFarm(farm: Farm): Promise<void>;
+    removeFarm(id: string): Promise<void>;
   };
   /** Compras de café verde (con sus gastos de importación dentro). */
   lots: {

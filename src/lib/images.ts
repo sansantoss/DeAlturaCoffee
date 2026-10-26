@@ -92,3 +92,32 @@ export function heroMedia(locale: Locale): HeroMedia {
     position: s.position || 'center',
   };
 }
+
+/* ---------- Fotos subidas desde Admin › Catálogo (URLs), con respaldo a los archivos de public/images ---------- */
+
+type WithPhotos = { slug: string; images?: string[]; roastImages?: Partial<Record<string, string>> };
+
+/** Galería del café: las subidas en el admin; si no hay, las de content/images.json. */
+export function productPhotos(p: WithPhotos, alt: string): SiteImage[] {
+  if (p.images?.length) return p.images.map((src, i) => ({ src, alt: i === 0 ? alt : `${alt} (${i + 1})`, ratio: '4/5' }));
+  return productImages(p.slug, alt);
+}
+
+/** Foto de un tueste: la asignada en el admin, luego la de archivos, luego la primera de la galería. */
+export function roastPhoto(p: WithPhotos, roast: string, alt: string): SiteImage | null {
+  const url = p.roastImages?.[roast];
+  if (url) return { src: url, alt, ratio: '4/5' };
+  if (p.images?.length) {
+    const file = config.roasts?.[p.slug]?.[roast];
+    const src = file ? resolve(file) : null;
+    return src ? { src, alt, ratio: '4/5' } : { src: p.images[0], alt, ratio: '4/5' };
+  }
+  return roastImage(p.slug, roast, alt);
+}
+
+/** Foto de finca: URL subida o nombre de archivo en public/images. */
+export function farmPhoto(image: string, alt: string): SiteImage | null {
+  if (!image) return null;
+  if (/^(https?:)?\//.test(image)) return { src: image, alt, ratio: '4/3' };
+  return fileImage(image, alt, '4/3');
+}

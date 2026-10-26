@@ -9,7 +9,7 @@ import { Calculator } from '@/components/home/Calculator';
 import { getCurrentCustomer } from '@/lib/auth';
 import { getSettings, listProducts } from '@/lib/catalog';
 import { formatMoney } from '@/lib/format';
-import { heroMedia, roastImage, siteImage, type SlotName } from '@/lib/images';
+import { heroMedia, roastPhoto, siteImage, type SlotName } from '@/lib/images';
 import { HeroVideo } from '@/components/home/HeroVideo';
 import { Photo } from '@/components/Photo';
 import Image from 'next/image';
@@ -93,7 +93,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             name: t(`roasts.${r}`),
             notes: product.roastInfo?.[r]?.notes[locale] ?? product.tastingNotes[locale],
             use: product.roastInfo?.[r]?.use[locale] ?? '',
-            image: roastImage(product.slug, r, product.name[locale]),
+            image: roastPhoto(product, r, product.name[locale]),
           }))}
         />
       )}

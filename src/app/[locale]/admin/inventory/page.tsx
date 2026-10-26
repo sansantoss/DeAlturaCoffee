@@ -3,6 +3,7 @@ import { Link } from '@/i18n/navigation';
 import { StatTile } from '@/components/admin-charts';
 import { DeleteButton } from '@/components/admin-finance';
 import { repo } from '@/lib/db';
+import { defaultProductId, listAllProducts } from '@/lib/catalog';
 import { batchTotals, buildInventory, LB_PER_KG } from '@/lib/finance';
 import { formatDate, formatMoney } from '@/lib/format';
 import type { Locale } from '@/lib/types';
@@ -11,8 +12,11 @@ import type { Locale } from '@/lib/types';
 export default async function AdminInventory({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [t, lots, batches, orders] = await Promise.all([getTranslations(), repo.lots.list(), repo.batches.list(), repo.orders.listAll()]);
-  const inv = buildInventory(lots, batches, orders);
+  const [t, lots, batches, orders, products, def] = await Promise.all([
+    getTranslations(), repo.lots.list(), repo.batches.list(), repo.orders.listAll(), listAllProducts(), defaultProductId(),
+  ]);
+  const inv = buildInventory(lots, batches, orders, def);
+  const pname = (id?: string) => products.find((p) => p.id === (id ?? def))?.name[locale] ?? id ?? '—';
   const nf = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 });
   const kgLb = (kg: number) => `${nf.format(kg)} kg · ${nf.format(kg * LB_PER_KG)} lb`;
   const money = (c: number) => formatMoney(Math.round(c), locale);
@@ -51,9 +55,9 @@ export default async function AdminInventory({ params }: { params: Promise<{ loc
               </tr>
             </thead>
             <tbody>
-              {inv.roasts.map((r) => (
-                <tr key={r.roast}>
-                  <td><strong>{t(`formats.${r.roast}`)}</strong></td>
+              {inv.roasts.map((r, i) => (
+                <tr key={`${r.productId}-${r.roast}`} className={i > 0 && inv.roasts[i - 1].productId !== r.productId ? 'row-break' : undefined}>
+                  <td><strong>{t(`formats.${r.roast}`)}</strong><br /><small className="hint">{pname(r.productId)}</small></td>
                   <td className="num">{nf.format(r.producedKg)} kg</td>
                   <td className="num">{nf.format(r.shippedKg)} kg</td>
                   <td className="num"><strong>{nf.format(r.onHandKg)} kg</strong><br /><small className="hint">{nf.format(r.onHandKg * LB_PER_KG)} lb</small></td>
@@ -83,7 +87,7 @@ export default async function AdminInventory({ params }: { params: Promise<{ loc
               <tbody>
                 {inv.lots.map(({ lot, totals, usedKg, remainingKg }) => (
                   <tr key={lot.id}>
-                    <td><Link className="link" href={`/admin/inventory/lots/${lot.id}`}><strong>{lot.code}</strong></Link><br /><small className="hint">{lot.supplier} · {formatDate(lot.purchasedAt, locale)}</small></td>
+                    <td><Link className="link" href={`/admin/inventory/lots/${lot.id}`}><strong>{lot.code}</strong></Link><br /><small className="hint">{pname(lot.productId)} · {lot.supplier} · {formatDate(lot.purchasedAt, locale)}</small></td>
                     <td><span className={`pill pill--lot-${lot.status}`}>{t(`admin.fin.lotStatus.${lot.status}`)}</span></td>
                     <td className="num">{kgLb(totals.greenKg)}</td>
                     <td className="num">{nf.format(usedKg)} kg</td>
@@ -117,7 +121,7 @@ export default async function AdminInventory({ params }: { params: Promise<{ loc
                   return (
                     <tr key={b.id}>
                       <td>{formatDate(b.roastedAt, locale)}</td>
-                      <td>{t(`formats.${b.roast}`)}</td>
+                      <td>{t(`formats.${b.roast}`)}<br /><small className="hint">{pname(lot?.productId)}</small></td>
                       <td>{lot?.code ?? '—'}</td>
                       <td className="num">{nf.format(b.greenKg)} kg</td>
                       <td className="num">{nf.format(b.roastedKg)} kg</td>

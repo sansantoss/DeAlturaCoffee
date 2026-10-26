@@ -98,7 +98,7 @@ const bad = (state: AdminFormState, f: string) => (state.fields?.includes(f) ? t
 
 /* ---------------- Nueva compra de café verde ---------------- */
 
-export function NewLotForm({ today, defaultCode }: { today: string; defaultCode: string }) {
+export function NewLotForm({ today, defaultCode, products }: { today: string; defaultCode: string; products: { id: string; name: string; origin: string }[] }) {
   const t = useTranslations('admin.fin');
   const { n, money } = useFmt();
   const [state, action, pending] = useActionState<AdminFormState, FormData>(adminCreateLot, {});
@@ -107,6 +107,8 @@ export function NewLotForm({ today, defaultCode }: { today: string; defaultCode:
   const [currency, setCurrency] = useState<'USD' | 'CAD'>('USD');
   const [fx, setFx] = useState('1.37');
   const [unit, setUnit] = useState<MassUnit>('lb');
+  const [productId, setProductId] = useState(products[0]?.id ?? '');
+  const [origin, setOrigin] = useState(products[0]?.origin ?? '');
 
   if (state.ok && state.id) {
     return (
@@ -130,9 +132,16 @@ export function NewLotForm({ today, defaultCode }: { today: string; defaultCode:
         <label className="field"><span>{t('lot.date')}</span><input className="input" type="date" name="purchasedAt" defaultValue={today} required /></label>
       </div>
       <div className="two">
+        <label className="field">
+          <span>{t('lot.product')}</span>
+          <select className="input" name="productId" value={productId} onChange={(e) => { setProductId(e.target.value); setOrigin(products.find((x) => x.id === e.target.value)?.origin ?? ''); }}>
+            {products.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
+          </select>
+          <small className="hint">{t('lot.productHint')}</small>
+        </label>
         <label className="field"><span>{t('lot.supplier')}</span><input className="input" name="supplier" placeholder="Aprocandes" aria-invalid={bad(state, 'supplier')} required /></label>
-        <label className="field"><span>{t('lot.origin')}</span><input className="input" name="origin" defaultValue="Santa Cruz de Mora, Mérida" /></label>
       </div>
+      <label className="field"><span>{t('lot.origin')}</span><input className="input" name="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} /></label>
       <div className="two">
         <QtyField name="quantity" unitName="inputUnit" label={t('lot.quantity')} onKg={setKg} onUnit={setUnit} invalid={bad(state, 'quantity')} />
         <label className="field">
@@ -175,7 +184,9 @@ export function NewLotForm({ today, defaultCode }: { today: string; defaultCode:
 
 /* ---------------- Ficha de la compra: estado y tipo de cambio (texto → Editar → Guardar) ---------------- */
 
-export function LotEdit({ id, status, fxToCad, currency }: { id: string; status: LotStatus; fxToCad: number; currency: string }) {
+export function LotEdit({ id, status, fxToCad, currency, productId, products }: {
+  id: string; status: LotStatus; fxToCad: number; currency: string; productId?: string; products: { id: string; name: string }[];
+}) {
   const t = useTranslations('admin');
   const { n } = useFmt();
   const [editing, setEditing] = useState(false);
@@ -184,6 +195,7 @@ export function LotEdit({ id, status, fxToCad, currency }: { id: string; status:
   if (!editing) {
     return (
       <div className="lot-edit">
+        <span className="lot-edit__product">{products.find((p) => p.id === productId)?.name ?? products[0]?.name}</span>
         <span className={`pill pill--lot-${status}`}>{t(`fin.lotStatus.${status}`)}</span>
         {currency === 'USD' && <span className="hint nums">1 USD = {n(fxToCad, 4)} CAD</span>}
         <button type="button" className="btn btn--sm btn--ghost" onClick={(e) => { e.preventDefault(); setEditing(true); }}>{t('edit')}</button>
@@ -199,6 +211,9 @@ export function LotEdit({ id, status, fxToCad, currency }: { id: string; status:
       })}
     >
       <input type="hidden" name="id" value={id} />
+      <select className="input input--sm" name="productId" defaultValue={productId ?? products[0]?.id} aria-label={t('fin.lot.product')}>
+        {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+      </select>
       <select className="input input--sm" name="status" defaultValue={status} aria-label={t('fin.lot.status')}>
         {(['ordered', 'in_transit', 'received'] as LotStatus[]).map((s) => <option key={s} value={s}>{t(`fin.lotStatus.${s}`)}</option>)}
       </select>
@@ -364,7 +379,7 @@ export function NewBatchForm({ lots, today, defaultLot }: { lots: LotOption[]; t
 
 /* ---------------- Gasto operativo del mes ---------------- */
 
-export function ExpenseForm({ month, tags }: { month: string; tags: string[] }) {
+export function ExpenseForm({ defaultDate, tags }: { defaultDate: string; tags: string[] }) {
   const t = useTranslations('admin.fin');
   const [state, action, pending] = useActionState<AdminFormState, FormData>(adminCreateExpense, {});
   const formRef = useRef<HTMLFormElement>(null);
@@ -372,7 +387,7 @@ export function ExpenseForm({ month, tags }: { month: string; tags: string[] }) 
   useEffect(() => { if (state.ok) { formRef.current?.reset(); setResetKey((k) => k + 1); } }, [state]);
   return (
     <form ref={formRef} action={action} className="cost-form cost-form--expense" noValidate>
-      <label className="field"><span>{t('exp.month')}</span><input className="input" type="month" name="month" defaultValue={month} required /></label>
+      <label className="field"><span>{t('exp.date')}</span><input className="input" type="date" name="date" defaultValue={defaultDate} required /></label>
       <label className="field">
         <span>{t('exp.tag')}</span>
         <TagInput name="tag" suggestions={tags} invalid={bad(state, 'tag')} placeholder={tags[0]} resetKey={resetKey} />

@@ -17,6 +17,7 @@ const GROUPS = [
   {
     key: 'coffee',
     items: [
+      { href: '/admin/catalog', key: 'catalog' },
       { href: '/admin/inventory', key: 'inventory' },
       { href: '/admin/prices', key: 'prices' },
     ],

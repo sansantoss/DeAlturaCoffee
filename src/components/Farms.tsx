@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { Photo } from './Photo';
 import { MomentArt } from './art';
-import { fileImage, siteImage } from '@/lib/images';
+import { farmPhoto, siteImage } from '@/lib/images';
 import { formatNumber } from '@/lib/format';
 import type { Farm, Locale } from '@/lib/types';
 
@@ -18,7 +18,7 @@ export async function Farms({ farms, locale }: { farms: Farm[]; locale: Locale }
       <ul className={`farms__grid farms__grid--${Math.min(farms.length, 4)}`}>
         {farms.map((f) => {
           // Sin foto de la finca todavía: se usa la de las cerezas como provisional.
-          const img = fileImage(f.image, `${f.name}, ${f.town}`, '4/3') ?? siteImage('proceso_1', locale);
+          const img = farmPhoto(f.image, `${f.name}, ${f.town}`) ?? siteImage('proceso_1', locale);
           return (
             <li key={f.id} className="farm">
               {img ? <Photo image={img} ratio="4/3" sizes="(max-width: 760px) 100vw, 33vw" /> : <div className="farm__art"><MomentArt index={0} alt={f.name} day="" /></div>}

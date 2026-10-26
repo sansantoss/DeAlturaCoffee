@@ -118,7 +118,7 @@ if (!db.orders.length && process.argv.includes('--orders')) {
   const lot1 = randomUUID();
   db.lots = [
     {
-      id: lot1, code: `VEN-${year}-01`, supplier: 'Aprocandes', origin: 'Santa Cruz de Mora, Mérida', purchasedAt: `${year}-01-10`, status: 'received',
+      id: lot1, productId: 'prd_ven_scm', code: `VEN-${year}-01`, supplier: 'Aprocandes', origin: 'Santa Cruz de Mora, Mérida', purchasedAt: `${year}-01-10`, status: 'received',
       quantity: 4400, inputUnit: 'lb', pricePerUnitCents: 380, currency: 'USD', fxToCad: 1.37, notes: 'Lote 0002 · Finca La Curva · 84 pts SCA',
       costs: [
         { id: randomUUID(), category: 'freight', label: 'Contenedor Puerto Cabello → Montreal', amountCents: 240000, currency: 'USD' },
@@ -129,7 +129,7 @@ if (!db.orders.length && process.argv.includes('--orders')) {
       createdAt: `${year}-01-10T15:00:00.000Z`,
     },
     {
-      id: randomUUID(), code: `VEN-${year}-02`, supplier: 'Aprocandes', origin: 'Santa Cruz de Mora, Mérida', purchasedAt: iso(daysAgo(25)), status: 'in_transit',
+      id: randomUUID(), productId: 'prd_ven_scm', code: `VEN-${year}-02`, supplier: 'Aprocandes', origin: 'Santa Cruz de Mora, Mérida', purchasedAt: iso(daysAgo(25)), status: 'in_transit',
       quantity: 2200, inputUnit: 'lb', pricePerUnitCents: 395, currency: 'USD', fxToCad: 1.38,
       costs: [{ id: randomUUID(), category: 'freight', label: 'Contenedor (anticipo)', amountCents: 200000, currency: 'USD' }],
       createdAt: daysAgo(25).toISOString(),
@@ -148,16 +148,21 @@ if (!db.orders.length && process.argv.includes('--orders')) {
     }
   }
 
-  // Gastos operativos de cada mes
+  // Gastos operativos de cada mes, con fecha (varios de transporte por mes)
   db.expenses = [];
   for (let m = 0; m <= now.getMonth(); m++) {
     const month = `${year}-${String(m + 1).padStart(2, '0')}`;
-    const add = (tag, description, dollars) => db.expenses.push({ id: randomUUID(), month, tag, description, amountCents: Math.round(dollars * 100), createdAt: new Date().toISOString() });
-    add('Renta', 'Bodega y oficina', 1200);
-    add('Transporte', 'Paquetería a clientes', Math.round(rnd(280, 620)));
-    add('Software', 'Hosting y correo', 45);
-    if (m % 2 === 0) add('Marketing', 'Muestras y degustaciones', Math.round(rnd(120, 400)));
-    add('Servicios', 'Luz e internet', Math.round(rnd(90, 150)));
+    const last = m === now.getMonth() ? now.getDate() : new Date(year, m + 1, 0).getDate();
+    const add = (day, tag, description, dollars) => {
+      if (day > last) return;
+      db.expenses.push({ id: randomUUID(), month, date: `${month}-${String(day).padStart(2, '0')}`, tag, description, amountCents: Math.round(dollars * 100), createdAt: new Date().toISOString() });
+    };
+    add(1, 'Renta', 'Espacio en bodega compartida', 150);
+    add(3, 'Software', 'Hosting y correo', 45);
+    for (const day of [6, 13, 20, 27]) add(day, 'Transporte', pick(['Canpar · envíos Ontario', 'Purolator · Montréal', 'UPS · Vancouver', 'Mensajería local Toronto']), Math.round(rnd(45, 140)));
+    add(10, 'Servicios', 'Teléfono e internet', Math.round(rnd(55, 85)));
+    if (m % 2 === 0) add(15, 'Marketing', pick(['Muestras para cafeterías', 'Degustación en tienda', 'Anuncios Instagram']), Math.round(rnd(60, 220)));
+    if (m % 3 === 1) add(18, 'Insumos', 'Etiquetas y válvulas extra', Math.round(rnd(40, 120)));
   }
   console.log(`${db.orders.length} pedidos, ${db.lots.length} compras, ${db.batches.length} tuestes y ${db.expenses.length} gastos de ejemplo creados`);
 }

@@ -1,6 +1,6 @@
 import 'server-only';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Address, Customer, Expense, GreenLot, Order, OrderLine, PriceOverride, RoastBatch, WholesaleApplication } from '../types';
+import type { Address, Customer, Expense, Farm, GreenLot, Order, OrderLine, Origin, PriceOverride, Product, RoastBatch, WholesaleApplication } from '../types';
 import type { Repository } from './repository';
 
 /**
@@ -54,13 +54,13 @@ function check<T>(res: { data: T; error: { message: string } | null }): T {
 }
 
 const toLot = (r: Row): GreenLot => ({
-  id: r.id, code: r.code, supplier: r.supplier, origin: r.origin, purchasedAt: r.purchased_at, status: r.status,
+  id: r.id, productId: r.product_id ?? undefined, code: r.code, supplier: r.supplier, origin: r.origin, purchasedAt: r.purchased_at, status: r.status,
   quantity: Number(r.quantity), inputUnit: r.input_unit, pricePerUnitCents: r.price_per_unit_cents, currency: r.currency,
   fxToCad: Number(r.fx_to_cad), costs: r.costs ?? [], notes: r.notes ?? undefined, createdAt: r.created_at,
 });
 const fromLot = (l: Partial<GreenLot>): Row => {
   const m: Record<string, string> = {
-    code: 'code', supplier: 'supplier', origin: 'origin', purchasedAt: 'purchased_at', status: 'status', quantity: 'quantity',
+    productId: 'product_id', code: 'code', supplier: 'supplier', origin: 'origin', purchasedAt: 'purchased_at', status: 'status', quantity: 'quantity',
     inputUnit: 'input_unit', pricePerUnitCents: 'price_per_unit_cents', currency: 'currency', fxToCad: 'fx_to_cad', costs: 'costs', notes: 'notes',
   };
   const out: Row = {};
@@ -73,7 +73,7 @@ const toBatch = (r: Row): RoastBatch => ({
   notes: r.notes ?? undefined, createdAt: r.created_at,
 });
 const toExpense = (r: Row): Expense => ({
-  id: r.id, month: r.month, tag: r.tag, description: r.description, amountCents: r.amount_cents, createdAt: r.created_at,
+  id: r.id, month: r.month, date: r.spent_on ?? undefined, tag: r.tag, description: r.description, amountCents: r.amount_cents, createdAt: r.created_at,
 });
 
 const CUSTOMER_SELECT = '*, addresses(*)';
@@ -200,6 +200,38 @@ export const supabaseRepository: Repository = {
       );
     },
   },
+  catalog: {
+    async listProducts() {
+      const rows = check(await db().from('products').select('data').order('sort'));
+      return (rows ?? []).map((r: Row) => r.data as Product);
+    },
+    async saveProduct(p) {
+      check(await db().from('products').upsert(
+        { id: p.id, slug: p.slug, active: p.active, sort: p.sort ?? 0, data: p, updated_at: new Date().toISOString() },
+        { onConflict: 'id' },
+      ));
+    },
+    async listOrigins() {
+      const rows = check(await db().from('origins').select('data'));
+      return (rows ?? []).map((r: Row) => r.data as Origin);
+    },
+    async saveOrigin(o) {
+      check(await db().from('origins').upsert({ id: o.id, data: o, updated_at: new Date().toISOString() }, { onConflict: 'id' }));
+    },
+    async listFarms() {
+      const rows = check(await db().from('farms').select('data').order('sort'));
+      return (rows ?? []).map((r: Row) => r.data as Farm);
+    },
+    async saveFarm(f) {
+      check(await db().from('farms').upsert(
+        { id: f.id, product_id: f.productId ?? null, published: f.published, sort: f.sort ?? 0, data: f, updated_at: new Date().toISOString() },
+        { onConflict: 'id' },
+      ));
+    },
+    async removeFarm(id) {
+      check(await db().from('farms').delete().eq('id', id));
+    },
+  },
   lots: {
     async list() {
       const rows = check(await db().from('green_lots').select('*').order('purchased_at', { ascending: false }));
@@ -237,12 +269,12 @@ export const supabaseRepository: Repository = {
   },
   expenses: {
     async list() {
-      const rows = check(await db().from('expenses').select('*').order('month', { ascending: false }).order('created_at', { ascending: false }));
+      const rows = check(await db().from('expenses').select('*').order('month', { ascending: false }).order('spent_on', { ascending: false, nullsFirst: false }).order('created_at', { ascending: false }));
       return (rows ?? []).map(toExpense);
     },
     async create(e) {
       check(await db().from('expenses').insert({
-        id: e.id, month: e.month, tag: e.tag, description: e.description, amount_cents: e.amountCents, created_at: e.createdAt,
+        id: e.id, month: e.month, spent_on: e.date ?? null, tag: e.tag, description: e.description, amount_cents: e.amountCents, created_at: e.createdAt,
       }));
       return e;
     },

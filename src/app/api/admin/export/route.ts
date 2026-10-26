@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { getAdmin } from '@/lib/admin';
+import { defaultProductId } from '@/lib/catalog';
 import { repo } from '@/lib/db';
 import { buildStatement, periodMonths } from '@/lib/finance';
 
@@ -24,7 +25,7 @@ export async function GET(req: Request) {
     const p = url.searchParams.get('p') ?? 'month';
     const months = periodMonths(p);
     const [orders, lots, batches, expenses] = await Promise.all([repo.orders.listAll(), repo.lots.list(), repo.batches.list(), repo.expenses.list()]);
-    const st = buildStatement(months, orders, lots, batches, expenses);
+    const st = buildStatement(months, orders, lots, batches, expenses, await defaultProductId());
     const pct = (v: number) => (st.revenueCad ? `${((v / st.revenueCad) * 100).toFixed(1)}%` : '');
     const f = (k: string) => t(`admin.fin.${k}` as 'admin.fin.st.title');
     rows = [

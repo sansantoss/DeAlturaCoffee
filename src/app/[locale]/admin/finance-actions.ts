@@ -48,6 +48,7 @@ async function safe(fn: () => Promise<void>): Promise<ActionResult> {
 /* ---------- Compras (lotes de café verde) ---------- */
 
 const lotSchema = z.object({
+  productId: z.string().max(60).optional().default(''),
   code: z.string().trim().min(1).max(40),
   supplier: z.string().trim().min(1).max(120),
   origin: z.string().trim().max(160).default(''),
@@ -67,7 +68,7 @@ export async function adminCreateLot(_: AdminFormState, form: FormData): Promise
     const d = lotSchema.parse(Object.fromEntries(form));
     const id = randomUUID();
     await repo.lots.create({
-      id, code: d.code, supplier: d.supplier, origin: d.origin, purchasedAt: d.purchasedAt, status: d.status,
+      id, productId: d.productId || undefined, code: d.code, supplier: d.supplier, origin: d.origin, purchasedAt: d.purchasedAt, status: d.status,
       quantity: d.quantity, inputUnit: d.inputUnit, pricePerUnitCents: cents(d.pricePerUnit), currency: d.currency,
       fxToCad: d.currency === 'CAD' ? 1 : d.fxToCad, costs: [], notes: d.notes || undefined, createdAt: new Date().toISOString(),
     });
@@ -83,10 +84,11 @@ export async function adminUpdateLot(form: FormData): Promise<ActionResult> {
   return safe(async () => {
   const d = z.object({
     id: z.string().min(1),
+    productId: z.string().max(60).optional(),
     status: z.enum(['ordered', 'in_transit', 'received']),
     fxToCad: positive,
   }).parse(Object.fromEntries(form));
-  await repo.lots.update(d.id, { status: d.status, fxToCad: d.fxToCad });
+  await repo.lots.update(d.id, { status: d.status, fxToCad: d.fxToCad, ...(d.productId ? { productId: d.productId } : {}) });
   });
 }
 
@@ -172,7 +174,7 @@ export async function adminDeleteBatch(form: FormData): Promise<ActionResult> {
 /* ---------- Gastos operativos ---------- */
 
 const expenseSchema = z.object({
-  month: z.string().regex(/^\d{4}-\d{2}$/),
+  date: date,
   tag: z.string().trim().min(1).max(40),
   description: z.string().trim().max(200).default(''),
   amount: positive,
@@ -185,7 +187,8 @@ export async function adminCreateExpense(_: AdminFormState, form: FormData): Pro
     // Etiquetas consistentes: "renta" y "Renta" son la misma
     const tag = d.tag.charAt(0).toUpperCase() + d.tag.slice(1);
     await repo.expenses.create({
-      id: randomUUID(), month: d.month, tag, description: d.description, amountCents: cents(d.amount), createdAt: new Date().toISOString(),
+      id: randomUUID(), month: d.date.slice(0, 7), date: d.date, tag, description: d.description,
+      amountCents: cents(d.amount), createdAt: new Date().toISOString(),
     });
     refresh();
     return { ok: true };

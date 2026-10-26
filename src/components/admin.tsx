@@ -392,3 +392,21 @@ export function NewOrderForm({ customers, options, defaultCustomer, minimumKg }:
     </form>
   );
 }
+
+/** Cambiar el estado desde el detalle del pedido. */
+export function OrderStatusForm({ id, status }: { id: string; status: OrderStatus }) {
+  const t = useTranslations();
+  const { editing, pending, error, save, edit, cancel } = useRowSave(adminUpdateOrder);
+  const formId = `os-${id}`;
+  return (
+    <div className="order-status-form">
+      {editing ? (
+        <select form={formId} name="status" defaultValue={status} className="input input--sm" aria-label={t('admin.status')}>
+          {ORDER_STATUSES.map((s) => <option key={s} value={s}>{t(`order.status.${s}`)}</option>)}
+        </select>
+      ) : <span className={`status status--${status}`}>{t(`order.status.${status}`)}</span>}
+      <form id={formId} action={save}><input type="hidden" name="id" value={id} /></form>
+      <RowActions formId={formId} editing={editing} pending={pending} error={error} onEdit={edit} onCancel={cancel} />
+    </div>
+  );
+}

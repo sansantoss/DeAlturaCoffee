@@ -65,6 +65,7 @@ const SHIPPED = new Set(['shipped', 'delivered']);
 const COMMITTED = new Set(['awaiting_payment', 'paid', 'invoiced', 'roasting']);
 
 export interface RoastStock {
+  productId: string;
   roast: RoastLevel;
   producedKg: number;
   shippedKg: number;
@@ -94,7 +95,8 @@ export interface Inventory {
  * Inventario. Los pedidos solo cuentan desde la primera compra registrada
  * (lo anterior es historial/demo y no salió de este inventario).
  */
-export function buildInventory(lots: GreenLot[], batches: RoastBatch[], orders: Order[]): Inventory {
+/** `defaultProductId`: a qué café asignar las compras viejas que no tienen café elegido. */
+export function buildInventory(lots: GreenLot[], batches: RoastBatch[], orders: Order[], defaultProductId?: string): Inventory {
   const since = lots.length ? [...lots].map((l) => l.purchasedAt).sort()[0] : null;
   const byLot = new Map(lots.map((l) => [l.id, l]));
 
@@ -105,10 +107,16 @@ export function buildInventory(lots: GreenLot[], batches: RoastBatch[], orders: 
   });
 
   const relevant = since ? orders.filter((o) => o.status !== 'cancelled' && o.createdAt.slice(0, 10) >= since) : [];
+  const pidOf = (b: RoastBatch) => byLot.get(b.lotId)?.productId ?? defaultProductId ?? '';
+  // Una fila por café × tueste que tenga tuestes o pedidos
+  const keys = new Set<string>();
+  for (const b of batches) keys.add(`${pidOf(b)}|${b.roast}`);
+  for (const o of relevant) for (const l of o.lines) if ((ROAST_LEVELS as readonly string[]).includes(l.roast)) keys.add(`${l.productId}|${l.roast}`);
   let totalCost = 0;
   let totalKg = 0;
-  const roasts: RoastStock[] = ROAST_LEVELS.map((roast) => {
-    const own = batches.filter((b) => b.roast === roast);
+  const roasts: RoastStock[] = [...keys].sort().map((key) => {
+    const [productId, roast] = key.split('|') as [string, RoastLevel];
+    const own = batches.filter((b) => b.roast === roast && pidOf(b) === productId);
     const producedKg = own.reduce((s, b) => s + b.roastedKg, 0);
     const cost = own.reduce((s, b) => s + batchTotals(b, byLot.get(b.lotId)).totalCad, 0);
     totalCost += cost;
@@ -116,13 +124,13 @@ export function buildInventory(lots: GreenLot[], batches: RoastBatch[], orders: 
     let shippedKg = 0;
     let committedKg = 0;
     for (const o of relevant) for (const l of o.lines) {
-      if (l.roast !== roast) continue;
+      if (l.roast !== roast || l.productId !== productId) continue;
       if (SHIPPED.has(o.status)) shippedKg += kgOfLine(l);
       else if (COMMITTED.has(o.status)) committedKg += kgOfLine(l);
     }
     const onHandKg = producedKg - shippedKg;
-    return { roast, producedKg, shippedKg, committedKg, onHandKg, freeKg: onHandKg - committedKg, avgCostKgCad: producedKg ? cost / producedKg : 0 };
-  });
+    return { productId, roast, producedKg, shippedKg, committedKg, onHandKg, freeKg: onHandKg - committedKg, avgCostKgCad: producedKg ? cost / producedKg : 0 };
+  }).sort((a, b) => a.productId.localeCompare(b.productId) || ROAST_LEVELS.indexOf(a.roast) - ROAST_LEVELS.indexOf(b.roast));
 
   return {
     since,
@@ -153,7 +161,14 @@ const monthOf = (iso: string) => {
 
 /** Márgenes por mes del año. El costo del café usa el costo promedio por kg de cada tueste. */
 export function buildMargins(year: number, orders: Order[], inv: Inventory, expenses: Expense[]): MonthMargin[] {
-  const costByRoast = new Map(inv.roasts.map((r) => [r.roast as string, r.avgCostKgCad || inv.avgCostKgCad]));
+  const costByRoast = new Map(inv.roasts.filter((r) => r.producedKg > 0).map((r) => [`${r.productId}|${r.roast}`, r.avgCostKgCad]));
+  // Si un café no tiene tuestes registrados, se usa el promedio por tueste y luego el general
+  const byRoastOnly = new Map<string, number>();
+  for (const lv of ROAST_LEVELS) {
+    const rs = inv.roasts.filter((r) => r.roast === lv && r.producedKg > 0);
+    const kg = rs.reduce((s, r) => s + r.producedKg, 0);
+    if (kg) byRoastOnly.set(lv, rs.reduce((s, r) => s + r.avgCostKgCad * r.producedKg, 0) / kg);
+  }
   const months = Array.from({ length: 12 }, (_, i) => `${year}-${String(i + 1).padStart(2, '0')}`);
   return months.map((month) => {
     const os = orders.filter((o) => o.status !== 'cancelled' && monthOf(o.createdAt) === month);
@@ -162,7 +177,7 @@ export function buildMargins(year: number, orders: Order[], inv: Inventory, expe
     for (const o of os) for (const l of o.lines) {
       const k = kgOfLine(l);
       kg += k;
-      cogs += k * (costByRoast.get(l.roast) ?? inv.avgCostKgCad);
+      cogs += k * (costByRoast.get(`${l.productId}|${l.roast}`) ?? byRoastOnly.get(l.roast) ?? inv.avgCostKgCad);
     }
     const salesCad = os.reduce((s, o) => s + o.subtotalCents, 0);
     const shippingCad = os.reduce((s, o) => s + o.shippingCents, 0);
@@ -179,15 +194,19 @@ export function buildMargins(year: number, orders: Order[], inv: Inventory, expe
 export interface CostParts { green: number; roaster: number; packaging: number; total: number } // CAD centavos por kg tostado
 
 /** Costo promedio por kg tostado, separado en café verde, tostador e insumos; por tueste y en general. */
-export function roastCostParts(lots: GreenLot[], batches: RoastBatch[]): { byRoast: Map<string, CostParts>; all: CostParts | null } {
+/** Claves: "café|tueste", "tueste" (todos los cafés) y el promedio general. */
+export function roastCostParts(lots: GreenLot[], batches: RoastBatch[], defaultProductId?: string): { byRoast: Map<string, CostParts>; all: CostParts | null } {
   const byLot = new Map(lots.map((l) => [l.id, l]));
   const acc = new Map<string, { g: number; r: number; p: number; kg: number }>();
   const all = { g: 0, r: 0, p: 0, kg: 0 };
   for (const b of batches) {
     const t = batchTotals(b, byLot.get(b.lotId));
+    const pid = byLot.get(b.lotId)?.productId ?? defaultProductId ?? '';
     const a = acc.get(b.roast) ?? { g: 0, r: 0, p: 0, kg: 0 };
-    for (const x of [a, all]) { x.g += t.greenCostCad; x.r += t.roasterCad; x.p += t.packagingCad; x.kg += b.roastedKg; }
+    const ap = acc.get(`${pid}|${b.roast}`) ?? { g: 0, r: 0, p: 0, kg: 0 };
+    for (const x of [a, ap, all]) { x.g += t.greenCostCad; x.r += t.roasterCad; x.p += t.packagingCad; x.kg += b.roastedKg; }
     acc.set(b.roast, a);
+    acc.set(`${pid}|${b.roast}`, ap);
   }
   const parts = (x: { g: number; r: number; p: number; kg: number }): CostParts => ({
     green: x.g / x.kg, roaster: x.r / x.kg, packaging: x.p / x.kg, total: (x.g + x.r + x.p) / x.kg,
@@ -212,16 +231,16 @@ export interface Statement {
   hasCost: boolean;
 }
 
-export function buildStatement(months: string[], orders: Order[], lots: GreenLot[], batches: RoastBatch[], expenses: Expense[]): Statement {
+export function buildStatement(months: string[], orders: Order[], lots: GreenLot[], batches: RoastBatch[], expenses: Expense[], defaultProductId?: string): Statement {
   const set = new Set(months);
-  const { byRoast, all } = roastCostParts(lots, batches);
+  const { byRoast, all } = roastCostParts(lots, batches, defaultProductId);
   const os = orders.filter((o) => o.status !== 'cancelled' && set.has(monthOf(o.createdAt)));
   const cogs = { green: 0, roaster: 0, packaging: 0, total: 0 };
   let kg = 0;
   for (const o of os) for (const l of o.lines) {
     const k = kgOfLine(l);
     kg += k;
-    const c = byRoast.get(l.roast) ?? all;
+    const c = byRoast.get(`${l.productId}|${l.roast}`) ?? byRoast.get(l.roast) ?? all;
     if (!c) continue;
     cogs.green += k * c.green; cogs.roaster += k * c.roaster; cogs.packaging += k * c.packaging; cogs.total += k * c.total;
   }

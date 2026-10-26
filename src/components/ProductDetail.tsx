@@ -2,14 +2,14 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { Bag, MomentArt } from './art';
 import { Photo } from './Photo';
-import { ProductSpec } from './ProductSpec';
+import { altitudeText, ProductSpec } from './ProductSpec';
 import { ProductHero, type RoastTab } from './ProductHero';
 import { LabSheet } from './LabSheet';
 import { Farms } from './Farms';
 import { OrderCta } from './OrderCta';
 import { getCurrentCustomer } from '@/lib/auth';
 import { getOrigin, getSettings, listFarms } from '@/lib/catalog';
-import { roastImage, siteImage } from '@/lib/images';
+import { roastPhoto, siteImage } from '@/lib/images';
 import { formatMoney } from '@/lib/format';
 import type { Locale, Product, RoastLevel } from '@/lib/types';
 
@@ -22,7 +22,7 @@ export async function ProductDetail({ product, locale, roast }: { product: Produ
     getOrigin(product.originId),
     getCurrentCustomer(),
     getSettings(),
-    listFarms(),
+    listFarms(product.id),
     getTranslations(),
   ]);
   if (!origin) return null;
@@ -36,7 +36,7 @@ export async function ProductDetail({ product, locale, roast }: { product: Produ
     name: t(`formats.${r}` as 'formats.light'),
     notes: product.roastInfo?.[r]?.notes[locale] ?? product.tastingNotes[locale],
     use: product.roastInfo?.[r]?.use[locale] ?? '',
-    image: roastImage(product.slug, r, name),
+    image: roastPhoto(product, r, name),
   }));
 
   const altImg = siteImage('origen_altura', locale);
@@ -58,6 +58,13 @@ export async function ProductDetail({ product, locale, roast }: { product: Produ
             <>
               <p className="kicker">{origin.country[locale]} · {origin.region}</p>
               <h1 className="h-section">{name}</h1>
+              <ul className="product__facts" aria-label={t('coffee.title')}>
+                <li>{product.variety}</li>
+                <li>{product.process[locale]}</li>
+                <li className="nums">{altitudeText(origin, locale)}</li>
+                {product.score ? <li className="nums">{product.score} {t('coffee.pts')}</li> : null}
+                {product.producer ? <li>{product.producer}</li> : null}
+              </ul>
               <p className="product__story">{origin.story[locale]}</p>
             </>
           }
