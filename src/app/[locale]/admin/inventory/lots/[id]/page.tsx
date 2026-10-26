@@ -63,7 +63,7 @@ export default async function LotPage({ params }: { params: Promise<{ locale: Lo
                   <td>{c.label || '—'}</td>
                   <td className="num">{orig(c.amountCents, c.currency)}</td>
                   <td className="num">{money(c.currency === 'USD' ? c.amountCents * lot.fxToCad : c.amountCents)}</td>
-                  <td><DeleteButton kind="cost" id={c.id} lotId={lot.id} label={t('admin.fin.delete')} /></td>
+                  <td><DeleteButton kind="cost" id={c.id} lotId={lot.id} label={`${t(`admin.fin.costCat.${c.category}`)}${c.label ? ` · ${c.label}` : ''} · ${orig(c.amountCents, c.currency)}`} /></td>
                 </tr>
               ))}
               <tr className="table__total">

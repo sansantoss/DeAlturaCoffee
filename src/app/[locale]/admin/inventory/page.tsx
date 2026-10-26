@@ -124,7 +124,7 @@ export default async function AdminInventory({ params }: { params: Promise<{ loc
                       <td className="num">{nf.format(bt.shrinkPct)}%</td>
                       <td className="num">{money(bt.totalCad)}</td>
                       <td className="num"><strong>{money(bt.perKgCad)}</strong></td>
-                      <td><DeleteButton kind="batch" id={b.id} label={t('admin.fin.delete')} /></td>
+                      <td><DeleteButton kind="batch" id={b.id} label={`${formatDate(b.roastedAt, locale)} · ${t(`formats.${b.roast}`)} · ${nf.format(b.greenKg)} kg`} /></td>
                     </tr>
                   );
                 })}

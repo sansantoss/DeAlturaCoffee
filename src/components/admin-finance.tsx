@@ -9,6 +9,8 @@ import {
 } from '@/app/[locale]/admin/finance-actions';
 import type { AdminFormState } from '@/app/[locale]/admin/actions';
 import type { LotStatus, MassUnit } from '@/lib/types';
+import type { ActionResult } from '@/lib/action-error';
+import { ActionErrorNote, ConfirmButton } from './ConfirmDialog';
 
 const KG_PER_LB = 0.45359237;
 const parse = (v: string) => {
@@ -88,8 +90,8 @@ function QtyField({ name, unitName, label, defaultUnit = 'lb', invalid, onKg, on
 function Err({ state }: { state: AdminFormState }) {
   const t = useTranslations('admin.fin.errors');
   if (!state.error) return null;
-  const key = state.error === 'roastedMore' || state.error === 'invalid' ? state.error : 'unknown';
-  return <p className="error" role="alert">{t(key)}</p>;
+  if (state.error === 'roastedMore' || state.error === 'invalid') return <p className="error" role="alert">{t(state.error)}</p>;
+  return <ActionErrorNote result={{ error: state.error, detail: state.detail }} />;
 }
 
 const bad = (state: AdminFormState, f: string) => (state.fields?.includes(f) ? true : undefined);
@@ -178,6 +180,7 @@ export function LotEdit({ id, status, fxToCad, currency }: { id: string; status:
   const { n } = useFmt();
   const [editing, setEditing] = useState(false);
   const [pending, start] = useTransition();
+  const [error, setError] = useState<ActionResult | null>(null);
   if (!editing) {
     return (
       <div className="lot-edit">
@@ -190,7 +193,10 @@ export function LotEdit({ id, status, fxToCad, currency }: { id: string; status:
   return (
     <form
       className="lot-edit"
-      action={(fd) => start(async () => { await adminUpdateLot(fd); setEditing(false); })}
+      action={(fd) => start(async () => {
+        const r = await adminUpdateLot(fd);
+        if (r?.error) setError(r); else { setError(null); setEditing(false); }
+      })}
     >
       <input type="hidden" name="id" value={id} />
       <select className="input input--sm" name="status" defaultValue={status} aria-label={t('fin.lot.status')}>
@@ -200,7 +206,8 @@ export function LotEdit({ id, status, fxToCad, currency }: { id: string; status:
         <label className="lot-edit__fx"><span className="hint">1 USD =</span><input className="input input--sm" name="fxToCad" defaultValue={String(fxToCad)} inputMode="decimal" /><span className="hint">CAD</span></label>
       ) : <input type="hidden" name="fxToCad" value="1" />}
       <button key="save" type="submit" className="btn btn--sm" disabled={pending}>{pending ? t('saving') : t('save')}</button>
-      <button key="cancel" type="button" className="link" onClick={(e) => { e.preventDefault(); setEditing(false); }}>{t('cancel')}</button>
+      <button key="cancel" type="button" className="link" onClick={(e) => { e.preventDefault(); setError(null); setEditing(false); }}>{t('cancel')}</button>
+      {error?.error && <ActionErrorNote result={error} />}
     </form>
   );
 }
@@ -237,21 +244,27 @@ export function AddCostForm({ lotId, currency }: { lotId: string; currency: 'USD
   );
 }
 
-/** Botón de borrar con confirmación (para gastos, tuestes y costos). */
+/** Botón de borrar: abre el diálogo de confirmación (gastos, tuestes y costos de una compra). */
 export function DeleteButton({ kind, id, lotId, label }: { kind: 'cost' | 'batch' | 'expense'; id: string; lotId?: string; label: string }) {
   const t = useTranslations('admin.fin');
-  const [pending, start] = useTransition();
-  const run = (fd: FormData) => start(async () => {
-    if (kind === 'cost') await adminRemoveLotCost(fd);
-    else if (kind === 'batch') await adminDeleteBatch(fd);
-    else await adminDeleteExpense(fd);
-  });
+  const run = async () => {
+    const fd = new FormData();
+    fd.set(kind === 'cost' ? 'costId' : 'id', id);
+    if (lotId) fd.set('lotId', lotId);
+    if (kind === 'cost') return adminRemoveLotCost(fd);
+    if (kind === 'batch') return adminDeleteBatch(fd);
+    return adminDeleteExpense(fd);
+  };
   return (
-    <form action={run} onSubmit={(e) => { if (!window.confirm(t('confirmDelete'))) e.preventDefault(); }}>
-      <input type="hidden" name={kind === 'cost' ? 'costId' : 'id'} value={id} />
-      {lotId && <input type="hidden" name="lotId" value={lotId} />}
-      <button className="link link--danger" disabled={pending} aria-label={`${label}`}>{t('delete')}</button>
-    </form>
+    <ConfirmButton
+      title={t(`deleteTitle.${kind}`)}
+      message={`${label}. ${t('deleteNote')}`}
+      confirmLabel={t('delete')}
+      onConfirm={run}
+      ariaLabel={`${t('delete')}: ${label}`}
+    >
+      {t('delete')}
+    </ConfirmButton>
   );
 }
 
@@ -355,19 +368,78 @@ export function ExpenseForm({ month, tags }: { month: string; tags: string[] }) 
   const t = useTranslations('admin.fin');
   const [state, action, pending] = useActionState<AdminFormState, FormData>(adminCreateExpense, {});
   const formRef = useRef<HTMLFormElement>(null);
-  useEffect(() => { if (state.ok) formRef.current?.reset(); }, [state]);
+  const [resetKey, setResetKey] = useState(0);
+  useEffect(() => { if (state.ok) { formRef.current?.reset(); setResetKey((k) => k + 1); } }, [state]);
   return (
     <form ref={formRef} action={action} className="cost-form cost-form--expense" noValidate>
       <label className="field"><span>{t('exp.month')}</span><input className="input" type="month" name="month" defaultValue={month} required /></label>
       <label className="field">
         <span>{t('exp.tag')}</span>
-        <input className="input" name="tag" list="expense-tags" placeholder={tags[0]} aria-invalid={bad(state, 'tag')} required />
-        <datalist id="expense-tags">{tags.map((x) => <option key={x} value={x} />)}</datalist>
+        <TagInput name="tag" suggestions={tags} invalid={bad(state, 'tag')} placeholder={tags[0]} resetKey={resetKey} />
       </label>
       <label className="field"><span>{t('exp.description')}</span><input className="input" name="description" placeholder={t('exp.descriptionPh')} /></label>
       <label className="field"><span>{t('exp.amount')}</span><input className="input" name="amount" inputMode="decimal" aria-invalid={bad(state, 'amount')} required /></label>
       <div className="cost-form__go"><button className="btn" disabled={pending}>+ {t('exp.add')}</button></div>
       <Err state={state} />
     </form>
+  );
+}
+
+/* ---------------- Etiqueta con sugerencias (en lugar del datalist del navegador) ---------------- */
+
+function TagInput({ name, suggestions, invalid, placeholder, resetKey }: {
+  name: string; suggestions: string[]; invalid?: boolean; placeholder?: string; resetKey?: number;
+}) {
+  const [value, setValue] = useState('');
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const listId = `${name}-list`;
+  useEffect(() => { setValue(''); setOpen(false); }, [resetKey]);
+  const q = value.trim().toLowerCase();
+  const items = suggestions.filter((s) => !q || s.toLowerCase().includes(q)).slice(0, 8);
+  const choose = (v: string) => { setValue(v); setOpen(false); };
+
+  return (
+    <div className="combo">
+      <input
+        className="input"
+        name={name}
+        value={value}
+        placeholder={placeholder}
+        autoComplete="off"
+        role="combobox"
+        aria-expanded={open && items.length > 0}
+        aria-controls={listId}
+        aria-autocomplete="list"
+        aria-activedescendant={open && items[active] ? `${listId}-${active}` : undefined}
+        aria-invalid={invalid}
+        required
+        onChange={(e) => { setValue(e.target.value); setOpen(true); setActive(0); }}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setTimeout(() => setOpen(false), 120)}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowDown') { e.preventDefault(); setOpen(true); setActive((a) => Math.min(items.length - 1, a + 1)); }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); setActive((a) => Math.max(0, a - 1)); }
+          else if (e.key === 'Enter' && open && items[active]) { e.preventDefault(); choose(items[active]); }
+          else if (e.key === 'Escape') setOpen(false);
+        }}
+      />
+      {open && items.length > 0 && (
+        <ul className="combo__list" id={listId} role="listbox">
+          {items.map((s, i) => (
+            <li
+              key={s}
+              id={`${listId}-${i}`}
+              role="option"
+              aria-selected={i === active}
+              onMouseDown={(e) => { e.preventDefault(); choose(s); }}
+              onMouseEnter={() => setActive(i)}
+            >
+              {s}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

@@ -140,7 +140,7 @@ export interface MonthMargin {
   shippingCad: number; // envío cobrado
   kg: number;
   cogsCad: number; // costo del café vendido
-  grossCad: number; // ventas − costo
+  grossCad: number; // ingresos (ventas + envío) − costo
   expensesCad: number;
   netCad: number; // ventas + envío − costo − gastos
   orders: number;
@@ -168,8 +168,85 @@ export function buildMargins(year: number, orders: Order[], inv: Inventory, expe
     const shippingCad = os.reduce((s, o) => s + o.shippingCents, 0);
     const expensesCad = expenses.filter((e) => e.month === month).reduce((s, e) => s + e.amountCents, 0);
     return {
-      month, salesCad, shippingCad, kg, cogsCad: cogs, grossCad: salesCad - cogs, expensesCad,
+      month, salesCad, shippingCad, kg, cogsCad: cogs, grossCad: salesCad + shippingCad - cogs, expensesCad,
       netCad: salesCad + shippingCad - cogs - expensesCad, orders: os.length,
     };
   });
+}
+
+/* ---------- Estado de resultados (como en La Sirena: ventas → costo → utilidad bruta → gastos → utilidad) ---------- */
+
+export interface CostParts { green: number; roaster: number; packaging: number; total: number } // CAD centavos por kg tostado
+
+/** Costo promedio por kg tostado, separado en café verde, tostador e insumos; por tueste y en general. */
+export function roastCostParts(lots: GreenLot[], batches: RoastBatch[]): { byRoast: Map<string, CostParts>; all: CostParts | null } {
+  const byLot = new Map(lots.map((l) => [l.id, l]));
+  const acc = new Map<string, { g: number; r: number; p: number; kg: number }>();
+  const all = { g: 0, r: 0, p: 0, kg: 0 };
+  for (const b of batches) {
+    const t = batchTotals(b, byLot.get(b.lotId));
+    const a = acc.get(b.roast) ?? { g: 0, r: 0, p: 0, kg: 0 };
+    for (const x of [a, all]) { x.g += t.greenCostCad; x.r += t.roasterCad; x.p += t.packagingCad; x.kg += b.roastedKg; }
+    acc.set(b.roast, a);
+  }
+  const parts = (x: { g: number; r: number; p: number; kg: number }): CostParts => ({
+    green: x.g / x.kg, roaster: x.r / x.kg, packaging: x.p / x.kg, total: (x.g + x.r + x.p) / x.kg,
+  });
+  const byRoast = new Map<string, CostParts>();
+  for (const [k, v] of acc) if (v.kg > 0) byRoast.set(k, parts(v));
+  return { byRoast, all: all.kg > 0 ? parts(all) : null };
+}
+
+export interface Statement {
+  months: string[];
+  orders: number;
+  kg: number;
+  salesCad: number;
+  shippingCad: number;
+  revenueCad: number;
+  cogs: { green: number; roaster: number; packaging: number; total: number };
+  grossCad: number;
+  expensesByTag: { tag: string; cents: number }[];
+  expensesCad: number;
+  operatingCad: number; // utilidad de operación
+  hasCost: boolean;
+}
+
+export function buildStatement(months: string[], orders: Order[], lots: GreenLot[], batches: RoastBatch[], expenses: Expense[]): Statement {
+  const set = new Set(months);
+  const { byRoast, all } = roastCostParts(lots, batches);
+  const os = orders.filter((o) => o.status !== 'cancelled' && set.has(monthOf(o.createdAt)));
+  const cogs = { green: 0, roaster: 0, packaging: 0, total: 0 };
+  let kg = 0;
+  for (const o of os) for (const l of o.lines) {
+    const k = kgOfLine(l);
+    kg += k;
+    const c = byRoast.get(l.roast) ?? all;
+    if (!c) continue;
+    cogs.green += k * c.green; cogs.roaster += k * c.roaster; cogs.packaging += k * c.packaging; cogs.total += k * c.total;
+  }
+  const salesCad = os.reduce((s, o) => s + o.subtotalCents, 0);
+  const shippingCad = os.reduce((s, o) => s + o.shippingCents, 0);
+  const tags = new Map<string, number>();
+  for (const e of expenses) if (set.has(e.month)) tags.set(e.tag, (tags.get(e.tag) ?? 0) + e.amountCents);
+  const expensesByTag = [...tags.entries()].map(([tag, cents]) => ({ tag, cents })).sort((a, b) => b.cents - a.cents);
+  const expensesCad = expensesByTag.reduce((s, x) => s + x.cents, 0);
+  const revenueCad = salesCad + shippingCad;
+  const grossCad = revenueCad - cogs.total;
+  return {
+    months, orders: os.length, kg, salesCad, shippingCad, revenueCad, cogs, grossCad,
+    expensesByTag, expensesCad, operatingCad: grossCad - expensesCad, hasCost: Boolean(all),
+  };
+}
+
+/** Meses de un periodo: este mes, el anterior, últimos 3 o el año a la fecha. */
+export type StatementPeriod = 'month' | 'prev' | 'quarter' | 'year';
+export function periodMonths(p: StatementPeriod | string, now = new Date()): string[] {
+  const cur = monthOf(now.toISOString());
+  const shift = (m: string, d: number) => { const x = new Date(`${m}-15T12:00:00Z`); x.setUTCMonth(x.getUTCMonth() + d); return x.toISOString().slice(0, 7); };
+  if (/^\d{4}-\d{2}$/.test(p)) return [p];
+  if (p === 'prev') return [shift(cur, -1)];
+  if (p === 'quarter') return [shift(cur, -2), shift(cur, -1), cur];
+  if (p === 'year') { const n = Number(cur.slice(5, 7)); return Array.from({ length: n }, (_, i) => `${cur.slice(0, 4)}-${String(i + 1).padStart(2, '0')}`); }
+  return [cur];
 }

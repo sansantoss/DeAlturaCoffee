@@ -1,0 +1,9 @@
+Videos para el fondo del inicio (hero).
+
+1. Pon aquí el video, por ejemplo: finca.mp4  (o finca.webm, o los dos con el mismo nombre)
+2. En content/images.json → slots → hero, escribe:  "video": "finca"
+3. Para volver a solo foto:  "video": ""
+
+Recomendaciones: 10–20 segundos que se puedan repetir sin corte, horizontal (1920×1080),
+sin audio, menos de 8 MB (comprímelo en handbrake.fr o con "Export for web").
+La foto de "file" se ve mientras carga el video y en celulares que no reproducen automático.

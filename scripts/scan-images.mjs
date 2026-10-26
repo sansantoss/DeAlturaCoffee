@@ -14,6 +14,16 @@ if (existsSync(DIR)) {
     manifest[key] = `/images/${f}`;
   }
 }
+// Videos (hero): public/videos/*.mp4|webm → clave "video/nombre"
+const VDIR = path.join(process.cwd(), 'public', 'videos');
+const VEXT = /\.(mp4|webm)$/i;
+if (existsSync(VDIR)) {
+  for (const f of readdirSync(VDIR)) {
+    if (!VEXT.test(f)) continue;
+    const key = `video/${f.replace(VEXT, '').toLowerCase()}${/\.webm$/i.test(f) ? '.webm' : ''}`;
+    manifest[key] = `/videos/${f}`;
+  }
+}
 mkdirSync(path.join(process.cwd(), 'src', 'lib'), { recursive: true });
 writeFileSync(path.join(process.cwd(), 'src', 'lib', 'images.manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
-console.log(`Fotos encontradas: ${Object.keys(manifest).length}`);
+console.log(`Fotos y videos encontrados: ${Object.keys(manifest).length}`);

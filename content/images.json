@@ -2,7 +2,10 @@
   "_ayuda": "Pon las fotos en public/images/ con estos nombres (.jpg, .jpeg, .png o .webp). Si una foto no existe, se muestra la ilustración. 'alt' describe la foto para Google y lectores de pantalla. Tostados: cafe_light, cafe_medium, cafe_dark (una foto por tueste; si falta, se usa cafe_venezuela_1). Fincas: el nombre de 'image' en content/farms.json (ej. finca_la_curva).",
   "slots": {
     "hero": {
-      "file": "hero",
+      "file": "hero1",
+      "video": "",
+      "overlay": 0.55,
+      "position": "center",
       "ratio": "16/9",
       "alt": {
         "en": "Coffee farm in the Andes of Mérida, Venezuela",
@@ -174,5 +177,6 @@
       "medium": "cafe_medium",
       "dark": "cafe_dark"
     }
-  }
+  },
+  "_ayuda_hero": "HERO (fondo del inicio): 'file' = foto en public/images (también es la imagen que se ve mientras carga el video). 'video' = nombre del video en public/videos (mp4 o webm, sin extensión); déjalo vacío \"\" para usar solo foto. 'overlay' = qué tan oscuro va el velo sobre la foto para que se lea el texto: 0 = nada, 0.4 = suave, 0.55 = normal, 0.7 = oscuro. 'position' = qué parte de la foto se prioriza al recortar: center, top, bottom, left, right o '30% 60%'."
 }

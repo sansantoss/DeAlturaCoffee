@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link, redirect } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
-import { PasswordForm, ProfileForm } from '@/components/forms';
 import { getCurrentCustomer } from '@/lib/auth';
 import { isAdmin } from '@/lib/admin';
 import { repo } from '@/lib/db';
@@ -21,6 +20,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
   const customer = await getCurrentCustomer();
   if (!customer) return redirect({ href: '/login?next=/account', locale });
   const [orders, t] = await Promise.all([repo.orders.listByCustomer(customer.id), getTranslations()]);
+  const address = customer.addresses.find((a) => a.isDefault) ?? customer.addresses[0];
 
   return (
     <>
@@ -61,9 +61,16 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
 
           <section className="panel stack" aria-labelledby="profile-h">
             <h2 id="profile-h">{t('account.profile')}</h2>
-            <p className="hint">{customer.email}</p>
-            <ProfileForm customer={customer} />
-            <PasswordForm />
+            <dl className="summary">
+              <div><dt>{t('apply.business')}</dt><dd>{customer.businessName}</dd></div>
+              <div><dt>{t('apply.contact')}</dt><dd>{customer.contactName}</dd></div>
+              <div><dt>{t('apply.email')}</dt><dd>{customer.email}</dd></div>
+              <div>
+                <dt>{t('account.addresses')}</dt>
+                <dd>{address ? `${address.line1}, ${address.city}, ${address.province}` : <span className="hint">{t('account.noAddress')}</span>}</dd>
+              </div>
+            </dl>
+            <p><Link href="/account/profile" className="btn">{t('account.editProfile')}</Link></p>
             <form action={signOutAction}>
               <button className="link" style={{ textDecorationColor: 'currentColor' }}>{t('auth.signOut')}</button>
             </form>

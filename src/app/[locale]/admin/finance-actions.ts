@@ -7,6 +7,7 @@ import { getAdmin } from '@/lib/admin';
 import { repo } from '@/lib/db';
 import { toKg } from '@/lib/finance';
 import type { AdminFormState } from './actions';
+import { describeError, type ActionResult } from '@/lib/action-error';
 
 /* Inventario, compras de café verde, tuestes y gastos operativos. Montos en dólares → centavos. */
 
@@ -29,7 +30,19 @@ const date = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 
 function fail(e: unknown): AdminFormState {
   if (e instanceof z.ZodError) return { error: 'invalid', fields: e.issues.map((i) => String(i.path[0])) };
-  return { error: 'unknown' };
+  const r = describeError(e);
+  return { error: r.error, detail: r.detail };
+}
+
+/** Para acciones sin formulario de estado (editar fila, borrar): nunca truenan, regresan el error. */
+async function safe(fn: () => Promise<void>): Promise<ActionResult> {
+  try {
+    await fn();
+    refresh();
+    return {};
+  } catch (e) {
+    return describeError(e);
+  }
 }
 
 /* ---------- Compras (lotes de café verde) ---------- */
@@ -65,15 +78,16 @@ export async function adminCreateLot(_: AdminFormState, form: FormData): Promise
   }
 }
 
-export async function adminUpdateLot(form: FormData) {
+export async function adminUpdateLot(form: FormData): Promise<ActionResult> {
   await guard();
+  return safe(async () => {
   const d = z.object({
     id: z.string().min(1),
     status: z.enum(['ordered', 'in_transit', 'received']),
     fxToCad: positive,
   }).parse(Object.fromEntries(form));
   await repo.lots.update(d.id, { status: d.status, fxToCad: d.fxToCad });
-  refresh();
+  });
 }
 
 const costSchema = z.object({
@@ -100,14 +114,15 @@ export async function adminAddLotCost(_: AdminFormState, form: FormData): Promis
   }
 }
 
-export async function adminRemoveLotCost(form: FormData) {
+export async function adminRemoveLotCost(form: FormData): Promise<ActionResult> {
   await guard();
-  const lotId = String(form.get('lotId') ?? '');
-  const costId = String(form.get('costId') ?? '');
-  const lot = await repo.lots.getById(lotId);
-  if (!lot) return;
-  await repo.lots.update(lotId, { costs: lot.costs.filter((c) => c.id !== costId) });
-  refresh();
+  return safe(async () => {
+    const lotId = String(form.get('lotId') ?? '');
+    const costId = String(form.get('costId') ?? '');
+    const lot = await repo.lots.getById(lotId);
+    if (!lot) return;
+    await repo.lots.update(lotId, { costs: lot.costs.filter((c) => c.id !== costId) });
+  });
 }
 
 /* ---------- Tuestes ---------- */
@@ -149,10 +164,9 @@ export async function adminCreateBatch(_: AdminFormState, form: FormData): Promi
   }
 }
 
-export async function adminDeleteBatch(form: FormData) {
+export async function adminDeleteBatch(form: FormData): Promise<ActionResult> {
   await guard();
-  await repo.batches.remove(String(form.get('id') ?? ''));
-  refresh();
+  return safe(() => repo.batches.remove(String(form.get('id') ?? '')));
 }
 
 /* ---------- Gastos operativos ---------- */
@@ -180,8 +194,7 @@ export async function adminCreateExpense(_: AdminFormState, form: FormData): Pro
   }
 }
 
-export async function adminDeleteExpense(form: FormData) {
+export async function adminDeleteExpense(form: FormData): Promise<ActionResult> {
   await guard();
-  await repo.expenses.remove(String(form.get('id') ?? ''));
-  refresh();
+  return safe(() => repo.expenses.remove(String(form.get('id') ?? '')));
 }

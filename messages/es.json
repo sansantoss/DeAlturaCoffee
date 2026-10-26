@@ -289,7 +289,9 @@
       "saved": "Contraseña actualizada.",
       "mismatch": "Las contraseñas no coinciden.",
       "short": "Mínimo 8 caracteres."
-    }
+    },
+    "editProfile": "Editar perfil",
+    "noAddress": "Sin dirección todavía"
   },
   "order": {
     "number": "Pedido {number}",
@@ -397,7 +399,12 @@
       "site": "Ver el sitio",
       "inventory": "Inventario",
       "expenses": "Gastos",
-      "margins": "Márgenes"
+      "margins": "Estado de resultados",
+      "groups": {
+        "operation": "Operación",
+        "coffee": "Café",
+        "finance": "Finanzas"
+      }
     },
     "periods": {
       "today": "Hoy",
@@ -454,7 +461,8 @@
       "regrant": "Nueva contraseña",
       "tempTitle": "Contraseña temporal",
       "tempNote": "Cópiala ahora y mándasela al cliente; no se vuelve a mostrar. Puede cambiarla en Tu cuenta.",
-      "confirm": "¿Generar una contraseña nueva? La anterior deja de funcionar."
+      "confirm": "¿Generar una contraseña nueva? La anterior deja de funcionar.",
+      "regrantConfirm": "Generar contraseña nueva"
     },
     "all": "Todos",
     "newCustomer": {
@@ -679,7 +687,59 @@
         "expenses": "Gastos",
         "total": "Total",
         "how": "Cómo se calcula: costo del café = kg vendidos × costo promedio por kg tostado de ese tueste (café verde con flete y aduana + tostador + insumos). Utilidad = ventas + envío − costo del café − gastos operativos del mes. No incluye impuestos sobre la renta."
+      },
+      "deleteTitle": {
+        "cost": "¿Borrar este gasto de la compra?",
+        "batch": "¿Borrar este tueste?",
+        "expense": "¿Borrar este gasto?"
+      },
+      "deleteNote": "No se puede deshacer.",
+      "st": {
+        "title": "Estado de resultados",
+        "excel": "Descargar Excel",
+        "print": "Imprimir / PDF",
+        "period": "Periodo",
+        "presets": {
+          "month": "Este mes",
+          "prev": "Mes anterior",
+          "quarter": "Últimos 3 meses",
+          "year": "Este año"
+        },
+        "pickMonth": "Elegir mes",
+        "see": "Ver mes",
+        "revenue": "Ingresos",
+        "ordersKg": "{orders} pedidos · {kg} kg",
+        "margin": "{pct} de margen",
+        "opex": "Gastos de operación",
+        "ofRevenue": "{pct} de los ingresos",
+        "operating": "Utilidad de operación",
+        "keyMetric": "{pct} · la métrica clave",
+        "concept": "Concepto",
+        "pctRevenue": "% ingresos",
+        "income": "Ingresos",
+        "shipping": "Envío cobrado",
+        "cogs": "Costo del café vendido",
+        "green": "Café verde (con flete y aduana)",
+        "roaster": "Tostador",
+        "packaging": "Insumos (empaque, etiquetas)",
+        "opexTitle": "Gastos de operación",
+        "note": "El costo del café usa el costo promedio por kg tostado de cada tueste. No incluye impuestos sobre la renta.",
+        "monthCard": "Finanzas del mes",
+        "freeStock": "Café tostado libre",
+        "open": "Ver estado de resultados"
       }
+    },
+    "confirm": {
+      "cancel": "Cancelar",
+      "working": "Un momento…"
+    },
+    "errors": {
+      "missingTable": "Falta una tabla en Supabase. Corre los SQL de supabase/migrations que no hayas corrido (0003 y 0004).",
+      "permission": "Supabase no dio permiso. Corre supabase/migrations/0002_grants.sql y las migraciones nuevas.",
+      "missingMigration": "La base no conoce este valor. Corre supabase/migrations/0004_inventory.sql.",
+      "invalid": "Revisa los datos: hay un valor que no es válido.",
+      "unknown": "No se pudo guardar. Intenta de nuevo.",
+      "detail": "Detalle técnico"
     }
   },
   "roasts": {

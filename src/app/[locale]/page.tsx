@@ -9,7 +9,8 @@ import { Calculator } from '@/components/home/Calculator';
 import { getCurrentCustomer } from '@/lib/auth';
 import { getSettings, listProducts } from '@/lib/catalog';
 import { formatMoney } from '@/lib/format';
-import { roastImage, siteImage, type SlotName } from '@/lib/images';
+import { heroMedia, roastImage, siteImage, type SlotName } from '@/lib/images';
+import { HeroVideo } from '@/components/home/HeroVideo';
 import { Photo } from '@/components/Photo';
 import Image from 'next/image';
 import type { Locale } from '@/lib/types';
@@ -20,7 +21,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const t = await getTranslations();
   const [products, settings, customer] = await Promise.all([listProducts(), getSettings(), getCurrentCustomer()]);
   const product = products[0];
-  const heroImg = siteImage('hero', locale);
+  const hero = heroMedia(locale); // se configura en content/images.json → slots.hero
   const faqImg = siteImage('preguntas', locale);
   const tier = customer?.status === 'approved' ? customer.priceTier : settings.publicPrices ? 'standard' : null;
 
@@ -39,9 +40,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     <>
       {/* ---------- Hero: the label on the bag ---------- */}
       <section className="hero">
-        {heroImg ? (
-          <div className="hero__photo">
-            <Image src={heroImg.src} alt={heroImg.alt} fill priority sizes="100vw" />
+        {hero.image || hero.video ? (
+          <div className="hero__photo" style={{ ['--veil' as string]: hero.overlay }}>
+            {hero.image && <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" style={{ objectPosition: hero.position }} />}
+            {hero.video && <HeroVideo mp4={hero.video.mp4} webm={hero.video.webm} poster={hero.image?.src} position={hero.position} />}
           </div>
         ) : (
           <Topo className="hero__topo" />

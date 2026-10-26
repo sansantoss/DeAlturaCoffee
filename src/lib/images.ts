@@ -10,7 +10,7 @@ import type { Locale } from './types';
  * si el archivo no existe en public/images, la página muestra la ilustración de respaldo.
  */
 
-type Slot = { file: string; ratio: string; alt: Record<Locale, string> };
+type Slot = { file: string; ratio: string; alt: Record<Locale, string>; video?: string; overlay?: number; position?: string };
 const config = imagesJson as unknown as {
   slots: Record<string, Slot>;
   products: Record<string, string[]>;
@@ -21,6 +21,7 @@ export type SlotName = keyof typeof imagesJson.slots;
 export interface SiteImage { src: string; alt: string; ratio: string }
 
 const EXT = /\.(jpe?g|png|webp|avif)$/i;
+const VEXT = /\.(mp4|webm)$/i;
 
 /** En desarrollo lee la carpeta en vivo (para ver la foto al recargar); en producción usa el manifest. */
 function available(): Record<string, string> {
@@ -30,6 +31,11 @@ function available(): Record<string, string> {
     for (const f of readdirSync(path.join(process.cwd(), 'public', 'images'))) {
       if (EXT.test(f)) out[f.replace(EXT, '').toLowerCase()] = `/images/${f}`;
     }
+    try {
+      for (const f of readdirSync(path.join(process.cwd(), 'public', 'videos'))) {
+        if (VEXT.test(f)) out[`video/${f.replace(VEXT, '').toLowerCase()}${/\.webm$/i.test(f) ? '.webm' : ''}`] = `/videos/${f}`;
+      }
+    } catch { /* sin carpeta de videos */ }
     return out;
   } catch {
     return {};
@@ -62,4 +68,27 @@ export function roastImage(slug: string, roast: string, alt: string): SiteImage 
 export function fileImage(file: string, alt: string, ratio = '4/3'): SiteImage | null {
   const src = resolve(file);
   return src ? { src, alt, ratio } : null;
+}
+
+export interface HeroMedia {
+  image: SiteImage | null;
+  video: { mp4?: string; webm?: string } | null;
+  overlay: number;
+  position: string;
+}
+
+/** Fondo del inicio: foto, video opcional, velo y encuadre, todo desde content/images.json → slots.hero. */
+export function heroMedia(locale: Locale): HeroMedia {
+  const s = config.slots.hero;
+  const all = available();
+  const name = (s.video ?? '').replace(VEXT, '').toLowerCase().trim();
+  const mp4 = name ? all[`video/${name}`] : undefined;
+  const webm = name ? all[`video/${name}.webm`] : undefined;
+  const overlay = typeof s.overlay === 'number' ? Math.min(0.9, Math.max(0, s.overlay)) : 0.55;
+  return {
+    image: siteImage('hero', locale),
+    video: mp4 || webm ? { mp4, webm } : null,
+    overlay,
+    position: s.position || 'center',
+  };
 }

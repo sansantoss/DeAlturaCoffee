@@ -8,6 +8,7 @@ import { repo } from '@/lib/db';
 import { createManagedCustomer, grantAccess } from '@/lib/accounts';
 import { createOrder } from '@/lib/orders';
 import type { Locale } from '@/lib/types';
+import { describeError, type ActionResult } from '@/lib/action-error';
 
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'] as const;
 const refresh = () => revalidatePath('/[locale]/admin', 'layout');
@@ -25,18 +26,23 @@ const customerSchema = z.object({
   invoiceTermsDays: z.enum(['none', '15', '30', '45']),
 });
 
-export async function adminUpdateCustomer(form: FormData) {
+export async function adminUpdateCustomer(form: FormData): Promise<ActionResult> {
   await guard();
-  const d = customerSchema.parse(Object.fromEntries(form));
-  await repo.customers.update(d.id, {
-    status: d.status,
-    priceTier: d.priceTier,
-    invoiceTermsDays: d.invoiceTermsDays === 'none' ? null : Number(d.invoiceTermsDays),
-  });
-  refresh();
+  try {
+    const d = customerSchema.parse(Object.fromEntries(form));
+    await repo.customers.update(d.id, {
+      status: d.status,
+      priceTier: d.priceTier,
+      invoiceTermsDays: d.invoiceTermsDays === 'none' ? null : Number(d.invoiceTermsDays),
+    });
+    refresh();
+    return {};
+  } catch (e) {
+    return describeError(e);
+  }
 }
 
-export type AdminFormState = { error?: string; fields?: string[]; ok?: boolean; id?: string; password?: string };
+export type AdminFormState = { error?: string; detail?: string; fields?: string[]; ok?: boolean; id?: string; password?: string };
 
 const newCustomerSchema = z.object({
   businessName: z.string().trim().min(2).max(120),
@@ -95,11 +101,16 @@ const orderSchema = z.object({
   status: z.enum(['awaiting_payment', 'paid', 'invoiced', 'roasting', 'shipped', 'delivered', 'cancelled']),
 });
 
-export async function adminUpdateOrder(form: FormData) {
+export async function adminUpdateOrder(form: FormData): Promise<ActionResult> {
   await guard();
-  const d = orderSchema.parse(Object.fromEntries(form));
-  await repo.orders.updateStatus(d.id, d.status);
-  refresh();
+  try {
+    const d = orderSchema.parse(Object.fromEntries(form));
+    await repo.orders.updateStatus(d.id, d.status);
+    refresh();
+    return {};
+  } catch (e) {
+    return describeError(e);
+  }
 }
 
 const newOrderSchema = z.object({
@@ -141,10 +152,15 @@ const priceSchema = z.object({
   partner: z.coerce.number().positive().max(100000),
 });
 
-export async function adminSetPrices(form: FormData) {
+export async function adminSetPrices(form: FormData): Promise<ActionResult> {
   await guard();
-  const d = priceSchema.parse(Object.fromEntries(form));
-  await repo.prices.set(d.sku, 'standard', Math.round(d.standard * 100));
-  await repo.prices.set(d.sku, 'partner', Math.round(d.partner * 100));
-  revalidatePath('/', 'layout'); // los precios cambian en todo el sitio
+  try {
+    const d = priceSchema.parse(Object.fromEntries(form));
+    await repo.prices.set(d.sku, 'standard', Math.round(d.standard * 100));
+    await repo.prices.set(d.sku, 'partner', Math.round(d.partner * 100));
+    revalidatePath('/', 'layout'); // los precios cambian en todo el sitio
+    return {};
+  } catch (e) {
+    return describeError(e);
+  }
 }

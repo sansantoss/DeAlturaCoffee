@@ -73,13 +73,14 @@ export function BarList({ items, empty, label }: { items: BarItem[]; empty: stri
   );
 }
 
-export function StatTile({ label, value, delta, hint }: { label: string; value: string; delta?: { text: string; dir: 'up' | 'down' | 'flat' }; hint?: string }) {
+/** `good` separa la flecha (sube/baja) del color (bueno/malo): en gastos, bajar es bueno. */
+export function StatTile({ label, value, delta, hint }: { label: string; value: string; delta?: { text: string; dir: 'up' | 'down' | 'flat'; good?: boolean }; hint?: string }) {
   return (
     <div className="tile">
       <span className="tile__label">{label}</span>
       <strong className="tile__value">{value}</strong>
       {delta && (
-        <span className={`tile__delta tile__delta--${delta.dir}`}>
+        <span className={`tile__delta tile__delta--${delta.good === undefined ? delta.dir : delta.good ? 'up' : 'down'}`}>
           <span aria-hidden="true">{delta.dir === 'up' ? '▲' : delta.dir === 'down' ? '▼' : '•'}</span> {delta.text}
         </span>
       )}

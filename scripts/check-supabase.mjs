@@ -23,6 +23,17 @@ for (const table of ['customers', 'addresses', 'orders', 'order_lines', 'wholesa
   else ok(`${table} (${count ?? 0} filas)`);
 }
 
+// Tablas de las migraciones nuevas: si falta alguna, editar precios o el inventario truena
+for (const [table, file] of [['product_prices', '0003_admin.sql'], ['green_lots', '0004_inventory.sql'], ['roast_batches', '0004_inventory.sql'], ['expenses', '0004_inventory.sql']]) {
+  const { error, count } = await admin.from(table).select('*', { count: 'exact', head: true });
+  if (error) bad(`${table}: ${error.message}  → corre supabase/migrations/${file}`);
+  else ok(`${table} (${count ?? 0} filas)`);
+}
+{
+  const { error } = await admin.from('customers').select('has_login').limit(1);
+  if (error) bad(`customers.has_login: ${error.message}  → corre supabase/migrations/0003_admin.sql`); else ok('customers.has_login');
+}
+
 const pub = createClient(url, anon, { auth: { persistSession: false } });
 const { data: leak } = await pub.from('customers').select('id').limit(1);
 if (leak && leak.length) bad('¡Un visitante sin sesión puede leer clientes! Revisa RLS'); else ok('Visitantes sin sesión no ven datos de clientes');

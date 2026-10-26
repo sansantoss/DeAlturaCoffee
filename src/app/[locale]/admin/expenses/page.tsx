@@ -15,7 +15,7 @@ export default async function ExpensesPage({ params, searchParams }: { params: P
   const month = /^\d{4}-\d{2}$/.test(sp.month ?? '') ? sp.month! : now;
   const [t, expenses] = await Promise.all([getTranslations(), repo.expenses.list()]);
   const money = (c: number) => formatMoney(Math.round(c), locale);
-  const fmtMonth = (m: string) => new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${m}-15T12:00:00Z`));
+  const fmtMonth = (m: string) => { const x = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${m}-15T12:00:00Z`)); return x.charAt(0).toUpperCase() + x.slice(1); };
   const shift = (m: string, d: number) => { const x = new Date(`${m}-15T12:00:00Z`); x.setUTCMonth(x.getUTCMonth() + d); return x.toISOString().slice(0, 7); };
 
   const list = expenses.filter((e) => e.month === month);
@@ -32,6 +32,7 @@ export default async function ExpensesPage({ params, searchParams }: { params: P
     <div className="admin-page stack-lg">
       <header className="admin-head">
         <h1 className="h-section">{t('admin.nav.expenses')}</h1>
+        <a className="btn btn--sm btn--ghost" href={`/api/admin/export?type=expenses&locale=${locale}`}>{t('admin.fin.st.excel')}</a>
         <nav className="seg" aria-label={t('admin.fin.exp.month')}>
           <Link href={`/admin/expenses?month=${shift(month, -1)}`}>←</Link>
           <span className="seg__label">{fmtMonth(month)}</span>
@@ -43,7 +44,7 @@ export default async function ExpensesPage({ params, searchParams }: { params: P
         <StatTile
           label={t('admin.fin.exp.total')}
           value={money(total)}
-          delta={pct === null ? undefined : { text: `${pct > 0 ? '+' : ''}${pct}% ${t('admin.fin.exp.vsPrev')}`, dir: pct > 0 ? 'down' : pct < 0 ? 'up' : 'flat' }}
+          delta={pct === null ? undefined : { text: `${pct > 0 ? '+' : ''}${pct}% ${t('admin.fin.exp.vsPrev')}`, dir: pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat', good: pct <= 0 }}
         />
         <StatTile label={t('admin.fin.exp.count')} value={String(list.length)} />
         <StatTile label={t('admin.fin.exp.year', { year })} value={money(yearTotal)} />
@@ -67,7 +68,7 @@ export default async function ExpensesPage({ params, searchParams }: { params: P
                       <td><span className="pill pill--muted">{e.tag}</span></td>
                       <td>{e.description || '—'}</td>
                       <td className="num">{money(e.amountCents)}</td>
-                      <td><DeleteButton kind="expense" id={e.id} label={t('admin.fin.delete')} /></td>
+                      <td><DeleteButton kind="expense" id={e.id} label={`${e.tag}${e.description ? ` · ${e.description}` : ''} · ${money(e.amountCents)}`} /></td>
                     </tr>
                   ))}
                   <tr className="table__total"><td colSpan={2}><strong>{t('admin.fin.exp.total')}</strong></td><td className="num"><strong>{money(total)}</strong></td><td /></tr>

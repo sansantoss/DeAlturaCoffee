@@ -289,7 +289,9 @@
       "saved": "Mot de passe mis à jour.",
       "mismatch": "Les mots de passe ne correspondent pas.",
       "short": "Au moins 8 caractères."
-    }
+    },
+    "editProfile": "Modifier le profil",
+    "noAddress": "Aucune adresse pour l'instant"
   },
   "order": {
     "number": "Commande {number}",
@@ -397,7 +399,12 @@
       "site": "Voir le site",
       "inventory": "Inventaire",
       "expenses": "Dépenses",
-      "margins": "Marges"
+      "margins": "État des résultats",
+      "groups": {
+        "operation": "Opérations",
+        "coffee": "Café",
+        "finance": "Finances"
+      }
     },
     "periods": {
       "today": "Aujourd'hui",
@@ -454,7 +461,8 @@
       "regrant": "Nouveau mot de passe",
       "tempTitle": "Mot de passe temporaire",
       "tempNote": "Copiez-le maintenant et envoyez-le au client; il ne sera plus affiché. Il peut le changer dans son compte.",
-      "confirm": "Générer un nouveau mot de passe? L'ancien cessera de fonctionner."
+      "confirm": "Générer un nouveau mot de passe? L'ancien cessera de fonctionner.",
+      "regrantConfirm": "Générer un nouveau mot de passe"
     },
     "all": "Tous",
     "newCustomer": {
@@ -679,7 +687,59 @@
         "expenses": "Dépenses",
         "total": "Total",
         "how": "Calcul : coût du café = kg vendus × coût moyen par kg torréfié de cette torréfaction (café vert avec fret et douane + torréfacteur + fournitures). Bénéfice = ventes + livraison − coût du café − dépenses du mois. Impôt sur le revenu non inclus."
+      },
+      "deleteTitle": {
+        "cost": "Supprimer ce frais d'achat ?",
+        "batch": "Supprimer cette torréfaction ?",
+        "expense": "Supprimer cette dépense ?"
+      },
+      "deleteNote": "C'est définitif.",
+      "st": {
+        "title": "État des résultats",
+        "excel": "Télécharger Excel",
+        "print": "Imprimer / PDF",
+        "period": "Période",
+        "presets": {
+          "month": "Ce mois-ci",
+          "prev": "Mois dernier",
+          "quarter": "3 derniers mois",
+          "year": "Cette année"
+        },
+        "pickMonth": "Choisir un mois",
+        "see": "Voir le mois",
+        "revenue": "Revenus",
+        "ordersKg": "{orders} commandes · {kg} kg",
+        "margin": "{pct} de marge",
+        "opex": "Dépenses d'exploitation",
+        "ofRevenue": "{pct} des revenus",
+        "operating": "Bénéfice d'exploitation",
+        "keyMetric": "{pct} · l'indicateur clé",
+        "concept": "Poste",
+        "pctRevenue": "% revenus",
+        "income": "Revenus",
+        "shipping": "Livraison facturée",
+        "cogs": "Coût du café vendu",
+        "green": "Café vert (fret et douane inclus)",
+        "roaster": "Torréfacteur",
+        "packaging": "Fournitures (sacs, étiquettes)",
+        "opexTitle": "Dépenses d'exploitation",
+        "note": "Le coût du café utilise le coût moyen par kg torréfié de chaque torréfaction. Impôt sur le revenu non inclus.",
+        "monthCard": "Finances du mois",
+        "freeStock": "Café torréfié libre",
+        "open": "Voir l'état des résultats"
       }
+    },
+    "confirm": {
+      "cancel": "Annuler",
+      "working": "Un instant…"
+    },
+    "errors": {
+      "missingTable": "Une table manque dans Supabase. Exécutez les fichiers SQL de supabase/migrations pas encore exécutés (0003 et 0004).",
+      "permission": "Supabase a refusé l'accès. Exécutez supabase/migrations/0002_grants.sql et les nouvelles migrations.",
+      "missingMigration": "La base ne connaît pas cette valeur. Exécutez supabase/migrations/0004_inventory.sql.",
+      "invalid": "Vérifiez les données : une valeur n'est pas valide.",
+      "unknown": "Impossible d'enregistrer. Réessayez.",
+      "detail": "Détail technique"
     }
   },
   "roasts": {

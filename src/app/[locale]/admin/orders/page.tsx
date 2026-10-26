@@ -22,7 +22,10 @@ export default async function AdminOrders({ params, searchParams }: { params: Pr
     <div className="admin-page stack-lg">
       <header className="admin-head">
         <h1 className="h-section">{t('admin.nav.orders')} ({shown.length})</h1>
-        <Link href="/admin/orders/new" className="btn">+ {t('admin.nav.newOrder')}</Link>
+        <div className="admin-head__actions">
+          <a className="btn btn--ghost" href="/api/admin/export?type=orders">{t('admin.fin.st.excel')}</a>
+          <Link href="/admin/orders/new" className="btn">+ {t('admin.nav.newOrder')}</Link>
+        </div>
       </header>
       <nav className="chips" aria-label={t('admin.col.status')}>
         <Link href="/admin/orders" aria-current={!filter ? 'true' : undefined}>{t('admin.all')} ({orders.length})</Link>

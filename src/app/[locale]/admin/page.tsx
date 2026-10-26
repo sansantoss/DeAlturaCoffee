@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import { BarList, ColumnChart, StatTile } from '@/components/admin-charts';
 import { repo } from '@/lib/db';
 import { buildDashboard, PERIODS, type Period } from '@/lib/metrics';
+import { buildInventory, buildStatement, periodMonths } from '@/lib/finance';
 import { formatMoney } from '@/lib/format';
 import type { Locale, OrderStatus } from '@/lib/types';
 
@@ -21,7 +22,12 @@ export default async function AdminOverview({
   setRequestLocale(locale);
   const sp = await searchParams;
   const period: Period = PERIODS.includes(sp.period as Period) ? (sp.period as Period) : 'month';
-  const [t, orders, customers] = await Promise.all([getTranslations(), repo.orders.listAll(), repo.customers.list()]);
+  const [t, orders, customers, lots, batches, expenses] = await Promise.all([
+    getTranslations(), repo.orders.listAll(), repo.customers.list(), repo.lots.list(), repo.batches.list(), repo.expenses.list(),
+  ]);
+  const fin = buildStatement(periodMonths('month'), orders, lots, batches, expenses);
+  const inv = buildInventory(lots, batches, orders);
+  const freeKg = inv.roasts.reduce((sum, r) => sum + r.freeKg, 0);
   const d = buildDashboard(orders, customers, period, locale);
   const pendingAccounts = customers.filter((c) => c.status === 'pending');
 
@@ -110,6 +116,20 @@ export default async function AdminOverview({
               ))}
             </tbody>
           </table>
+        </article>
+
+        <article className="card">
+          <h2 className="card__title">{t('admin.fin.st.monthCard')}</h2>
+          <table className="table">
+            <tbody>
+              <tr><td>{t('admin.fin.st.revenue')}</td><td className="num"><strong>{formatMoney(Math.round(fin.revenueCad), locale)}</strong></td></tr>
+              <tr><td>{t('admin.fin.mar.gross')}</td><td className="num">{fin.hasCost ? `${formatMoney(Math.round(fin.grossCad), locale)} · ${fin.revenueCad ? nf.format((fin.grossCad / fin.revenueCad) * 100) : 0}%` : '—'}</td></tr>
+              <tr><td>{t('admin.fin.st.opex')}</td><td className="num">{formatMoney(Math.round(fin.expensesCad), locale)}</td></tr>
+              <tr><td><strong>★ {t('admin.fin.st.operating')}</strong></td><td className={`num ${fin.operatingCad < 0 ? 'is-negative' : ''}`}><strong>{fin.hasCost ? formatMoney(Math.round(fin.operatingCad), locale) : '—'}</strong></td></tr>
+              <tr><td>{t('admin.fin.st.freeStock')}</td><td className={`num ${freeKg < 0 ? 'is-negative' : ''}`}>{lots.length ? `${nf.format(freeKg)} kg` : '—'}</td></tr>
+            </tbody>
+          </table>
+          <p style={{ marginTop: '1rem' }}><Link className="link" href="/admin/margins">{t('admin.fin.st.open')} →</Link></p>
         </article>
 
         <article className="card">

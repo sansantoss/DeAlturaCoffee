@@ -289,7 +289,9 @@
       "saved": "Password updated.",
       "mismatch": "The passwords don't match.",
       "short": "At least 8 characters."
-    }
+    },
+    "editProfile": "Edit profile",
+    "noAddress": "No address yet"
   },
   "order": {
     "number": "Order {number}",
@@ -397,7 +399,12 @@
       "site": "View site",
       "inventory": "Inventory",
       "expenses": "Expenses",
-      "margins": "Margins"
+      "margins": "Profit & loss",
+      "groups": {
+        "operation": "Operations",
+        "coffee": "Coffee",
+        "finance": "Finance"
+      }
     },
     "periods": {
       "today": "Today",
@@ -454,7 +461,8 @@
       "regrant": "New password",
       "tempTitle": "Temporary password",
       "tempNote": "Copy it now and send it to the customer; it won't be shown again. They can change it in their account.",
-      "confirm": "Generate a new password? The old one stops working."
+      "confirm": "Generate a new password? The old one stops working.",
+      "regrantConfirm": "Generate new password"
     },
     "all": "All",
     "newCustomer": {
@@ -679,7 +687,59 @@
         "expenses": "Expenses",
         "total": "Total",
         "how": "How it's calculated: cost of coffee = kg sold × average cost per roasted kg of that roast (green coffee with freight and customs + roaster + supplies). Profit = sales + shipping − cost of coffee − the month's operating expenses. Income tax not included."
+      },
+      "deleteTitle": {
+        "cost": "Delete this purchase cost?",
+        "batch": "Delete this roast?",
+        "expense": "Delete this expense?"
+      },
+      "deleteNote": "This can't be undone.",
+      "st": {
+        "title": "Profit & loss",
+        "excel": "Download Excel",
+        "print": "Print / PDF",
+        "period": "Period",
+        "presets": {
+          "month": "This month",
+          "prev": "Last month",
+          "quarter": "Last 3 months",
+          "year": "This year"
+        },
+        "pickMonth": "Pick a month",
+        "see": "View month",
+        "revenue": "Revenue",
+        "ordersKg": "{orders} orders · {kg} kg",
+        "margin": "{pct} margin",
+        "opex": "Operating expenses",
+        "ofRevenue": "{pct} of revenue",
+        "operating": "Operating profit",
+        "keyMetric": "{pct} · the key metric",
+        "concept": "Line",
+        "pctRevenue": "% revenue",
+        "income": "Revenue",
+        "shipping": "Shipping charged",
+        "cogs": "Cost of coffee sold",
+        "green": "Green coffee (with freight and customs)",
+        "roaster": "Roaster",
+        "packaging": "Supplies (bags, labels)",
+        "opexTitle": "Operating expenses",
+        "note": "Cost of coffee uses the average cost per roasted kg of each roast. Income tax not included.",
+        "monthCard": "This month's finances",
+        "freeStock": "Free roasted stock",
+        "open": "Open profit & loss"
       }
+    },
+    "confirm": {
+      "cancel": "Cancel",
+      "working": "One moment…"
+    },
+    "errors": {
+      "missingTable": "A table is missing in Supabase. Run the SQL files in supabase/migrations you haven't run yet (0003 and 0004).",
+      "permission": "Supabase denied permission. Run supabase/migrations/0002_grants.sql and the new migrations.",
+      "missingMigration": "The database doesn't know this value. Run supabase/migrations/0004_inventory.sql.",
+      "invalid": "Please check the data: one value isn't valid.",
+      "unknown": "Couldn't save. Please try again.",
+      "detail": "Technical detail"
     }
   },
   "roasts": {

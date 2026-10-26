@@ -1,8 +1,10 @@
 'use client';
 
-import { useActionState, useMemo, useState, useTransition, type ReactNode } from 'react';
+import { startTransition, useActionState, useMemo, useState, useTransition, type ReactNode } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { ActionErrorNote, ConfirmButton } from './ConfirmDialog';
+import type { ActionResult } from '@/lib/action-error';
 import {
   adminCreateCustomer, adminCreateOrder, adminGrantAccess, adminSetPrices, adminUpdateCustomer, adminUpdateOrder,
   type AdminFormState,
@@ -18,11 +20,12 @@ import type { AccountStatus, OrderStatus, PriceTier } from '@/lib/types';
 const money = (cents: number, locale: string) =>
   new Intl.NumberFormat(locale === 'en' ? 'en-CA' : locale === 'fr' ? 'fr-CA' : 'es-MX', { style: 'currency', currency: 'CAD' }).format(cents / 100);
 
-function RowActions({ formId, editing, pending, onEdit, onCancel, extra }: {
-  formId: string; editing: boolean; pending: boolean; onEdit: () => void; onCancel: () => void; extra?: ReactNode;
+function RowActions({ formId, editing, pending, onEdit, onCancel, extra, error }: {
+  formId: string; editing: boolean; pending: boolean; onEdit: () => void; onCancel: () => void; extra?: ReactNode; error?: ActionResult | null;
 }) {
   const t = useTranslations('admin');
   return (
+    <>
     <div className="cell-actions">
       {editing ? (
         <>
@@ -36,7 +39,26 @@ function RowActions({ formId, editing, pending, onEdit, onCancel, extra }: {
         </>
       )}
     </div>
+    {error?.error && <ActionErrorNote result={error} />}
+    </>
   );
+}
+
+/** Guarda la fila; si la base responde con error, se queda en edición y lo muestra. */
+function useRowSave(action: (fd: FormData) => Promise<ActionResult>) {
+  const [editing, setEditing] = useState(false);
+  const [pending, start] = useTransition();
+  const [error, setError] = useState<ActionResult | null>(null);
+  const save = (fd: FormData) => start(async () => {
+    const r = await action(fd);
+    if (r?.error) setError(r);
+    else { setError(null); setEditing(false); }
+  });
+  return {
+    editing, pending, error, save,
+    edit: () => { setError(null); setEditing(true); },
+    cancel: () => { setError(null); setEditing(false); },
+  };
 }
 
 /* ---------------- Clientes ---------------- */
@@ -50,8 +72,7 @@ export function CustomerRow({ id, status, priceTier, invoiceTermsDays, hasLogin,
   who: ReactNode; contact: ReactNode; stats: ReactNode;
 }) {
   const t = useTranslations('admin');
-  const [editing, setEditing] = useState(false);
-  const [pending, start] = useTransition();
+  const { editing, pending, error, save, edit, cancel } = useRowSave(adminUpdateCustomer);
   const formId = `c-${id}`;
 
   return (
@@ -85,12 +106,12 @@ export function CustomerRow({ id, status, priceTier, invoiceTermsDays, hasLogin,
         <span className={`pill ${hasLogin ? 'pill--approved' : 'pill--muted'}`}>{hasLogin ? t('access.yes') : t('access.no')}</span>
       </td>
       <td>
-        <form id={formId} action={(fd) => start(async () => { await adminUpdateCustomer(fd); setEditing(false); })}>
+        <form id={formId} action={save}>
           <input type="hidden" name="id" value={id} />
         </form>
         <RowActions
-          formId={formId} editing={editing} pending={pending}
-          onEdit={() => setEditing(true)} onCancel={() => setEditing(false)}
+          formId={formId} editing={editing} pending={pending} error={error}
+          onEdit={edit} onCancel={cancel}
           extra={<GrantAccess id={id} hasLogin={hasLogin} />}
         />
       </td>
@@ -110,10 +131,22 @@ function GrantAccess({ id, hasLogin }: { id: string; hasLogin: boolean }) {
       </div>
     );
   }
+  const run = () => new Promise<void>((resolve) => {
+    const fd = new FormData();
+    fd.set('id', id);
+    startTransition(() => { action(fd); resolve(); });
+  });
+  if (hasLogin) {
+    return (
+      <ConfirmButton className="link" tone="neutral" title={t('regrant')} message={t('confirm')} confirmLabel={t('regrantConfirm')} onConfirm={run} disabled={pending}>
+        {t('regrant')}
+      </ConfirmButton>
+    );
+  }
   return (
-    <form action={action} onSubmit={(e) => { if (hasLogin && !window.confirm(t('confirm'))) e.preventDefault(); }}>
+    <form action={action}>
       <input type="hidden" name="id" value={id} />
-      <button className="link" disabled={pending}>{hasLogin ? t('regrant') : t('grant')}</button>
+      <button className="link" disabled={pending}>{t('grant')}</button>
     </form>
   );
 }
@@ -124,8 +157,7 @@ const ORDER_STATUSES: OrderStatus[] = ['awaiting_payment', 'paid', 'invoiced', '
 
 export function OrderRow({ id, status, cells }: { id: string; status: OrderStatus; cells: ReactNode }) {
   const t = useTranslations();
-  const [editing, setEditing] = useState(false);
-  const [pending, start] = useTransition();
+  const { editing, pending, error, save, edit, cancel } = useRowSave(adminUpdateOrder);
   const formId = `o-${id}`;
   return (
     <tr className={editing ? 'is-editing' : undefined}>
@@ -138,10 +170,10 @@ export function OrderRow({ id, status, cells }: { id: string; status: OrderStatu
         ) : <span className={`status status--${status}`}>{t(`order.status.${status}`)}</span>}
       </td>
       <td>
-        <form id={formId} action={(fd) => start(async () => { await adminUpdateOrder(fd); setEditing(false); })}>
+        <form id={formId} action={save}>
           <input type="hidden" name="id" value={id} />
         </form>
-        <RowActions formId={formId} editing={editing} pending={pending} onEdit={() => setEditing(true)} onCancel={() => setEditing(false)} />
+        <RowActions formId={formId} editing={editing} pending={pending} error={error} onEdit={edit} onCancel={cancel} />
       </td>
     </tr>
   );
@@ -153,8 +185,7 @@ export function PriceRow({ sku, product, format, standardCents, partnerCents }: 
   sku: string; product: string; format: string; standardCents: number; partnerCents: number;
 }) {
   const locale = useLocale();
-  const [editing, setEditing] = useState(false);
-  const [pending, start] = useTransition();
+  const { editing, pending, error, save, edit, cancel } = useRowSave(adminSetPrices);
   const formId = `p-${sku}`;
   const discount = standardCents ? Math.round((1 - partnerCents / standardCents) * 1000) / 10 : 0;
   return (
@@ -173,10 +204,10 @@ export function PriceRow({ sku, product, format, standardCents, partnerCents }: 
       </td>
       <td className="num">{discount}%</td>
       <td>
-        <form id={formId} action={(fd) => start(async () => { await adminSetPrices(fd); setEditing(false); })}>
+        <form id={formId} action={save}>
           <input type="hidden" name="sku" value={sku} />
         </form>
-        <RowActions formId={formId} editing={editing} pending={pending} onEdit={() => setEditing(true)} onCancel={() => setEditing(false)} />
+        <RowActions formId={formId} editing={editing} pending={pending} error={error} onEdit={edit} onCancel={cancel} />
       </td>
     </tr>
   );
