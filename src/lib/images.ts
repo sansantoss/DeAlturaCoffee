@@ -44,7 +44,8 @@ function available(): Record<string, string> {
 
 const resolve = (file: string) => available()[file.replace(EXT, '').toLowerCase()] ?? null;
 
-export function siteImage(slot: SlotName, locale: Locale): SiteImage | null {
+/** Acepta también espacios que aún no estén en content/images.json (regresa null y se usa el respaldo). */
+export function siteImage(slot: SlotName | (string & {}), locale: Locale): SiteImage | null {
   const s = config.slots[slot];
   const src = s ? resolve(s.file) : null;
   return src ? { src, alt: s.alt[locale], ratio: s.ratio } : null;

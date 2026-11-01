@@ -923,12 +923,7 @@
   },
   "about": {
     "title": "Quiénes somos",
-    "lead": "Llevamos café de los Andes venezolanos a las barras de Canadá, tostado fresco cada semana.",
-    "storyTitle": "Nuestra historia",
-    "story": [
-      "DeAltura nació de una idea sencilla: el café que crece en las montañas de Venezuela merece un lugar en las cafeterías de Canadá.",
-      "Trabajamos con productores de Santa Cruz de Mora, Mérida. Importamos su café verde, lo tostamos aquí cada semana y lo llevamos a cafeterías, restaurantes y tiendas de todo el país."
-    ],
+    "lead": "Una historia de amistad, cultura y la búsqueda inquebrantable del café perfecto.",
     "pillarsTitle": "Cómo trabajamos",
     "pillars": [
       {
@@ -940,24 +935,38 @@
         "text": "Cada lote se analiza antes de salir. Nuestro lote actual de la Finca La Curva obtuvo 84 puntos SCA, grado especialidad."
       },
       {
-        "title": "Tostado en Canadá",
+        "title": "Tostado en Toronto",
         "text": "El café verde se conserva por meses, así que lo tostamos aquí cada semana. Te llega a días de haberse tostado."
       }
     ],
     "forTitle": "Para quién tostamos",
     "forText": "Cafeterías, restaurantes, tiendas y oficinas que quieren un café de especialidad con origen claro y un proveedor que contesta el teléfono.",
-    "values": [
+    "headline": "De las montañas de Latinoamérica a las tazas de Toronto.",
+    "chapters": [
       {
-        "value": "Trazable",
-        "explain": "Cada bolsa ligada a su finca"
+        "kicker": "01",
+        "title": "El origen de la amistad",
+        "paras": [
+          "Nuestra historia no comenzó en un cafetal, sino en las aulas: tres amigos que compartíamos no solo las clases y los desafíos de adaptarnos a un nuevo país, sino también una nostalgia profunda por los aromas, la calidez y el sabor auténtico de nuestras tierras de origen.",
+          "Entre conversaciones informales, tazas de café y sueños compartidos, nos dimos cuenta de algo fundamental: el café es mucho más que una bebida matutina. Es un ritual, un puente entre culturas y el pretexto perfecto para conectar con lo que realmente importa."
+        ]
       },
       {
-        "value": "Fresco",
-        "explain": "Tostado cada semana, con fecha en la bolsa"
+        "kicker": "02",
+        "title": "Nuestra misión",
+        "paras": [
+          "Con el deseo de compartir la riqueza agrícola de Latinoamérica con la vibrante escena multicultural de Canadá, decidimos crear DeAltura Coffee.",
+          "Nuestra promesa es sencilla pero exigente: seleccionar meticulosamente granos verdes de alta especialidad directamente desde fincas latinoamericanas y tostarlos localmente en Toronto. Al tostar aquí, aseguramos la máxima frescura en cada lote, respetando el perfil único de cada grano y garantizando una taza excepcional tanto para el entusiasta que lo prepara en casa como para el negocio de especialidad que busca diferenciarse."
+        ]
       },
       {
-        "value": "Directo",
-        "explain": "De Mérida a tu barra"
+        "kicker": "Capítulo I",
+        "title": "El primer lote",
+        "paras": [
+          "Todo gran viaje comienza con un primer paso. Para nuestro lote inaugural, decidimos volver la mirada hacia Venezuela: una tierra con una tradición cafetera histórica y suelos extraordinarios que hoy renacen con perfiles de sabor complejos, dulces y memorables.",
+          "Traer estos granos verdes a Toronto es nuestra forma de rendir homenaje a nuestras raíces y ofrecer a la comunidad canadiense una experiencia sensorial auténtica, transparente y de calidad superior."
+        ],
+        "link": "Conoce el café del primer lote"
       }
     ]
   }

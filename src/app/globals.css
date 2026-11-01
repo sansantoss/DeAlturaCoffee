@@ -1079,3 +1079,10 @@ a.pill { text-decoration: none; }
 .hide-tr .loc-field__row:not(:first-of-type) { display: none; }
 .hide-tr .loc-field__row { grid-template-columns: minmax(0, 1fr); }
 .hide-tr .loc-field__lang { display: none; }
+
+/* quiénes somos: capítulos de la historia */
+.about-hero__body h1 { max-width: 18ch; font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5.5rem); line-height: 1; }
+.about-hero__body .kicker { color: var(--sage); margin-bottom: 1rem; }
+.chapter__n { font-family: var(--font-display); font-size: 1.5rem; color: var(--gold); letter-spacing: .02em; }
+.chapter__p { font-size: 1.125rem; line-height: 1.7; }
+.chapter + .chapter { padding-top: 0; }

@@ -923,12 +923,7 @@
   },
   "about": {
     "title": "Qui sommes-nous",
-    "lead": "Nous apportons le café des Andes vénézuéliennes aux comptoirs canadiens, torréfié chaque semaine.",
-    "storyTitle": "Notre histoire",
-    "story": [
-      "DeAltura est née d'une idée simple : le café cultivé dans les montagnes du Venezuela mérite sa place dans les cafés du Canada.",
-      "Nous travaillons avec des producteurs de Santa Cruz de Mora, à Mérida. Nous importons leur café vert, le torréfions ici chaque semaine et le livrons aux cafés, restaurants et boutiques de tout le pays."
-    ],
+    "lead": "Une histoire d'amitié, de culture et de quête inébranlable de la tasse parfaite.",
     "pillarsTitle": "Notre façon de travailler",
     "pillars": [
       {
@@ -940,24 +935,38 @@
         "text": "Chaque lot est analysé avant l'expédition. Notre lot actuel de la Finca La Curva a obtenu 84 points SCA, grade spécialité."
       },
       {
-        "title": "Torréfié au Canada",
+        "title": "Torréfié au Toronto",
         "text": "Le café vert se conserve des mois : nous le torréfions ici chaque semaine. Il vous arrive quelques jours après la torréfaction."
       }
     ],
     "forTitle": "Pour qui nous torréfions",
     "forText": "Les cafés, restaurants, boutiques et bureaux qui veulent un café de spécialité traçable et un fournisseur qui répond au téléphone.",
-    "values": [
+    "headline": "Des montagnes d'Amérique latine aux tasses de Toronto.",
+    "chapters": [
       {
-        "value": "Traçable",
-        "explain": "Chaque sac lié à sa ferme"
+        "kicker": "01",
+        "title": "Aux origines d'une amitié",
+        "paras": [
+          "Notre histoire n'a pas commencé dans une plantation, mais sur les bancs de l'école : trois amis qui partageaient non seulement les cours et les défis de s'adapter à un nouveau pays, mais aussi une profonde nostalgie des arômes, de la chaleur et du goût authentique de nos terres d'origine.",
+          "Entre conversations, tasses de café et rêves partagés, nous avons compris une chose essentielle : le café est bien plus qu'une boisson du matin. C'est un rituel, un pont entre les cultures et le prétexte idéal pour se rapprocher de ce qui compte vraiment."
+        ]
       },
       {
-        "value": "Frais",
-        "explain": "Torréfié chaque semaine, daté sur le sac"
+        "kicker": "02",
+        "title": "Notre mission",
+        "paras": [
+          "Pour partager la richesse agricole de l'Amérique latine avec la scène multiculturelle et dynamique du Canada, nous avons créé DeAltura Coffee.",
+          "Notre promesse est simple mais exigeante : sélectionner avec soin des cafés verts de spécialité directement auprès de fermes latino-américaines et les torréfier localement à Toronto. Torréfier ici garantit une fraîcheur maximale à chaque lot, respecte le profil unique de chaque grain et assure une tasse exceptionnelle, autant pour l'amateur qui le prépare à la maison que pour le commerce de spécialité qui veut se démarquer."
+        ]
       },
       {
-        "value": "Direct",
-        "explain": "De Mérida à votre comptoir"
+        "kicker": "Chapitre I",
+        "title": "Le premier lot",
+        "paras": [
+          "Tout grand voyage commence par un premier pas. Pour notre lot inaugural, nous nous sommes tournés vers le Venezuela : une terre à la tradition caféière historique et aux sols extraordinaires, qui renaît aujourd'hui avec des profils de saveur complexes, doux et mémorables.",
+          "Apporter ces grains verts à Toronto est notre façon de rendre hommage à nos racines et d'offrir à la communauté canadienne une expérience sensorielle authentique, transparente et d'une qualité supérieure."
+        ],
+        "link": "Découvrir le café de notre premier lot"
       }
     ]
   }

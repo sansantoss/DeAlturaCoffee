@@ -923,12 +923,7 @@
   },
   "about": {
     "title": "Who we are",
-    "lead": "We bring coffee from the Venezuelan Andes to Canadian counters, roasted fresh every week.",
-    "storyTitle": "Our story",
-    "story": [
-      "DeAltura started with a simple idea: the coffee grown in the mountains of Venezuela deserves a place in Canada's cafés.",
-      "We work with growers in Santa Cruz de Mora, Mérida. We import their green coffee, roast it here every week and deliver it to cafés, restaurants and shops across the country."
-    ],
+    "lead": "A story of friendship, culture and the unwavering search for the perfect cup.",
     "pillarsTitle": "How we work",
     "pillars": [
       {
@@ -940,24 +935,38 @@
         "text": "Every lot is analysed before it ships. Our current lot from Finca La Curva scored 84 SCA points, specialty grade."
       },
       {
-        "title": "Roasted in Canada",
+        "title": "Roasted in Toronto",
         "text": "Green coffee keeps for months, so we roast here each week. Your coffee reaches you within days of roasting."
       }
     ],
     "forTitle": "Who we roast for",
     "forText": "Cafés, restaurants, shops and offices that want a traceable specialty coffee and a supplier that answers the phone.",
-    "values": [
+    "headline": "From the mountains of Latin America to the cups of Toronto.",
+    "chapters": [
       {
-        "value": "Traceable",
-        "explain": "Every bag tied to its farm"
+        "kicker": "01",
+        "title": "Where the friendship began",
+        "paras": [
+          "Our story didn't begin on a coffee farm but in a classroom: three friends who shared not only lectures and the challenge of settling into a new country, but also a deep longing for the aromas, the warmth and the true flavour of the places we come from.",
+          "Over casual conversations, cups of coffee and shared dreams, we realised something fundamental: coffee is much more than a morning drink. It is a ritual, a bridge between cultures and the perfect excuse to connect with what really matters."
+        ]
       },
       {
-        "value": "Fresh",
-        "explain": "Roasted weekly, dated on the bag"
+        "kicker": "02",
+        "title": "Our mission",
+        "paras": [
+          "Wanting to share the agricultural richness of Latin America with Canada's vibrant, multicultural scene, we created DeAltura Coffee.",
+          "Our promise is simple but demanding: carefully select high-grade specialty green coffee directly from Latin American farms and roast it locally in Toronto. Roasting here keeps every batch as fresh as it can be, respects the unique profile of each bean and delivers an exceptional cup, both for the enthusiast brewing at home and for the specialty business looking to stand out."
+        ]
       },
       {
-        "value": "Direct",
-        "explain": "From Mérida to your counter"
+        "kicker": "Chapter I",
+        "title": "The first lot",
+        "paras": [
+          "Every great journey begins with a first step. For our inaugural lot we looked to Venezuela: a land with a historic coffee tradition and extraordinary soils, now coming back to life with complex, sweet and memorable flavour profiles.",
+          "Bringing these green beans to Toronto is our way of honouring our roots and offering the Canadian community an authentic, transparent and outstanding sensory experience."
+        ],
+        "link": "Meet the coffee from our first lot"
       }
     ]
   }

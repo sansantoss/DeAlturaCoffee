@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SiteHeader } from '@/components/SiteHeader';
+import { Link } from '@/i18n/navigation';
 import { MomentArt, Topo } from '@/components/art';
 import { Photo } from '@/components/Photo';
 import { OrderCta } from '@/components/OrderCta';
@@ -19,10 +20,14 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   setRequestLocale(locale);
   const t = await getTranslations('about');
   const heroImg = siteImage('origen_hero', locale);
-  const storyImg = siteImage('nosotros', locale) ?? siteImage('proceso_3', locale);
-  const story = t.raw('story') as string[];
+  const chapters = t.raw('chapters') as { kicker: string; title: string; paras: string[]; link?: string }[];
   const pillars = t.raw('pillars') as { title: string; text: string }[];
-  const values = t.raw('values') as { value: string; explain: string }[];
+  // Foto de cada capítulo: la propia si existe en public/images, si no una provisional
+  const photos = [
+    siteImage('nosotros', locale) ?? siteImage('proceso_6', locale),
+    siteImage('mision', locale) ?? siteImage('proceso_4', locale),
+    siteImage('primer_lote', locale) ?? siteImage('proceso_1', locale),
+  ];
 
   return (
     <>
@@ -35,31 +40,25 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <Topo className="hero__topo" />
           )}
           <div className="page-head about-hero__body" data-reveal>
-            <h1>{t('title')}</h1>
+            <p className="kicker">{t('title')}</p>
+            <h1>{t('headline')}</h1>
             <p>{t('lead')}</p>
           </div>
         </section>
 
-        <section className="section wrap grid12 split">
-          <div className="split__text stack" data-reveal>
-            <h2 className="h-section">{t('storyTitle')}</h2>
-            {story.map((p) => <p key={p} style={{ fontSize: '1.125rem' }}>{p}</p>)}
-          </div>
-          <div className="split__media">
-            {storyImg ? <Photo image={storyImg} /> : <MomentArt index={2} alt={t('storyTitle')} day="" />}
-          </div>
-        </section>
-
-        <section className="wrap">
-          <ul className="facts facts--about" data-reveal>
-            {values.map((v) => (
-              <li key={v.value}>
-                <span className="facts__value">{v.value}</span>
-                <span className="facts__explain">{v.explain}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {chapters.map((c, i) => (
+          <section key={c.title} className={`section wrap grid12 split chapter ${i % 2 ? 'split--rev' : ''}`} aria-labelledby={`ch-${i}`}>
+            <div className="split__text stack" data-reveal>
+              <p className="chapter__n">{c.kicker}</p>
+              <h2 id={`ch-${i}`} className="h-section">{c.title}</h2>
+              {c.paras.map((p) => <p key={p.slice(0, 24)} className="chapter__p">{p}</p>)}
+              {c.link && <p><Link href="/coffee" className="order-cta__link">{c.link} →</Link></p>}
+            </div>
+            <div className="split__media">
+              {photos[i] ? <Photo image={photos[i]!} /> : <MomentArt index={i} alt={c.title} day="" />}
+            </div>
+          </section>
+        ))}
 
         <section className="section wrap" aria-labelledby="pillars-title">
           <h2 id="pillars-title" className="h-section">{t('pillarsTitle')}</h2>
