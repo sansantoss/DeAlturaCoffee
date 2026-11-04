@@ -45,7 +45,8 @@ const toOrder = (r: Row): Order => ({
   paymentMethod: r.payment_method, lines: (r.order_lines ?? []).map(toLine),
   subtotalCents: r.subtotal_cents, shippingCents: r.shipping_cents, taxCents: r.tax_cents,
   totalCents: r.total_cents, shippingAddress: r.shipping_address, notes: r.notes ?? undefined,
-  stripeSessionId: r.stripe_session_id ?? undefined, createdAt: r.created_at, updatedAt: r.updated_at,
+  stripeSessionId: r.stripe_session_id ?? undefined, paidAt: r.paid_at ?? undefined, paidNote: r.paid_note ?? undefined,
+  createdAt: r.created_at, updatedAt: r.updated_at,
 });
 
 function check<T>(res: { data: T; error: { message: string } | null }): T {
@@ -184,6 +185,10 @@ export const supabaseRepository: Repository = {
         await db().from('orders').select(ORDER_SELECT).eq('stripe_session_id', sessionId).maybeSingle(),
       );
       return r ? toOrder(r) : null;
+    },
+    async setPayment(id, paidAt, note) {
+      check(await db().from('orders').update({ paid_at: paidAt, paid_note: paidAt ? note || null : null, updated_at: new Date().toISOString() }).eq('id', id));
+      return (await this.getById(id))!;
     },
   },
   prices: {

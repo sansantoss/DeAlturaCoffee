@@ -2,7 +2,7 @@
 
 import { startTransition, useActionState, useMemo, useState, useTransition, type ReactNode } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { ActionErrorNote, ConfirmButton } from './ConfirmDialog';
 import type { ActionResult } from '@/lib/action-error';
 import {
@@ -122,12 +122,31 @@ export function CustomerRow({ id, status, priceTier, invoiceTermsDays, hasLogin,
 function GrantAccess({ id, hasLogin }: { id: string; hasLogin: boolean }) {
   const t = useTranslations('admin.access');
   const [state, action, pending] = useActionState<AdminFormState, FormData>(adminGrantAccess, {});
-  if (state.password) {
+  const router = useRouter();
+  const [closed, setClosed] = useState<string | null>(null); // contraseña ya cerrada con "Listo"
+  const [copied, setCopied] = useState(false);
+  const [finishing, finish] = useTransition();
+  if (state.password && state.password !== closed) {
+    const pass = state.password;
     return (
       <div className="temp-pass" role="status">
         <strong>{t('tempTitle')}</strong>
-        <code className="temp-pass__value">{state.password}</code>
+        <code className="temp-pass__value">{pass}</code>
         <small>{t('tempNote')}</small>
+        <div className="temp-pass__actions">
+          <button
+            type="button" className="btn btn--sm btn--ghost temp-pass__copy"
+            onClick={async () => {
+              try { await navigator.clipboard.writeText(pass); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch { /* sin permiso: se puede seleccionar a mano */ }
+            }}
+          >
+            {copied ? t('copied') : t('copy')}
+          </button>
+          {/* "Listo": cierra el aviso y recarga la fila, que ya sale "Con acceso" */}
+          <button type="button" className="btn btn--sm temp-pass__done" disabled={finishing} onClick={() => finish(() => { setClosed(pass); router.refresh(); })}>
+            {t('done')}
+          </button>
+        </div>
       </div>
     );
   }
@@ -292,7 +311,7 @@ export function NewCustomerForm() {
           </select>
         </label>
       </div>
-      {state.error && <p className="error" role="alert">{t(`admin.newCustomer.errors.${state.error as 'exists' | 'invalid' | 'unknown'}`)}</p>}
+      {state.error === 'readOnly' ? <ActionErrorNote result={state} /> : state.error && <p className="error" role="alert">{t(`admin.newCustomer.errors.${state.error as 'exists' | 'invalid' | 'unknown'}`)}</p>}
       <div><button className="btn" disabled={pending}>{t('admin.newCustomer.create')}</button></div>
     </form>
   );
@@ -387,7 +406,7 @@ export function NewOrderForm({ customers, options, defaultCustomer, minimumKg }:
         <span>{t('admin.newOrder.notes')}</span>
         <textarea className="input" name="notes" maxLength={1000} />
       </label>
-      {state.error && <p className="error" role="alert">{t(`admin.newOrder.errors.${state.error as 'auth' | 'address' | 'empty' | 'minimum' | 'invalid'}`)}</p>}
+      {state.error === 'readOnly' ? <ActionErrorNote result={state} /> : state.error && <p className="error" role="alert">{t(`admin.newOrder.errors.${state.error as 'auth' | 'address' | 'empty' | 'minimum' | 'invalid'}`)}</p>}
       <div><button className="btn" disabled={pending || !customerId}>{t('admin.newOrder.create')}</button></div>
     </form>
   );

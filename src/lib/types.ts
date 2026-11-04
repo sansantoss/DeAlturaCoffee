@@ -181,6 +181,10 @@ export interface Order {
   shippingAddress: Omit<Address, 'id' | 'isDefault'>;
   notes?: string;
   stripeSessionId?: string;
+  /** Cuándo se cobró (pedidos a crédito). Vacío = pendiente de cobro. */
+  paidAt?: string;
+  /** Cómo se cobró: e-Transfer, transferencia, cheque... */
+  paidNote?: string;
   createdAt: string;
   updatedAt: string;
 }

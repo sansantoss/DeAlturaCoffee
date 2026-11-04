@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { CustomerRow } from '@/components/admin';
 import { repo } from '@/lib/db';
-import { isAdmin } from '@/lib/admin';
+import { isStaff } from '@/lib/admin';
 import { formatDate, formatMoney } from '@/lib/format';
 import type { AccountStatus, Locale } from '@/lib/types';
 
@@ -14,7 +14,7 @@ export default async function AdminCustomers({ params, searchParams }: { params:
   const sp = await searchParams;
   const filter = STATUSES.includes(sp.status as AccountStatus) ? (sp.status as AccountStatus) : null;
   const [t, customers, orders, applications] = await Promise.all([getTranslations(), repo.customers.list(), repo.orders.listAll(), repo.applications.list()]);
-  const all = customers.filter((c) => !isAdmin(c));
+  const all = customers.filter((c) => !isStaff(c));
   // Pendientes primero; luego el resto por fecha
   const sorted = [...all].sort((a, b) => Number(b.status === 'pending') - Number(a.status === 'pending'));
   // Ciudad y provincia: de la dirección principal o, si no tiene, de su solicitud

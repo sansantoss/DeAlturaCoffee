@@ -102,10 +102,18 @@ if (!db.orders.length && process.argv.includes('--orders')) {
     const shipping = kg >= 20 ? 0 : 2500;
     const a = buyer.addresses[0] ?? { label: buyer.businessName, line1: '123 Example Street', city: 'Toronto', province: 'ON', postalCode: 'M5V 1A1' };
     seq += 1;
+    const status = ago < 4 ? pick(['paid', 'invoiced', 'roasting', 'awaiting_payment', 'shipped']) : ago < 9 ? pick(['shipped', 'delivered']) : 'delivered';
+    const paymentMethod = Math.random() < 0.5 ? 'invoice' : 'card';
+    // Cobro: tarjeta al momento; facturas casi todas cobradas a los 15–35 días (algunas quedan abiertas o vencidas)
+    let paidAt, paidNote;
+    if (paymentMethod === 'card' && status !== 'awaiting_payment') { paidAt = created.toISOString(); paidNote = 'Stripe'; }
+    if (paymentMethod === 'invoice' && ago >= 20 && Math.random() < 0.88) {
+      const when = new Date(Math.min(now.getTime(), created.getTime() + (15 + Math.floor(Math.random() * 20)) * 864e5));
+      paidAt = when.toISOString(); paidNote = pick(['Interac e-Transfer', 'Transferencia bancaria', 'Cheque']);
+    }
     db.orders.push({
       id: randomUUID(), number: `DA-${seq}`, customerId: buyer.id,
-      status: ago < 4 ? pick(['paid', 'invoiced', 'roasting', 'awaiting_payment', 'shipped']) : ago < 9 ? pick(['shipped', 'delivered']) : 'delivered',
-      paymentMethod: Math.random() < 0.5 ? 'invoice' : 'card', lines,
+      status, paymentMethod, lines, paidAt, paidNote,
       subtotalCents: subtotal, shippingCents: shipping, taxCents: 0, totalCents: subtotal + shipping,
       shippingAddress: { label: a.label, line1: a.line1, city: a.city, province: a.province, postalCode: a.postalCode },
       createdAt: created.toISOString(), updatedAt: created.toISOString(),

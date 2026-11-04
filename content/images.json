@@ -3,7 +3,7 @@
   "slots": {
     "hero": {
       "file": "hero1",
-      "video": "",
+      "video": "hero5",
       "overlay": 0.55,
       "position": "center",
       "ratio": "16/9",

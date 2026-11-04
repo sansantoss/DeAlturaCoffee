@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
-import { getAdmin } from '@/lib/admin';
+import { writeGuard } from '@/lib/admin';
 import { repo } from '@/lib/db';
 import { describeError, type ActionResult } from '@/lib/action-error';
 import { getOrigin, getProductById, listAllFarms, listAllProducts } from '@/lib/catalog';
@@ -11,9 +11,7 @@ import type { Farm, Origin, Product } from '@/lib/types';
 
 /* Admin › Catálogo: cafés, su origen, fincas y fotos. Todo se valida aquí antes de guardar. */
 
-async function guard() {
-  if (!(await getAdmin())) throw new Error('Forbidden');
-}
+const guard = writeGuard;
 const refresh = () => revalidatePath('/', 'layout'); // el catálogo se ve en todo el sitio
 
 const text = z.string().trim().max(2000);
@@ -76,7 +74,8 @@ export type CatalogState = ActionResult & { ok?: boolean; fields?: string[] };
 
 /** Guarda el café y su origen (el editor manda todo como JSON). */
 export async function adminSaveProduct(_: CatalogState, form: FormData): Promise<CatalogState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const raw = JSON.parse(String(form.get('payload') ?? '{}'));
     const parsed = productSchema.safeParse(raw.product);
@@ -110,7 +109,8 @@ export async function adminSaveProduct(_: CatalogState, form: FormData): Promise
 
 /** Crea un café nuevo (inactivo) a partir de una plantilla y regresa su id para abrir el editor. */
 export async function adminCreateProduct(): Promise<{ id?: string } & ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const all = await listAllProducts();
     let n = all.length + 1;
@@ -140,7 +140,8 @@ export async function adminCreateProduct(): Promise<{ id?: string } & ActionResu
 
 /** Sube una foto (ya achicada en el navegador) y regresa su URL. */
 export async function adminUploadPhoto(form: FormData): Promise<{ url?: string } & ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const file = form.get('file');
     if (!(file instanceof File) || !file.size) return { error: 'invalid', detail: 'Sin archivo' };
@@ -169,7 +170,8 @@ const farmSchema = z.object({
 });
 
 export async function adminSaveFarm(_: CatalogState, form: FormData): Promise<CatalogState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const parsed = farmSchema.safeParse(JSON.parse(String(form.get('payload') ?? '{}')));
     if (!parsed.success) {
@@ -185,7 +187,8 @@ export async function adminSaveFarm(_: CatalogState, form: FormData): Promise<Ca
 }
 
 export async function adminCreateFarm(productId?: string): Promise<{ id?: string } & ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const all = await listAllFarms();
     let n = all.length + 1;
@@ -206,7 +209,8 @@ export async function adminCreateFarm(productId?: string): Promise<{ id?: string
 }
 
 export async function adminRemoveFarm(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     // Se marca como borrada (no se elimina): así no "revive" si también está en content/farms.json
     const farm = (await listAllFarms()).find((f) => f.id === String(form.get('id') ?? ''));

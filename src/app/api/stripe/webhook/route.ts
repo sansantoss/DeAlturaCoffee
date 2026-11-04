@@ -25,6 +25,7 @@ export async function POST(request: Request) {
       const order = await repo.orders.getById(orderId);
       if (order && order.status === 'awaiting_payment') {
         await repo.orders.updateStatus(orderId, 'paid', { stripeSessionId: session.id });
+        await repo.orders.setPayment(orderId, new Date().toISOString(), 'Stripe').catch(() => undefined);
       }
     }
   }

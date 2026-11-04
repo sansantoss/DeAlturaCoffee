@@ -25,6 +25,8 @@ export interface Repository {
     create(order: Omit<Order, 'number'>): Promise<Order>;
     updateStatus(id: string, status: OrderStatus, patch?: Partial<Order>): Promise<Order>;
     findByStripeSession(sessionId: string): Promise<Order | null>;
+    /** Registra (o borra, con null) el cobro de un pedido a crédito. */
+    setPayment(id: string, paidAt: string | null, note?: string): Promise<Order>;
   };
   prices: {
     list(): Promise<PriceOverride[]>;

@@ -3,7 +3,7 @@
 import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
-import { getAdmin } from '@/lib/admin';
+import { writeGuard } from '@/lib/admin';
 import { repo } from '@/lib/db';
 import { toKg } from '@/lib/finance';
 import type { AdminFormState } from './actions';
@@ -13,9 +13,7 @@ import { describeError, type ActionResult } from '@/lib/action-error';
 
 const refresh = () => revalidatePath('/[locale]/admin', 'layout');
 
-async function guard() {
-  if (!(await getAdmin())) throw new Error('Forbidden');
-}
+const guard = writeGuard;
 
 /** Acepta "12.50", "12,50" y "1,234.50". */
 const num = z.preprocess((v) => {
@@ -63,7 +61,8 @@ const lotSchema = z.object({
 });
 
 export async function adminCreateLot(_: AdminFormState, form: FormData): Promise<AdminFormState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const d = lotSchema.parse(Object.fromEntries(form));
     const id = randomUUID();
@@ -80,7 +79,8 @@ export async function adminCreateLot(_: AdminFormState, form: FormData): Promise
 }
 
 export async function adminUpdateLot(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   return safe(async () => {
   const d = z.object({
     id: z.string().min(1),
@@ -101,7 +101,8 @@ const costSchema = z.object({
 });
 
 export async function adminAddLotCost(_: AdminFormState, form: FormData): Promise<AdminFormState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const d = costSchema.parse(Object.fromEntries(form));
     const lot = await repo.lots.getById(d.lotId);
@@ -117,7 +118,8 @@ export async function adminAddLotCost(_: AdminFormState, form: FormData): Promis
 }
 
 export async function adminRemoveLotCost(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   return safe(async () => {
     const lotId = String(form.get('lotId') ?? '');
     const costId = String(form.get('costId') ?? '');
@@ -145,7 +147,8 @@ const batchSchema = z.object({
 });
 
 export async function adminCreateBatch(_: AdminFormState, form: FormData): Promise<AdminFormState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const d = batchSchema.parse(Object.fromEntries(form));
     const greenKg = toKg(d.greenQty, d.greenUnit);
@@ -167,7 +170,8 @@ export async function adminCreateBatch(_: AdminFormState, form: FormData): Promi
 }
 
 export async function adminDeleteBatch(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   return safe(() => repo.batches.remove(String(form.get('id') ?? '')));
 }
 
@@ -181,7 +185,8 @@ const expenseSchema = z.object({
 });
 
 export async function adminCreateExpense(_: AdminFormState, form: FormData): Promise<AdminFormState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const d = expenseSchema.parse(Object.fromEntries(form));
     // Etiquetas consistentes: "renta" y "Renta" son la misma
@@ -198,6 +203,7 @@ export async function adminCreateExpense(_: AdminFormState, form: FormData): Pro
 }
 
 export async function adminDeleteExpense(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   return safe(() => repo.expenses.remove(String(form.get('id') ?? '')));
 }

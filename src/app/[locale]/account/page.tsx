@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link, redirect } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
 import { getCurrentCustomer } from '@/lib/auth';
-import { isAdmin } from '@/lib/admin';
+import { isStaff } from '@/lib/admin';
 import { repo } from '@/lib/db';
 import { formatDate, formatMoney } from '@/lib/format';
 import type { Locale } from '@/lib/types';
@@ -32,7 +32,7 @@ export default async function AccountPage({ params }: { params: Promise<{ locale
             <strong>{customer.businessName}.</strong> {t(`account.status.${customer.status}`)}
             {customer.invoiceTermsDays ? <> {t('account.terms', { days: customer.invoiceTermsDays })}</> : null}
           </p>
-          {isAdmin(customer) && (
+          {isStaff(customer) && (
             <p><Link href="/admin" className="btn btn--turquoise">{t('admin.link')}</Link></p>
           )}
         </div>

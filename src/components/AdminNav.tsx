@@ -26,6 +26,7 @@ const GROUPS = [
     key: 'finance',
     items: [
       { href: '/admin/margins', key: 'margins' },
+      { href: '/admin/receivables', key: 'receivables' },
       { href: '/admin/expenses', key: 'expenses' },
     ],
   },

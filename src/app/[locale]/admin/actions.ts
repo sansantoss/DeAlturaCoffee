@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { getLocale } from 'next-intl/server';
-import { getAdmin } from '@/lib/admin';
+import { writeGuard } from '@/lib/admin';
 import { repo } from '@/lib/db';
 import { createManagedCustomer, grantAccess } from '@/lib/accounts';
 import { createOrder } from '@/lib/orders';
@@ -13,9 +13,7 @@ import { describeError, type ActionResult } from '@/lib/action-error';
 const PROVINCES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'] as const;
 const refresh = () => revalidatePath('/[locale]/admin', 'layout');
 
-async function guard() {
-  if (!(await getAdmin())) throw new Error('Forbidden');
-}
+const guard = writeGuard;
 
 /* ---------- Clientes ---------- */
 
@@ -27,7 +25,8 @@ const customerSchema = z.object({
 });
 
 export async function adminUpdateCustomer(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const d = customerSchema.parse(Object.fromEntries(form));
     await repo.customers.update(d.id, {
@@ -61,7 +60,8 @@ const newCustomerSchema = z.object({
 });
 
 export async function adminCreateCustomer(_: AdminFormState, form: FormData): Promise<AdminFormState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   const parsed = newCustomerSchema.safeParse(Object.fromEntries(form));
   if (!parsed.success) return { error: 'invalid', fields: parsed.error.issues.map((i) => String(i.path[0])) };
   const d = parsed.data;
@@ -82,7 +82,8 @@ export async function adminCreateCustomer(_: AdminFormState, form: FormData): Pr
 }
 
 export async function adminGrantAccess(_: AdminFormState, form: FormData): Promise<AdminFormState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   const id = String(form.get('id') ?? '');
   if (!id) return { error: 'invalid' };
   try {
@@ -102,7 +103,8 @@ const orderSchema = z.object({
 });
 
 export async function adminUpdateOrder(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const d = orderSchema.parse(Object.fromEntries(form));
     await repo.orders.updateStatus(d.id, d.status);
@@ -126,7 +128,8 @@ const newOrderSchema = z.object({
 });
 
 export async function adminCreateOrder(_: AdminFormState, form: FormData): Promise<AdminFormState> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   let lines: unknown = [];
   try { lines = JSON.parse(String(form.get('lines') ?? '[]')); } catch { lines = []; }
   const parsed = newOrderSchema.safeParse({ ...Object.fromEntries(form), lines });
@@ -153,12 +156,48 @@ const priceSchema = z.object({
 });
 
 export async function adminSetPrices(form: FormData): Promise<ActionResult> {
-  await guard();
+  const denied = await guard();
+  if (denied) return denied;
   try {
     const d = priceSchema.parse(Object.fromEntries(form));
     await repo.prices.set(d.sku, 'standard', Math.round(d.standard * 100));
     await repo.prices.set(d.sku, 'partner', Math.round(d.partner * 100));
     revalidatePath('/', 'layout'); // los precios cambian en todo el sitio
+    return {};
+  } catch (e) {
+    return describeError(e);
+  }
+}
+
+/* ---------- Cobros (cuentas por cobrar) ---------- */
+
+const paymentSchema = z.object({
+  id: z.string().min(1),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  method: z.string().trim().max(60).default(''),
+});
+
+/** Marca un pedido a crédito como cobrado (fecha y forma de pago). */
+export async function adminMarkPaid(form: FormData): Promise<ActionResult> {
+  const denied = await guard();
+  if (denied) return denied;
+  try {
+    const d = paymentSchema.parse(Object.fromEntries(form));
+    await repo.orders.setPayment(d.id, new Date(`${d.date}T12:00:00Z`).toISOString(), d.method);
+    refresh();
+    return {};
+  } catch (e) {
+    return describeError(e);
+  }
+}
+
+/** Deshace un cobro registrado por error. */
+export async function adminUnmarkPaid(form: FormData): Promise<ActionResult> {
+  const denied = await guard();
+  if (denied) return denied;
+  try {
+    await repo.orders.setPayment(String(form.get('id') ?? ''), null);
+    refresh();
     return {};
   } catch (e) {
     return describeError(e);

@@ -191,7 +191,11 @@
     "roastTitle": "Elige tu tueste",
     "farm": "Finca",
     "producer": "Productor",
-    "pts": "pts SCA"
+    "pts": "pts SCA",
+    "chooseLead": "Elige un origen: cada café tiene su página con sus tuestes, ficha técnica y finca.",
+    "emptyLead": "Estamos preparando el próximo lote.",
+    "emptyText": "Por ahora no hay cafés a la venta. Abre una cuenta y te avisamos en cuanto llegue el siguiente lote.",
+    "fromPerKg": "desde {price}/kg"
   },
   "product": {
     "format": "Formato",
@@ -406,7 +410,8 @@
         "coffee": "Café",
         "finance": "Finanzas"
       },
-      "catalog": "Catálogo"
+      "catalog": "Catálogo",
+      "receivables": "Por cobrar"
     },
     "periods": {
       "today": "Hoy",
@@ -464,7 +469,10 @@
       "tempTitle": "Contraseña temporal",
       "tempNote": "Cópiala ahora y mándasela al cliente; no se vuelve a mostrar. Puede cambiarla en Tu cuenta.",
       "confirm": "¿Generar una contraseña nueva? La anterior deja de funcionar.",
-      "regrantConfirm": "Generar contraseña nueva"
+      "regrantConfirm": "Generar contraseña nueva",
+      "copy": "Copiar",
+      "copied": "Copiada ✓",
+      "done": "Listo"
     },
     "all": "Todos",
     "newCustomer": {
@@ -750,7 +758,8 @@
       "missingMigration": "La base no conoce este valor. Corre supabase/migrations/0004_inventory.sql.",
       "invalid": "Revisa los datos: hay un valor que no es válido.",
       "unknown": "No se pudo guardar. Intenta de nuevo.",
-      "detail": "Detalle técnico"
+      "detail": "Detalle técnico",
+      "readOnly": "Esta es una cuenta de solo lectura: el cambio no se guardó."
     },
     "cat": {
       "lead": "Los cafés de la web y las fincas de su página. Lo que cambies aquí se ve en el sitio al guardar.",
@@ -876,6 +885,51 @@
       "last": "Último pedido",
       "terms": "Condiciones",
       "editHint": "Estado, lista de precios y crédito se cambian en la tabla de Clientes (Editar)."
+    },
+    "readOnlyBanner": "Cuenta de demostración: puedes ver todo el panel con calma, pero los cambios no se guardan.",
+    "ar": {
+      "lead": "Facturas a crédito que aún no se cobran, de la más vencida a la más nueva. El plazo sale de los días de crédito de cada cliente (30 si no tiene).",
+      "total": "Por cobrar",
+      "invoices": "{n, plural, one {# factura} other {# facturas}}",
+      "overdue": "Vencido",
+      "overdueHint": "Ya pasó la fecha de pago",
+      "noneOverdue": "Nada vencido",
+      "dueSoon": "Vence en 7 días",
+      "collected": "Cobrado este mes",
+      "aging": "Antigüedad",
+      "byCustomer": "Saldo por cliente",
+      "overdueAmount": "{v} vencido",
+      "allPaid": "Todo cobrado. No hay facturas pendientes.",
+      "open": "Facturas pendientes",
+      "invoice": "Factura",
+      "issued": "Emitida",
+      "due": "Vence",
+      "daysLate": "{n, plural, one {# día vencida} other {# días vencida}}",
+      "dueToday": "Vence hoy",
+      "daysLeft": "{n, plural, one {Vence en # día} other {Vence en # días}}",
+      "viewInvoice": "Ver factura",
+      "recent": "Cobros recientes",
+      "paidOn": "Fecha de cobro",
+      "method": "Forma de pago",
+      "mark": "Marcar cobrada",
+      "markTitle": "Registrar cobro",
+      "markConfirm": "Registrar cobro",
+      "unmark": "Deshacer",
+      "unmarkTitle": "¿Deshacer este cobro?",
+      "methods": {
+        "etransfer": "Interac e-Transfer",
+        "wire": "Transferencia bancaria",
+        "cheque": "Cheque",
+        "card": "Tarjeta",
+        "cash": "Efectivo"
+      },
+      "buckets": {
+        "current": "Al corriente",
+        "soon": "Vence en 7 días",
+        "d1_30": "Vencida 1–30 días",
+        "d31_60": "Vencida 31–60 días",
+        "d60": "Vencida más de 60 días"
+      }
     }
   },
   "roasts": {

@@ -3,7 +3,7 @@ import { redirect } from '@/i18n/navigation';
 import { SiteHeader } from '@/components/SiteHeader';
 import { AdminNav } from '@/components/AdminNav';
 import { getCurrentCustomer } from '@/lib/auth';
-import { isAdmin } from '@/lib/admin';
+import { adminRole } from '@/lib/admin';
 import { repo } from '@/lib/db';
 import type { Locale } from '@/lib/types';
 
@@ -14,7 +14,8 @@ export default async function AdminLayout({ children, params }: { children: Reac
   const me = await getCurrentCustomer();
   if (!me) return redirect({ href: '/login?next=/admin', locale });
   const t = await getTranslations('admin');
-  if (!isAdmin(me)) {
+  const role = adminRole(me);
+  if (!role) {
     return (
       <>
         <SiteHeader />
@@ -30,7 +31,10 @@ export default async function AdminLayout({ children, params }: { children: Reac
       <SiteHeader />
       <div className="admin">
         <AdminNav pending={pending} />
-        <main id="content" className="admin__main">{children}</main>
+        <main id="content" className="admin__main">
+          {role === 'viewer' && <p className="notice readonly-banner" role="status">{t('readOnlyBanner')}</p>}
+          {children}
+        </main>
       </div>
     </>
   );

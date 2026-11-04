@@ -191,7 +191,11 @@
     "roastTitle": "Choisissez votre torréfaction",
     "farm": "Ferme",
     "producer": "Producteur",
-    "pts": "pts SCA"
+    "pts": "pts SCA",
+    "chooseLead": "Choisissez une origine : chaque café a sa page avec ses torréfactions, sa fiche technique et sa ferme.",
+    "emptyLead": "Nous préparons le prochain lot.",
+    "emptyText": "Aucun café n'est en vente pour le moment. Ouvrez un compte et nous vous préviendrons dès l'arrivée du prochain lot.",
+    "fromPerKg": "dès {price}/kg"
   },
   "product": {
     "format": "Format",
@@ -406,7 +410,8 @@
         "coffee": "Café",
         "finance": "Finances"
       },
-      "catalog": "Catalogue"
+      "catalog": "Catalogue",
+      "receivables": "Comptes clients"
     },
     "periods": {
       "today": "Aujourd'hui",
@@ -464,7 +469,10 @@
       "tempTitle": "Mot de passe temporaire",
       "tempNote": "Copiez-le maintenant et envoyez-le au client; il ne sera plus affiché. Il peut le changer dans son compte.",
       "confirm": "Générer un nouveau mot de passe? L'ancien cessera de fonctionner.",
-      "regrantConfirm": "Générer un nouveau mot de passe"
+      "regrantConfirm": "Générer un nouveau mot de passe",
+      "copy": "Copier",
+      "copied": "Copié ✓",
+      "done": "Terminé"
     },
     "all": "Tous",
     "newCustomer": {
@@ -750,7 +758,8 @@
       "missingMigration": "La base ne connaît pas cette valeur. Exécutez supabase/migrations/0004_inventory.sql.",
       "invalid": "Vérifiez les données : une valeur n'est pas valide.",
       "unknown": "Impossible d'enregistrer. Réessayez.",
-      "detail": "Détail technique"
+      "detail": "Détail technique",
+      "readOnly": "Ce compte est en lecture seule : la modification n’a pas été enregistrée."
     },
     "cat": {
       "lead": "Les cafés du site et les fermes de leur page. Les changements apparaissent dès l'enregistrement.",
@@ -876,6 +885,51 @@
       "last": "Dernière commande",
       "terms": "Conditions",
       "editHint": "Statut, liste de prix et crédit se modifient dans le tableau Clients (Modifier)."
+    },
+    "readOnlyBanner": "Compte de démonstration : vous pouvez parcourir tout le tableau de bord, mais les modifications ne sont pas enregistrées.",
+    "ar": {
+      "lead": "Factures à crédit pas encore encaissées, de la plus en retard à la plus récente. L’échéance vient des conditions de crédit de chaque client (30 jours par défaut).",
+      "total": "À encaisser",
+      "invoices": "{n, plural, one {# facture} other {# factures}}",
+      "overdue": "En retard",
+      "overdueHint": "Échéance dépassée",
+      "noneOverdue": "Rien en retard",
+      "dueSoon": "Échéance sous 7 jours",
+      "collected": "Encaissé ce mois-ci",
+      "aging": "Ancienneté",
+      "byCustomer": "Solde par client",
+      "overdueAmount": "{v} en retard",
+      "allPaid": "Tout est encaissé. Aucune facture ouverte.",
+      "open": "Factures ouvertes",
+      "invoice": "Facture",
+      "issued": "Émise",
+      "due": "Échéance",
+      "daysLate": "{n, plural, one {# jour de retard} other {# jours de retard}}",
+      "dueToday": "Échéance aujourd’hui",
+      "daysLeft": "{n, plural, one {Échéance dans # jour} other {Échéance dans # jours}}",
+      "viewInvoice": "Voir la facture",
+      "recent": "Paiements récents",
+      "paidOn": "Payée le",
+      "method": "Mode de paiement",
+      "mark": "Marquer payée",
+      "markTitle": "Enregistrer le paiement",
+      "markConfirm": "Enregistrer le paiement",
+      "unmark": "Annuler",
+      "unmarkTitle": "Annuler ce paiement ?",
+      "methods": {
+        "etransfer": "Virement Interac",
+        "wire": "Virement bancaire",
+        "cheque": "Chèque",
+        "card": "Carte",
+        "cash": "Comptant"
+      },
+      "buckets": {
+        "current": "À jour",
+        "soon": "Échéance sous 7 jours",
+        "d1_30": "1–30 jours de retard",
+        "d31_60": "31–60 jours de retard",
+        "d60": "Plus de 60 jours de retard"
+      }
     }
   },
   "roasts": {

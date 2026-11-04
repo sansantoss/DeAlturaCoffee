@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { NewOrderForm } from '@/components/admin';
 import { repo } from '@/lib/db';
 import { getSettings, listProducts } from '@/lib/catalog';
-import { isAdmin } from '@/lib/admin';
+import { isStaff } from '@/lib/admin';
 import type { Locale } from '@/lib/types';
 
 export default async function AdminNewOrder({ params, searchParams }: { params: Promise<{ locale: Locale }>; searchParams: Promise<{ customer?: string }> }) {
@@ -10,7 +10,7 @@ export default async function AdminNewOrder({ params, searchParams }: { params: 
   setRequestLocale(locale);
   const sp = await searchParams;
   const [t, customers, products, settings] = await Promise.all([getTranslations(), repo.customers.list(), listProducts(), getSettings()]);
-  const approved = customers.filter((c) => c.status === 'approved' && !isAdmin(c));
+  const approved = customers.filter((c) => c.status === 'approved' && !isStaff(c));
   const options = products.flatMap((p) =>
     p.formats.map((f) => ({ sku: f.sku, label: `${p.name[locale]} — ${f.label[locale]}`, grams: f.grams, roasts: p.roasts, price: f.price })),
   );

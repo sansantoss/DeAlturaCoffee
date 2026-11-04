@@ -109,6 +109,16 @@ export const localRepository: Repository = {
     async findByStripeSession(sessionId) {
       return (await readDb()).orders.find((o) => o.stripeSessionId === sessionId) ?? null;
     },
+    setPayment(id, paidAt, note) {
+      return mutateDb((db) => {
+        const o = db.orders.find((x) => x.id === id);
+        if (!o) throw new Error('Order not found');
+        o.paidAt = paidAt ?? undefined;
+        o.paidNote = paidAt ? note || undefined : undefined;
+        o.updatedAt = new Date().toISOString();
+        return o;
+      });
+    },
   },
   prices: {
     async list() {

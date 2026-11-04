@@ -31,7 +31,8 @@ export default async function OrderPage({
   if (paid && s && order.status === 'awaiting_payment') {
     const session = await s.checkout.sessions.retrieve(paid).catch(() => null);
     if (session?.payment_status === 'paid' && session.metadata?.orderId === order.id) {
-      order = await repo.orders.updateStatus(order.id, 'paid', { stripeSessionId: session.id });
+      await repo.orders.updateStatus(order.id, 'paid', { stripeSessionId: session.id });
+      order = await repo.orders.setPayment(order.id, new Date().toISOString(), 'Stripe').catch(() => order!);
     }
   }
 

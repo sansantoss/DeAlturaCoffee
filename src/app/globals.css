@@ -1086,3 +1086,32 @@ a.pill { text-decoration: none; }
 .chapter__n { font-family: var(--font-display); font-size: 1.5rem; color: var(--gold); letter-spacing: .02em; }
 .chapter__p { font-size: 1.125rem; line-height: 1.7; }
 .chapter + .chapter { padding-top: 0; }
+
+/* lista de cafés (cuando hay más de uno activo) */
+.coffee-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1rem; padding-bottom: var(--section); }
+.coffee-card { background: var(--sand); }
+.coffee-card__link { display: grid; text-decoration: none; height: 100%; }
+.coffee-card__link:hover h2 { text-decoration: underline; text-underline-offset: .15em; }
+.coffee-card__ph { aspect-ratio: 4 / 5; background: var(--sand-2); }
+.coffee-card__body { padding: 1.25rem 1.4rem 1.5rem; display: grid; gap: .5rem; align-content: start; }
+.coffee-card__body h2 { font-size: var(--step-2); }
+.coffee-card__notes { font-family: var(--font-display); font-style: italic; font-size: 1.25rem; line-height: 1.3; }
+.coffee-card__foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: .5rem; }
+.coffee-empty { max-width: 40rem; margin-bottom: var(--section); }
+
+/* Cuenta de demostración (solo lectura) */
+.readonly-banner { margin-bottom: 1.25rem; border-left: 3px solid var(--accent, currentColor); }
+
+/* Cuentas por cobrar */
+.aging { list-style: none; padding: 0; margin: 0; display: grid; gap: .35rem; }
+.aging__row { display: grid; grid-template-columns: minmax(9rem, 1fr) 2fr auto; gap: .75rem; align-items: center; padding: .45rem .5rem; border-radius: 6px; text-decoration: none; color: inherit; }
+.aging__row:hover, .aging__row[aria-current] { background: var(--sand, rgba(0,0,0,.04)); }
+.aging__bar { height: 8px; background: rgba(0,0,0,.06); border-radius: 4px; overflow: hidden; }
+.aging__bar > span { display: block; height: 100%; background: var(--green, #2f4a3a); border-radius: 0 4px 4px 0; }
+.ar-pill { display: inline-block; font-size: .78rem; padding: .15rem .55rem; border-radius: 999px; background: rgba(0,0,0,.06); white-space: nowrap; }
+.ar-pill--soon { background: #f3e6c4; color: #6b4e00; }
+.ar-pill--d1_30, .ar-pill--d31_60, .ar-pill--d60 { background: #f6d9d4; color: #8a2414; }
+@media (max-width: 560px) { .aging__row { grid-template-columns: 1fr auto; } .aging__bar { grid-column: 1 / -1; } }
+.temp-pass__actions { display: flex; gap: .5rem; margin-top: .35rem; flex-wrap: wrap; }
+.temp-pass .temp-pass__copy, .temp-pass .temp-pass__copy:hover { background: transparent; color: var(--cream); border: 1px solid rgba(245,239,226,.6); }
+.temp-pass__done { background: var(--cream); color: var(--forest); }

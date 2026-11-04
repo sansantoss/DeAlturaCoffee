@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { getAdmin } from '@/lib/admin';
+import { getStaff } from '@/lib/admin';
 import { defaultProductId } from '@/lib/catalog';
 import { repo } from '@/lib/db';
 import { buildStatement, periodMonths } from '@/lib/finance';
@@ -12,7 +12,7 @@ import { buildStatement, periodMonths } from '@/lib/finance';
  * Solo para admins.
  */
 export async function GET(req: Request) {
-  if (!(await getAdmin())) return new Response('Forbidden', { status: 403 });
+  if (!(await getStaff())) return new Response('Forbidden', { status: 403 });
   const url = new URL(req.url);
   const type = url.searchParams.get('type') ?? 'statement';
   const locale = (['en', 'fr', 'es'].includes(url.searchParams.get('locale') ?? '') ? url.searchParams.get('locale') : 'es') as 'en' | 'fr' | 'es';

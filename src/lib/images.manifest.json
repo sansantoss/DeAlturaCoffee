@@ -11,6 +11,8 @@
   "catalogo": "/images/catalogo.jpg",
   "hero": "/images/hero.jpg",
   "hero1": "/images/hero1.jpg",
+  "hero2": "/images/hero2.jpg",
+  "hero3": "/images/hero3.jpg",
   "mayoreo": "/images/mayoreo.jpg",
   "origen_hero": "/images/origen_hero.jpg",
   "preguntas": "/images/preguntas.jpg",
@@ -19,5 +21,6 @@
   "proceso_3": "/images/proceso_3.jpg",
   "proceso_4": "/images/proceso_4.jpg",
   "proceso_5": "/images/proceso_5.jpg",
-  "proceso_6": "/images/proceso_6.jpg"
+  "proceso_6": "/images/proceso_6.jpg",
+  "video/hero5": "/videos/hero5.mp4"
 }

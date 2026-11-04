@@ -191,7 +191,11 @@
     "roastTitle": "Choose your roast",
     "farm": "Farm",
     "producer": "Producer",
-    "pts": "SCA pts"
+    "pts": "SCA pts",
+    "chooseLead": "Pick an origin: each coffee has its own page with roasts, technical sheet and farm.",
+    "emptyLead": "We're preparing the next lot.",
+    "emptyText": "There are no coffees for sale right now. Open an account and we'll let you know as soon as the next lot lands.",
+    "fromPerKg": "from {price}/kg"
   },
   "product": {
     "format": "Format",
@@ -406,7 +410,8 @@
         "coffee": "Coffee",
         "finance": "Finance"
       },
-      "catalog": "Catalog"
+      "catalog": "Catalog",
+      "receivables": "Receivables"
     },
     "periods": {
       "today": "Today",
@@ -464,7 +469,10 @@
       "tempTitle": "Temporary password",
       "tempNote": "Copy it now and send it to the customer; it won't be shown again. They can change it in their account.",
       "confirm": "Generate a new password? The old one stops working.",
-      "regrantConfirm": "Generate new password"
+      "regrantConfirm": "Generate new password",
+      "copy": "Copy",
+      "copied": "Copied ✓",
+      "done": "Done"
     },
     "all": "All",
     "newCustomer": {
@@ -750,7 +758,8 @@
       "missingMigration": "The database doesn't know this value. Run supabase/migrations/0004_inventory.sql.",
       "invalid": "Please check the data: one value isn't valid.",
       "unknown": "Couldn't save. Please try again.",
-      "detail": "Technical detail"
+      "detail": "Technical detail",
+      "readOnly": "This is a read-only account: the change was not saved."
     },
     "cat": {
       "lead": "The coffees on the site and the farms on their page. Changes show on the site once saved.",
@@ -876,6 +885,51 @@
       "last": "Last order",
       "terms": "Terms",
       "editHint": "Status, price list and credit are changed in the Customers table (Edit)."
+    },
+    "readOnlyBanner": "Demo account: you can look around the whole dashboard, but changes are not saved.",
+    "ar": {
+      "lead": "Credit invoices not yet collected, most overdue first. The due date comes from each customer's credit terms (30 days if none).",
+      "total": "Outstanding",
+      "invoices": "{n, plural, one {# invoice} other {# invoices}}",
+      "overdue": "Overdue",
+      "overdueHint": "Past the due date",
+      "noneOverdue": "Nothing overdue",
+      "dueSoon": "Due in 7 days",
+      "collected": "Collected this month",
+      "aging": "Aging",
+      "byCustomer": "Balance by customer",
+      "overdueAmount": "{v} overdue",
+      "allPaid": "All collected. No open invoices.",
+      "open": "Open invoices",
+      "invoice": "Invoice",
+      "issued": "Issued",
+      "due": "Due",
+      "daysLate": "{n, plural, one {# day late} other {# days late}}",
+      "dueToday": "Due today",
+      "daysLeft": "{n, plural, one {Due in # day} other {Due in # days}}",
+      "viewInvoice": "View invoice",
+      "recent": "Recent payments",
+      "paidOn": "Paid on",
+      "method": "Payment method",
+      "mark": "Mark paid",
+      "markTitle": "Record payment",
+      "markConfirm": "Record payment",
+      "unmark": "Undo",
+      "unmarkTitle": "Undo this payment?",
+      "methods": {
+        "etransfer": "Interac e-Transfer",
+        "wire": "Bank transfer",
+        "cheque": "Cheque",
+        "card": "Card",
+        "cash": "Cash"
+      },
+      "buckets": {
+        "current": "Current",
+        "soon": "Due in 7 days",
+        "d1_30": "1–30 days late",
+        "d31_60": "31–60 days late",
+        "d60": "Over 60 days late"
+      }
     }
   },
   "roasts": {

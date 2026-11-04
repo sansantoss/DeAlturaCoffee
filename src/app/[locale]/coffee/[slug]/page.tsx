@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { SiteHeader } from '@/components/SiteHeader';
 import { ProductDetail } from '@/components/ProductDetail';
-import { getProductBySlug } from '@/lib/catalog';
+import { getProductBySlug, listProducts } from '@/lib/catalog';
+import { Link } from '@/i18n/navigation';
+import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@/lib/types';
 
 type Params = { params: Promise<{ locale: Locale; slug: string }>; searchParams: Promise<{ roast?: string }> };
@@ -21,10 +23,12 @@ export default async function ProductPage({ params, searchParams }: Params) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
   const { roast } = await searchParams;
+  const [all, t] = await Promise.all([listProducts(), getTranslations('product')]);
   return (
     <>
       <SiteHeader current="/coffee" />
       <main id="content">
+        {all.length > 1 && <p className="inner" style={{ paddingTop: '1.5rem', paddingBottom: 0 }}><Link href="/coffee" className="link">← {t('back')}</Link></p>}
         <ProductDetail product={product} locale={locale} roast={roast} />
       </main>
     </>
